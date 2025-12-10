@@ -664,12 +664,12 @@ async function fetchTechNews() {
 
             const themeToggle = document.getElementById('theme-toggle');
             if (themeToggle) {
-                themeToggle.innerHTML = savedTheme === 'light' ? '🌙 Dark' : '☀️ Light';
+                themeToggle.innerHTML = savedTheme === 'light' ? '🌙' : '☀️';
                 themeToggle.addEventListener('click', () => {
                     const newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
                     document.body.classList.toggle('dark-mode');
                     localStorage.setItem('dtechnews_theme', newTheme);
-                    themeToggle.innerHTML = newTheme === 'light' ? '🌙 Dark' : '☀️ Light';
+                    themeToggle.innerHTML = newTheme === 'light' ? '🌙' : '☀️';
                 });
             }
         }

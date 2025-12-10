@@ -164,7 +164,7 @@ nav {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: var(--radius-sm);
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem;
     color: var(--text-primary);
     cursor: pointer;
     transition: var(--transition-fast);
@@ -172,7 +172,6 @@ nav {
     line-height: normal;
     width: 32px;
     height: 32px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,6 +179,7 @@ nav {
 
 .close-menu:hover {
     background: rgba(255, 255, 255, 0.2);
+    rotate: -45deg;
 }
 
 .mobile-menu nav {
@@ -291,24 +291,24 @@ footer {
 }
 
 .social-link {
+    height: 36px;
     width: 36px;
-
+    align-content: center;
+    text-align: center;
     display: flex;
-    align-items: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: var(--radius-sm);
     color: var(--text-primary);
-    font-size: 1.1rem;
-    transition: var(--transition-fast);
+    font-size: 1rem;
     text-decoration: none;
 }
 
 .social-link:hover {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background: rgba(0, 0, 0, 0.425);
     border-color: transparent;
-    transform: translateY(-3px);
+    transform: rotate(360deg);
 }
 
 .footer-bottom {

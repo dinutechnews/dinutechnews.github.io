@@ -207,7 +207,7 @@ function toggleTheme() {
 function updateThemeIcon() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.innerHTML = state.theme === 'light' ? '🌙 Dark' : '☀️ Light';
+        themeToggle.innerHTML = state.theme === 'light' ? '🌙' : '☀️';
     }
 }
 

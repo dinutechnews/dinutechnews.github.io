@@ -38,10 +38,10 @@
     --spacing-xl: 3rem;
 
     /* Border Radius */
-    --radius-sm: 5px;
-    --radius-md: 5px;
-    --radius-lg: 5px;
-    --radius-xl: 5px;
+    --radius-sm: 10px;
+    --radius-md: 10px;
+    --radius-lg: 10px;
+    --radius-xl: 10px;
 
     /* Transitions */
     --transition-fast: 0.2s ease;
@@ -212,6 +212,7 @@ header {
     transition: var(--transition-fast);
     font-size: 1.2rem;
     display: flex;
+    text-align: center;
     align-items: center;
     gap: var(--spacing-xs);
 }
