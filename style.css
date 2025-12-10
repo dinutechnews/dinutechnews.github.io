@@ -206,21 +206,16 @@ header {
     background: rgba(255, 5, 5, 0.1);
     border: none;
     border-radius: var(--radius-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--text-primary);
     cursor: pointer;
-    transition: var(--transition-fast);
-    font-size: 1.2rem;
-    display: flex;
-    text-align: center;
-    align-items: center;
+    font-size: 1rem;
     gap: var(--spacing-xs);
 }
 
 .theme-toggle:hover,
 .search-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    rotate: 360deg;
 }
 
 /* Navigation */
