@@ -32,7 +32,23 @@ const CONFIG = {
 };
 
 // === Sample Articles Database ===
+
 const articlesDatabase = [
+    {
+        id: 1,
+        title: "The Future of AI: GPT-5 and Beyond",
+        category: "AI",
+        tags: ["GPT", "Machine Learning", "NLP"],
+        date: "2025-12-08",
+        author: "Dr. Sarah Chen",
+        authorAvatar: "👩‍💻",
+        readingTime: 8,
+        excerpt: "Exploring the next generation of AI language models and their potential impact on technology, society, and human creativity.",
+        content: `<p> Intelligence continues to evolve at an unprecedented pace..Artificial.</p>`,
+        featured: true,
+        views: 15420,
+        likes: 342
+    },
     {
         id: 1,
         title: "The Future of AI: GPT-5 and Beyond",

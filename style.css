@@ -413,7 +413,7 @@ nav a.active {
 
 .category-tag:hover,
 .category-tag.active {
-    background: linear-gradient(135deg, rgba(0, 95, 219, 0.822), rgb(0, 122, 112));
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     border-color: black;
     border: none;
     color: #ffffffd8;
