@@ -598,9 +598,9 @@ function initGiscusComments() {
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'dinutechnews/dinutechnews.github.io');
+    script.setAttribute('data-repo', 'https://github.com/dinutechnews/dinutechnews.github.io');
     script.setAttribute('data-repo-id', 'R_kgDOQl7m4w');
-    script.setAttribute('data-category', CONFIG.giscus.category);
+    script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDOQl7m484Czm2d');
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
