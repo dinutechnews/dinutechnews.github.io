@@ -598,7 +598,7 @@ function initGiscusComments() {
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'https://github.com/dinutechnews/dinutechnews.github.io');
+    script.setAttribute('data-repo', 'dinutechnews/dinutechnews.github.io');
     script.setAttribute('data-repo-id', 'R_kgDOQl7m4w');
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDOQl7m484Czm2d');
@@ -607,12 +607,7 @@ function initGiscusComments() {
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'top');
-    script.setAttribute(
-        'data-theme',
-        state.theme === 'dark'
-            ? 'https://github.com/dinutechnews/dinutechnews.github.io/dark.css'
-            : 'https://github.com/dinutechnews/dinutechnews.github.io/light.css'
-    );
+    script.setAttribute('data-theme', 'preferred_color_scheme');
     script.setAttribute('data-lang', 'en');
     script.setAttribute('data-loading', 'lazy');
     script.crossOrigin = 'anonymous';
