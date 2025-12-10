@@ -62,11 +62,11 @@ nav {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: var(--radius-sm);
-    padding: 0.4rem ;
+    padding: 0.4rem !important;
     color: var(--text-primary);
     cursor: pointer;
     transition: var(--transition-fast);
-    font-size: 1rem;
+    font-size: 1rem !important;
     display: flex;
     align-self: center;
     align-content: center;
