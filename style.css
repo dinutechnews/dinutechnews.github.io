@@ -11,21 +11,21 @@
 /* === CSS Variables === */
 :root {
     /* Glassmorphism Colors - Light Mode */
-    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    --bg-primary: linear-gradient(135deg, #95a7f3 0%, #b870ff 50%, #dd5eeb 100%);
+    --glass-bg: rgba(0, 0, 0, 0.1);
     --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: transparent;
+    --glass-shadow: black;
     --text-primary: rgba(36, 36, 36, 0.85);
     --text-secondary: rgba(36, 36, 36, 0.85);
     --text-muted: rgba(255, 255, 255, 0.6);
-    --accent-primary: #00d4ff;
-    --accent-secondary: #ff6b9d;
+    --accent-primary: #006c97b6;
+    --accent-secondary: #0065a8cc;
     --accent-success: #00ff88;
     --accent-warning: #ffb800;
 
     /* Dark Mode Colors */
-    --dark-bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    --dark-glass-bg: rgba(255, 255, 255, 0.05);
+    --dark-bg-primary: linear-gradient(135deg, #00071f 0%, #00032c 50%, #010025 100%);
+    --dark-glass-bg: rgba(197, 197, 197, 0.062);
     --dark-glass-border: rgba(255, 255, 255, 0.1);
     --dark-text-primary: #a3a3a3;
     --dark-text-secondary: rgba(255, 255, 255, 0.8);
@@ -38,10 +38,10 @@
     --spacing-xl: 3rem;
 
     /* Border Radius */
-    --radius-sm: 10px;
-    --radius-md: 10px;
-    --radius-lg: 10px;
-    --radius-xl: 10px;
+    --radius-sm: 5px;
+    --radius-md: 5px;
+    --radius-lg: 5px;
+    --radius-xl: 5px;
 
     /* Transitions */
     --transition-fast: 0.2s ease;
@@ -67,11 +67,14 @@ body.dark-mode {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-weight: lighter !important;
+    font-family: "nss" !important;
+    text-transform: capitalize !important;
 }
 
 a {
     text-decoration: none;
-    color: #b10035;
+    color: #b1003b;
 }
 
 html {
@@ -80,7 +83,6 @@ html {
 }
 
 body {
-    font-family: "nss";
     background: var(--bg-primary);
     background-attachment: fixed;
     color: var(--text-primary);
@@ -111,7 +113,7 @@ body::before {
     }
 
     50% {
-        opacity: 0.8;
+        opacity: 0.5;
     }
 }
 
@@ -205,7 +207,7 @@ header {
 .search-toggle {
     background: rgba(255, 5, 5, 0.1);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 100%;
     color: var(--text-primary);
     cursor: pointer;
     font-size: 1rem;
@@ -215,7 +217,6 @@ header {
 .theme-toggle:hover,
 .search-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
-    rotate: 360deg;
 }
 
 /* Navigation */
@@ -393,13 +394,21 @@ nav a.active {
     letter-spacing: 1px;
 }
 
+#categories {
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .category-tags {
-    display: flex;
+    text-align: center;
     gap: var(--spacing-sm);
     flex-wrap: wrap;
 }
 
 .category-tag {
+    margin: 10px;
     padding: var(--spacing-xs) var(--spacing-md);
     background: rgba(255, 255, 255, 0.1);
     border: none;
@@ -418,6 +427,10 @@ nav a.active {
     border: none;
     color: #ffffffd8;
     transition: all .5s ease-in-out;
+}
+
+.category-tag:hover {
+    animation: gradient-shift 1s ease infinite;
 }
 
 /* === Articles Grid === */
@@ -806,11 +819,14 @@ footer {
 
 .footer-section a:hover {
     color: var(--accent-primary);
-    padding-left: var(--spacing-xs);
 }
 
 .social-links {
-    display: flex;
+    text-align: center;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    display: inline-flex;
     gap: var(--spacing-sm);
 }
 
@@ -819,19 +835,19 @@ footer {
     height: 40px;
     display: flex;
     align-items: center;
+    text-align: center;
+    align-content: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: var(--radius-sm);
     color: var(--text-primary);
-    font-size: 1.2rem;
-    transition: var(--transition-fast);
+    font-size: 1rem;
 }
 
 .social-link:hover {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     border-color: transparent;
-    transform: translateY(-3px);
 }
 
 .footer-bottom {

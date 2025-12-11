@@ -1,5 +1,11 @@
 /* Compact Header & Footer Styles with Hamburger Menu */
 
+* {
+    font-weight: normal !important;
+    font-family: "nss" !important;
+    text-transform: capitalize !important;
+}
+
 /* === COMPACT HEADER === */
 header {
     background: var(--glass-bg);
@@ -61,7 +67,7 @@ nav {
 .search-toggle {
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 100%;
     padding: 0.4rem !important;
     color: var(--text-primary);
     cursor: pointer;
@@ -78,14 +84,13 @@ nav {
 .theme-toggle:hover,
 .search-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
 }
 
 /* === HAMBURGER MENU === */
 .hamburger-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 100%;
     padding: 0.4rem;
     color: var(--text-primary);
     cursor: pointer;
@@ -164,7 +169,7 @@ nav {
 .close-menu {
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 100%;
     padding: 0.4rem;
     color: var(--text-primary);
     cursor: pointer;
@@ -180,7 +185,6 @@ nav {
 
 .close-menu:hover {
     background: rgba(255, 255, 255, 0.2);
-    rotate: -45deg;
 }
 
 .mobile-menu nav {
@@ -204,6 +208,7 @@ nav {
     font-size: 1rem;
     display: block;
     border-bottom: none;
+    margin: 5px;
 }
 
 .mobile-menu nav a:hover {
@@ -282,7 +287,6 @@ footer {
 
 .footer-section a:hover {
     color: var(--accent-primary);
-    padding-left: 0.5rem;
 }
 
 .social-links {
@@ -300,7 +304,7 @@ footer {
     justify-content: center;
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 100%;
     color: var(--text-primary);
     font-size: 1rem;
     text-decoration: none;
@@ -309,7 +313,6 @@ footer {
 .social-link:hover {
     background: rgba(0, 0, 0, 0.425);
     border-color: transparent;
-    transform: rotate(360deg);
 }
 
 .footer-bottom {
@@ -317,7 +320,7 @@ footer {
     padding-top: 1rem;
     border-top: none;
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .footer-bottom p {
