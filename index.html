@@ -25,8 +25,6 @@
     <meta name="twitter:title" content="D-TECH NEWZ - Technology News">
     <meta name="twitter:description" content="Latest tech news, AI, and innovation updates">
 
-    <!-- Favicon -->
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +34,32 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="compact-styles.css">
 
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, increment, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWuZ1WCoCPyNvfQ7poCybyoj1GOLy6XG0",
+            authDomain: "dinutechnews-cc0f1.firebaseapp.com",
+            projectId: "dinutechnews-cc0f1",
+            storageBucket: "dinutechnews-cc0f1.firebasestorage.app",
+            messagingSenderId: "777283083312",
+            appId: "1:777283083312:web:9a5dbaf450e6d2e1b121f5",
+            measurementId: "G-G1XH7BL9M9"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make db available globally
+        window.db = db;
+    </script>
+
     <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-2433918096859970">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
         crossorigin="anonymous"></script>
 
@@ -44,15 +67,8 @@
     <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-    <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
 
-    <!-- giscus -->
-    <script src="https://giscus.app/client.js" data-repo="dinutechnews/dinutechnews.github.io"
-        data-repo-id="R_kgDOQl7m4w" data-category="General" data-category-id="DIC_kwDOQl7m484Czm2d"
-        data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
-        data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
-        crossorigin="anonymous" async>
-        </script>
+
 </head>
 
 <body>

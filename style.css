@@ -2,7 +2,7 @@
    D-TECH NEWZ - Glassmorphism Theme
    Modern Technical Article Platform
    =================================== */
-/* Imported Fonts */
+
 @font-face {
     font-family: nss;
     src: url(NotoSansSinhala-VariableFont_wdth\,wght.ttf);
@@ -10,25 +10,31 @@
 
 /* === CSS Variables === */
 :root {
-    /* Glassmorphism Colors - Light Mode */
-    --bg-primary: linear-gradient(135deg, #95a7f3 0%, #b870ff 50%, #dd5eeb 100%);
-    --glass-bg: rgba(0, 0, 0, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: black;
-    --text-primary: rgba(36, 36, 36, 0.85);
-    --text-secondary: rgba(36, 36, 36, 0.85);
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --accent-primary: #006c97b6;
-    --accent-secondary: #0065a8cc;
-    --accent-success: #00ff88;
-    --accent-warning: #ffb800;
+    /* Black & White Glassmorphism Colors - Light Mode */
+    --bg-primary: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
+    --glass-bg: rgba(0, 0, 0, 0.08);
+    --glass-border: rgba(0, 0, 0, 0.12);
+    --glass-shadow: rgba(0, 0, 0, 0.15);
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: rgba(0, 0, 0, 0.6);
+    --accent-primary: #000000;
+    --accent-secondary: #333333;
+    --accent-success: #666666;
+    --accent-warning: #999999;
 
-    /* Dark Mode Colors */
-    --dark-bg-primary: linear-gradient(135deg, #00071f 0%, #00032c 50%, #010025 100%);
-    --dark-glass-bg: rgba(197, 197, 197, 0.062);
-    --dark-glass-border: rgba(255, 255, 255, 0.1);
-    --dark-text-primary: #a3a3a3;
-    --dark-text-secondary: rgba(255, 255, 255, 0.8);
+    /* Black & White Dark Mode Colors */
+    --dark-bg-primary: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+    --dark-glass-bg: rgba(255, 255, 255, 0.08);
+    --dark-glass-border: rgba(255, 255, 255, 0.12);
+    --dark-glass-shadow: rgba(255, 255, 255, 0.15);
+    --dark-text-primary: #ffffff;
+    --dark-text-secondary: #cccccc;
+    --dark-text-muted: rgba(255, 255, 255, 0.6);
+    --dark-accent-primary: #ffffff;
+    --dark-accent-secondary: #cccccc;
+    --dark-accent-success: #999999;
+    --dark-accent-warning: #666666;
 
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -39,9 +45,9 @@
 
     /* Border Radius */
     --radius-sm: 5px;
-    --radius-md: 5px;
-    --radius-lg: 5px;
-    --radius-xl: 5px;
+    --radius-md: 10px;
+    --radius-lg: 10px;
+    --radius-xl: 10px;
 
     /* Transitions */
     --transition-fast: 0.2s ease;
@@ -60,6 +66,11 @@ body.dark-mode {
     --glass-border: var(--dark-glass-border);
     --text-primary: var(--dark-text-primary);
     --text-secondary: var(--dark-text-secondary);
+    --text-muted: var(--dark-text-muted);
+    --accent-primary: var(--dark-accent-primary);
+    --accent-secondary: var(--dark-accent-secondary);
+    --accent-success: var(--dark-accent-success);
+    --accent-warning: var(--dark-accent-warning);
 }
 
 /* === Reset & Base === */
@@ -67,11 +78,14 @@ body.dark-mode {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-weight: lighter !important;
+    font-weight: normal !important;
     font-family: "nss" !important;
     text-transform: capitalize !important;
 }
 
+button{
+    border: none !important;
+}
 a {
     text-decoration: none;
     color: #b1003b;
@@ -122,7 +136,7 @@ body::before {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
     -webkit-backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
 }
 
@@ -140,7 +154,7 @@ header {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
     -webkit-backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-md) var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
@@ -203,22 +217,6 @@ header {
     align-items: center;
 }
 
-.theme-toggle,
-.search-toggle {
-    background: rgba(255, 5, 5, 0.1);
-    border: none;
-    border-radius: 100%;
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: 1rem;
-    gap: var(--spacing-xs);
-}
-
-.theme-toggle:hover,
-.search-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
 /* Navigation */
 nav ul {
     list-style: none;
@@ -268,7 +266,7 @@ nav a.active {
 .search-container {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
@@ -290,7 +288,7 @@ nav a.active {
     padding: var(--spacing-md);
     padding-left: 3rem;
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-size: 1rem;
@@ -328,7 +326,7 @@ nav a.active {
 .stat-card {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
     box-shadow: var(--glass-shadow);
@@ -379,7 +377,7 @@ nav a.active {
 .category-filter {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
@@ -411,7 +409,7 @@ nav a.active {
     margin: 10px;
     padding: var(--spacing-xs) var(--spacing-md);
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border:none !important;
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
     cursor: pointer;
@@ -429,10 +427,6 @@ nav a.active {
     transition: all .5s ease-in-out;
 }
 
-.category-tag:hover {
-    animation: gradient-shift 1s ease infinite;
-}
-
 /* === Articles Grid === */
 .articles-grid {
     display: grid;
@@ -446,7 +440,7 @@ nav a.active {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
     -webkit-backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     box-shadow: var(--glass-shadow);
@@ -470,7 +464,7 @@ nav a.active {
 }
 
 .article-card:hover {
-    transform: translateY(-8px);
+    transform: scale(99%);
     border-color: var(--accent-primary);
 }
 
@@ -513,8 +507,7 @@ nav a.active {
 }
 
 .article-category {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    color: #ffffff;
+    color: #ffffff94;
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -564,10 +557,24 @@ nav a.active {
 .tag {
     padding: 0.2rem 0.6rem;
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
     font-size: 0.75rem;
     color: var(--text-muted);
+}
+
+.article-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .article-footer {
@@ -601,7 +608,7 @@ nav a.active {
 
 .action-btn {
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border: none !important;
     border-radius: var(--radius-sm);
     padding: var(--spacing-xs);
     color: var(--text-secondary);
@@ -669,7 +676,7 @@ nav a.active {
 .ad-container {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-md);
     margin: var(--spacing-lg) 0;
@@ -698,7 +705,7 @@ nav a.active {
 .comments-section {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     margin: var(--spacing-xl) 0;
@@ -716,7 +723,7 @@ nav a.active {
 .newsletter {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
     margin: var(--spacing-xl) 0;
@@ -749,7 +756,7 @@ nav a.active {
     flex: 1;
     padding: var(--spacing-md);
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-size: 1rem;
@@ -785,7 +792,7 @@ nav a.active {
 footer {
     background: var(--glass-bg);
     backdrop-filter: var(--blur-md);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
     margin-top: var(--spacing-xl);
@@ -839,7 +846,7 @@ footer {
     align-content: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.1);
-    border: none;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
     font-size: 1rem;

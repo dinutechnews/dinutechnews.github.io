@@ -12,14 +12,6 @@ const CONFIG = {
         apiUrl: 'https://api.jsonbin.io/v3/b/'
     },
 
-    // Giscus Comments
-    giscus: {
-        repo: 'dinutechnews.github.io',
-        repoId: 'R_kgDOQkEeMw',
-        category: 'General',
-        categoryId: 'DIC_kwDOQkEeM84Czgtg'
-    },
-
     // Pagination
     articlesPerPage: 6,
 
@@ -30,6 +22,116 @@ const CONFIG = {
         visited: 'dtechnews_visited'
     }
 };
+
+// === Firebase Database Functions ===
+async function getArticleStats(articleId) {
+    try {
+        if (!window.db) return { views: 0, likes: 0 };
+
+        const docRef = doc(window.db, 'articles', articleId.toString());
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            return {
+                views: data.views || 0,
+                likes: data.likes || 0
+            };
+        } else {
+            // Initialize with default values
+            await setDoc(docRef, { views: 0, likes: 0 });
+            return { views: 0, likes: 0 };
+        }
+    } catch (error) {
+        console.error('Error getting article stats:', error);
+        return { views: 0, likes: 0 };
+    }
+}
+
+async function incrementArticleViews(articleId) {
+    try {
+        if (!window.db) return;
+
+        const docRef = doc(window.db, 'articles', articleId.toString());
+        await updateDoc(docRef, {
+            views: increment(1)
+        });
+    } catch (error) {
+        console.error('Error incrementing views:', error);
+    }
+}
+
+async function toggleArticleLike(articleId) {
+    try {
+        if (!window.db) return false;
+
+        const userId = getUserId();
+        const likeRef = doc(window.db, 'likes', `${articleId}_${userId}`);
+        const likeSnap = await getDoc(likeRef);
+
+        const articleRef = doc(window.db, 'articles', articleId.toString());
+
+        if (likeSnap.exists()) {
+            // User already liked, remove like
+            await updateDoc(articleRef, {
+                likes: increment(-1)
+            });
+            // Note: In a real app, you'd delete the like document
+            return false;
+        } else {
+            // User hasn't liked, add like
+            await setDoc(likeRef, { userId, articleId, timestamp: new Date() });
+            await updateDoc(articleRef, {
+                likes: increment(1)
+            });
+            return true;
+        }
+    } catch (error) {
+        console.error('Error toggling like:', error);
+        return false;
+    }
+}
+
+async function hasUserLiked(articleId) {
+    try {
+        if (!window.db) return false;
+
+        const userId = getUserId();
+        const likeRef = doc(window.db, 'likes', `${articleId}_${userId}`);
+        const likeSnap = await getDoc(likeRef);
+        return likeSnap.exists();
+    } catch (error) {
+        console.error('Error checking like status:', error);
+        return false;
+    }
+}
+
+function getUserId() {
+    let userId = localStorage.getItem('dtechnews_user_id');
+    if (!userId) {
+        userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        localStorage.setItem('dtechnews_user_id', userId);
+    }
+    return userId;
+}
+
+async function getTotalViews() {
+    try {
+        if (!window.db) return 0;
+
+        // This is a simplified approach - in a real app you'd use aggregation queries
+        // For now, we'll sum up views from all articles
+        let totalViews = 0;
+        for (const article of articlesDatabase) {
+            const stats = await getArticleStats(article.id);
+            totalViews += stats.views;
+        }
+        return totalViews;
+    } catch (error) {
+        console.error('Error getting total views:', error);
+        return 0;
+    }
+}
 
 // === Sample Articles Database ===
 
@@ -44,24 +146,9 @@ const articlesDatabase = [
         authorAvatar: "👩‍💻",
         readingTime: 8,
         excerpt: "Exploring the next generation of AI language models and their potential impact on technology, society, and human creativity.",
-        content: `<p> Intelligence continues to evolve at an unprecedented pace..Artificial.</p>`,
-        featured: true,
-        views: 15420,
-        likes: 342
-    },
-    {
-        id: 1,
-        title: "The Future of AI: GPT-5 and Beyond",
-        category: "AI",
-        tags: ["GPT", "Machine Learning", "NLP"],
-        date: "2025-12-08",
-        author: "Dr. Sarah Chen",
-        authorAvatar: "👩‍💻",
-        readingTime: 8,
-        excerpt: "Exploring the next generation of AI language models and their potential impact on technology, society, and human creativity.",
         content: `<p>Artificial Intelligence continues to evolve at an unprecedented pace...</p>`,
         featured: true,
-        views: 15420,
+        views: 0,
         likes: 342
     },
     {
@@ -76,7 +163,7 @@ const articlesDatabase = [
         excerpt: "Scientists achieve a major milestone with the world's first stable 1000-qubit quantum processor, bringing us closer to practical quantum computing.",
         content: `<p>In a groundbreaking achievement...</p>`,
         featured: true,
-        views: 12890,
+        views: 0,
         likes: 289
     },
     {
@@ -91,7 +178,7 @@ const articlesDatabase = [
         excerpt: "As 5G networks mature, researchers are already developing 6G technology that promises speeds up to 100 times faster.",
         content: `<p>The telecommunications industry...</p>`,
         featured: false,
-        views: 9234,
+        views: 0,
         likes: 178
     },
     {
@@ -106,7 +193,7 @@ const articlesDatabase = [
         excerpt: "Learn how Zero Trust Architecture is revolutionizing enterprise security and protecting against modern cyber threats.",
         content: `<p>Traditional perimeter-based security...</p>`,
         featured: false,
-        views: 11567,
+        views: 0,
         likes: 234
     },
     {
@@ -121,7 +208,7 @@ const articlesDatabase = [
         excerpt: "Major tech companies are investing billions in carbon-neutral data centers powered by renewable energy sources.",
         content: `<p>The environmental impact of technology...</p>`,
         featured: false,
-        views: 8901,
+        views: 0,
         likes: 156
     },
     {
@@ -136,7 +223,7 @@ const articlesDatabase = [
         excerpt: "Understanding the shift from Web2 to Web3 and how blockchain technology is reshaping the internet as we know it.",
         content: `<p>The internet is undergoing...</p>`,
         featured: false,
-        views: 13245,
+        views: 0,
         likes: 298
     },
     {
@@ -151,7 +238,7 @@ const articlesDatabase = [
         excerpt: "Edge computing brings data processing closer to the source, reducing latency and enabling real-time applications.",
         content: `<p>As IoT devices proliferate...</p>`,
         featured: false,
-        views: 7654,
+        views: 0,
         likes: 143
     },
     {
@@ -166,7 +253,7 @@ const articlesDatabase = [
         excerpt: "Recent advances in brain-computer interfaces are opening new possibilities for human-machine interaction.",
         content: `<p>The boundary between human and machine...</p>`,
         featured: false,
-        views: 10234,
+        views: 0,
         likes: 267
     }
 ];
@@ -223,7 +310,7 @@ function toggleTheme() {
 function updateThemeIcon() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.innerHTML = state.theme === 'light' ? '😎' : '🥱';
+        themeToggle.innerHTML = state.theme === 'light' ? '⚫' : '⚪';
     }
 }
 
@@ -321,9 +408,9 @@ function filterArticles() {
 }
 
 // === Render Stats ===
-function renderStats() {
+async function renderStats() {
     const totalArticles = articlesDatabase.length;
-    const totalViews = articlesDatabase.reduce((sum, article) => sum + article.views, 0);
+    const totalViews = await getTotalViews();
     const totalCategories = new Set(articlesDatabase.map(a => a.category)).size;
 
     const statsHTML = `
@@ -352,7 +439,7 @@ function renderStats() {
 }
 
 // === Render Articles ===
-function renderArticles() {
+async function renderArticles() {
     const articlesGrid = document.getElementById('articles-grid');
     if (!articlesGrid) return;
 
@@ -365,7 +452,16 @@ function renderArticles() {
         return;
     }
 
-    articlesGrid.innerHTML = articlesToShow.map(article => `
+    // Fetch stats for all articles being displayed
+    const articlesWithStats = await Promise.all(
+        articlesToShow.map(async (article) => {
+            const stats = await getArticleStats(article.id);
+            const userLiked = await hasUserLiked(article.id);
+            return { ...article, ...stats, userLiked };
+        })
+    );
+
+    articlesGrid.innerHTML = articlesWithStats.map(article => `
     <article class="article-card" data-id="${article.id}">
       <div class="article-meta">
         <span class="article-category">${article.category}</span>
@@ -373,24 +469,33 @@ function renderArticles() {
         <span class="article-reading-time">⏱️ ${article.readingTime} min read</span>
       </div>
       <h2>
-        <a href="article.html?id=${article.id}">${article.title}</a>
+        <a href="article.html?id=${article.id}" onclick="incrementArticleView(${article.id})">${article.title}</a>
       </h2>
       <p class="article-excerpt">${article.excerpt}</p>
       <div class="article-tags">
         ${article.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
       </div>
+      <div class="article-stats">
+        <span class="stat-item">👁️ ${formatNumber(article.views)} views</span>
+        <span class="stat-item">❤️ ${formatNumber(article.likes)} likes</span>
+      </div>
       <div class="article-footer">
-        <a href="article.html?id=${article.id}" class="read-more">
+        <a href="article.html?id=${article.id}" onclick="incrementArticleView(${article.id})" class="read-more">
           Read More →
         </a>
         <div class="article-actions">
-          <button class="action-btn bookmark-btn ${state.bookmarks.has(article.id) ? 'active' : ''}" 
-                  data-id="${article.id}" 
+          <button class="action-btn like-btn ${article.userLiked ? 'active' : ''}"
+                  data-id="${article.id}"
+                  title="${article.userLiked ? 'Unlike' : 'Like'}">
+            ${article.userLiked ? '❤️' : '🤍'}
+          </button>
+          <button class="action-btn bookmark-btn ${state.bookmarks.has(article.id) ? 'active' : ''}"
+                  data-id="${article.id}"
                   title="Bookmark">
             ${state.bookmarks.has(article.id) ? '🔖' : '📑'}
           </button>
-          <button class="action-btn share-btn" 
-                  data-id="${article.id}" 
+          <button class="action-btn share-btn"
+                  data-id="${article.id}"
                   title="Share">
             🔗
           </button>
@@ -456,6 +561,31 @@ function changePage(page) {
 
 // === Article Actions ===
 function initArticleActions() {
+    // Like buttons
+    document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const articleId = parseInt(btn.dataset.id);
+            const liked = await toggleArticleLike(articleId);
+
+            // Update button state
+            btn.classList.toggle('active', liked);
+            btn.innerHTML = liked ? '❤️' : '🤍';
+            btn.title = liked ? 'Unlike' : 'Like';
+
+            // Update stats display
+            const articleCard = btn.closest('.article-card');
+            const statsContainer = articleCard.querySelector('.article-stats');
+            if (statsContainer) {
+                const stats = await getArticleStats(articleId);
+                statsContainer.innerHTML = `
+                    <span class="stat-item">👁️ ${formatNumber(stats.views)} views</span>
+                    <span class="stat-item">❤️ ${formatNumber(stats.likes)} likes</span>
+                `;
+            }
+        });
+    });
+
     // Bookmark buttons
     document.querySelectorAll('.bookmark-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -473,6 +603,11 @@ function initArticleActions() {
             shareArticle(articleId);
         });
     });
+}
+
+async function incrementArticleView(articleId) {
+    // Increment views in Firestore
+    await incrementArticleViews(articleId);
 }
 
 // === Bookmarks ===
@@ -537,10 +672,6 @@ async function initVisitorCounter() {
 }
 
 async function getVisitorCount() {
-    if (CONFIG.visitorCounter.binId === '6937c17643b1c97be9e13df2') {
-        return getLocalVisitorCount();
-    }
-
     try {
         const response = await fetch(
             `${CONFIG.visitorCounter.apiUrl}${CONFIG.visitorCounter.binId}/latest`,
@@ -556,11 +687,6 @@ async function getVisitorCount() {
 }
 
 async function incrementVisitorCount() {
-    if (CONFIG.visitorCounter.binId === '6937c17643b1c97be9e13df2') {
-        incrementLocalVisitorCount();
-        return;
-    }
-
     try {
         const currentCount = await getVisitorCount();
         await fetch(
@@ -607,6 +733,8 @@ function animateCounter(element, targetCount) {
     }, duration / steps);
 }
 
+
+
 // === Giscus Comments ===
 function initGiscusComments() {
     const commentsContainer = document.getElementById('giscus-comments');
@@ -622,7 +750,7 @@ function initGiscusComments() {
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
-    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-input-position', 'bottom');
     script.setAttribute('data-theme', 'preferred_color_scheme');
     script.setAttribute('data-lang', 'en');
     script.setAttribute('data-loading', 'lazy');
