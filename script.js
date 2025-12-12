@@ -27,13 +27,11 @@ const CONFIG = {
 async function getArticleStats(articleId) {
     try {
         if (!window.db) {
-            // Demo mode: Return static likes from database, dynamic views from localStorage
-            const article = articlesDatabase.find(a => a.id === articleId);
+            // Demo mode: Return zero likes, dynamic views from localStorage
             const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
-            const demoLikes = Math.floor(Math.random() * 100) + (article?.likes || 0); // Add some randomness for demo
             return {
                 views: storedViews,
-                likes: demoLikes
+                likes: 0
             };
         }
 
@@ -54,12 +52,10 @@ async function getArticleStats(articleId) {
     } catch (error) {
         console.error('Error getting article stats:', error);
         // Fallback to demo mode on error
-        const article = articlesDatabase.find(a => a.id === articleId);
         const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
-        const demoLikes = Math.floor(Math.random() * 100) + (article?.likes || 0);
         return {
             views: storedViews,
-            likes: demoLikes
+            likes: 0
         };
     }
 }
@@ -197,7 +193,7 @@ const articlesDatabase = [
         content: `<p>Artificial Intelligence continues to evolve at an unprecedented pace...</p>`,
         featured: true,
         views: 0,
-        likes: 342
+        likes: 0
     },
     {
         id: 2,
@@ -212,7 +208,7 @@ const articlesDatabase = [
         content: `<p>In a groundbreaking achievement...</p>`,
         featured: true,
         views: 0,
-        likes: 289
+        likes: 0
     },
     {
         id: 3,
@@ -227,7 +223,7 @@ const articlesDatabase = [
         content: `<p>The telecommunications industry...</p>`,
         featured: false,
         views: 0,
-        likes: 178
+        likes: 0
     },
     {
         id: 4,
@@ -242,7 +238,7 @@ const articlesDatabase = [
         content: `<p>Traditional perimeter-based security...</p>`,
         featured: false,
         views: 0,
-        likes: 234
+        likes: 0
     },
     {
         id: 5,
@@ -257,7 +253,7 @@ const articlesDatabase = [
         content: `<p>The environmental impact of technology...</p>`,
         featured: false,
         views: 0,
-        likes: 156
+        likes: 0
     },
     {
         id: 6,
@@ -272,7 +268,7 @@ const articlesDatabase = [
         content: `<p>The internet is undergoing...</p>`,
         featured: false,
         views: 0,
-        likes: 298
+        likes: 0
     },
     {
         id: 7,
@@ -287,7 +283,7 @@ const articlesDatabase = [
         content: `<p>As IoT devices proliferate...</p>`,
         featured: false,
         views: 0,
-        likes: 143
+        likes: 0
     },
     {
         id: 8,
@@ -302,7 +298,7 @@ const articlesDatabase = [
         content: `<p>The boundary between human and machine...</p>`,
         featured: false,
         views: 0,
-        likes: 267
+        likes: 0
     }
 ];
 
