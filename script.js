@@ -26,7 +26,16 @@ const CONFIG = {
 // === Firebase Database Functions ===
 async function getArticleStats(articleId) {
     try {
-        if (!window.db) return { views: 0, likes: 0 };
+        if (!window.db) {
+            // Demo mode: Return static likes from database, dynamic views from localStorage
+            const article = articlesDatabase.find(a => a.id === articleId);
+            const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
+            const demoLikes = Math.floor(Math.random() * 100) + (article?.likes || 0); // Add some randomness for demo
+            return {
+                views: storedViews,
+                likes: demoLikes
+            };
+        }
 
         const docRef = doc(window.db, 'articles', articleId.toString());
         const docSnap = await getDoc(docRef);
@@ -44,7 +53,14 @@ async function getArticleStats(articleId) {
         }
     } catch (error) {
         console.error('Error getting article stats:', error);
-        return { views: 0, likes: 0 };
+        // Fallback to demo mode on error
+        const article = articlesDatabase.find(a => a.id === articleId);
+        const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
+        const demoLikes = Math.floor(Math.random() * 100) + (article?.likes || 0);
+        return {
+            views: storedViews,
+            likes: demoLikes
+        };
     }
 }
 
@@ -63,7 +79,20 @@ async function incrementArticleViews(articleId) {
 
 async function toggleArticleLike(articleId) {
     try {
-        if (!window.db) return false;
+        if (!window.db) {
+            // Demo mode: Use localStorage to simulate likes
+            const userId = getUserId();
+            const likeKey = `demo_like_${articleId}_${userId}`;
+            const currentlyLiked = localStorage.getItem(likeKey) === 'true';
+
+            if (currentlyLiked) {
+                localStorage.removeItem(likeKey);
+                return false; // Now unliked
+            } else {
+                localStorage.setItem(likeKey, 'true');
+                return true; // Now liked
+            }
+        }
 
         const userId = getUserId();
         const likeRef = doc(window.db, 'likes', `${articleId}_${userId}`);
@@ -88,13 +117,29 @@ async function toggleArticleLike(articleId) {
         }
     } catch (error) {
         console.error('Error toggling like:', error);
-        return false;
+        // Fallback to demo mode on error
+        const userId = getUserId();
+        const likeKey = `demo_like_${articleId}_${userId}`;
+        const currentlyLiked = localStorage.getItem(likeKey) === 'true';
+
+        if (currentlyLiked) {
+            localStorage.removeItem(likeKey);
+            return false;
+        } else {
+            localStorage.setItem(likeKey, 'true');
+            return true;
+        }
     }
 }
 
 async function hasUserLiked(articleId) {
     try {
-        if (!window.db) return false;
+        if (!window.db) {
+            // Demo mode: Check localStorage
+            const userId = getUserId();
+            const likeKey = `demo_like_${articleId}_${userId}`;
+            return localStorage.getItem(likeKey) === 'true';
+        }
 
         const userId = getUserId();
         const likeRef = doc(window.db, 'likes', `${articleId}_${userId}`);
@@ -102,7 +147,10 @@ async function hasUserLiked(articleId) {
         return likeSnap.exists();
     } catch (error) {
         console.error('Error checking like status:', error);
-        return false;
+        // Fallback to demo mode on error
+        const userId = getUserId();
+        const likeKey = `demo_like_${articleId}_${userId}`;
+        return localStorage.getItem(likeKey) === 'true';
     }
 }
 
