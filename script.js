@@ -27,11 +27,23 @@ const CONFIG = {
 async function getArticleStats(articleId) {
     try {
         if (!window.db) {
-            // Demo mode: Return zero likes, dynamic views from localStorage
+            // Demo mode: Count actual likes from localStorage
             const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
+
+            // Count how many users have liked this article
+            let likeCount = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(`demo_like_${articleId}_`)) {
+                    if (localStorage.getItem(key) === 'true') {
+                        likeCount++;
+                    }
+                }
+            }
+
             return {
                 views: storedViews,
-                likes: 0
+                likes: likeCount
             };
         }
 
@@ -53,9 +65,21 @@ async function getArticleStats(articleId) {
         console.error('Error getting article stats:', error);
         // Fallback to demo mode on error
         const storedViews = parseInt(localStorage.getItem(`dtechnews_article_views_${articleId}`) || '0');
+
+        // Count likes in fallback mode too
+        let likeCount = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(`demo_like_${articleId}_`)) {
+                if (localStorage.getItem(key) === 'true') {
+                    likeCount++;
+                }
+            }
+        }
+
         return {
             views: storedViews,
-            likes: 0
+            likes: likeCount
         };
     }
 }
@@ -73,23 +97,57 @@ async function incrementArticleViews(articleId) {
     }
 }
 
+async function incrementArticleLikes(articleId) {
+    try {
+        if (!window.db) return;
+
+        const docRef = doc(window.db, 'articles', articleId.toString());
+        await updateDoc(docRef, {
+            likes: increment(1)
+        });
+    } catch (error) {
+        console.error('Error incrementing likes:', error);
+    }
+}
+
+async function decrementArticleLikes(articleId) {
+    try {
+        if (!window.db) return;
+
+        const docRef = doc(window.db, 'articles', articleId.toString());
+        await updateDoc(docRef, {
+            likes: increment(-1)
+        });
+    } catch (error) {
+        console.error('Error decrementing likes:', error);
+    }
+}
+
 async function toggleArticleLike(articleId) {
+    console.log('toggleArticleLike called for article:', articleId);
+    console.log('window.db available:', !!window.db);
+
     try {
         if (!window.db) {
+            console.log('Using demo mode for likes');
             // Demo mode: Use localStorage to simulate likes
             const userId = getUserId();
             const likeKey = `demo_like_${articleId}_${userId}`;
             const currentlyLiked = localStorage.getItem(likeKey) === 'true';
+            console.log('Currently liked:', currentlyLiked);
 
             if (currentlyLiked) {
                 localStorage.removeItem(likeKey);
+                console.log('Removed like, returning false');
                 return false; // Now unliked
             } else {
                 localStorage.setItem(likeKey, 'true');
+                console.log('Added like, returning true');
                 return true; // Now liked
             }
         }
 
+        console.log('Using Firebase mode for likes');
         const userId = getUserId();
         const likeRef = doc(window.db, 'likes', `${articleId}_${userId}`);
         const likeSnap = await getDoc(likeRef);
@@ -97,23 +155,22 @@ async function toggleArticleLike(articleId) {
         const articleRef = doc(window.db, 'articles', articleId.toString());
 
         if (likeSnap.exists()) {
+            console.log('User already liked, removing like');
             // User already liked, remove like
-            await updateDoc(articleRef, {
-                likes: increment(-1)
-            });
+            await decrementArticleLikes(articleId);
             // Note: In a real app, you'd delete the like document
             return false;
         } else {
+            console.log('User has not liked, adding like');
             // User hasn't liked, add like
             await setDoc(likeRef, { userId, articleId, timestamp: new Date() });
-            await updateDoc(articleRef, {
-                likes: increment(1)
-            });
+            await incrementArticleLikes(articleId);
             return true;
         }
     } catch (error) {
         console.error('Error toggling like:', error);
         // Fallback to demo mode on error
+        console.log('Error occurred, falling back to demo mode');
         const userId = getUserId();
         const likeKey = `demo_like_${articleId}_${userId}`;
         const currentlyLiked = localStorage.getItem(likeKey) === 'true';
@@ -605,12 +662,20 @@ function changePage(page) {
 
 // === Article Actions ===
 function initArticleActions() {
+    console.log('Initializing article actions...');
+
     // Like buttons
-    document.querySelectorAll('.like-btn').forEach(btn => {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    console.log('Found like buttons:', likeButtons.length);
+
+    likeButtons.forEach(btn => {
         btn.addEventListener('click', async (e) => {
             e.preventDefault();
+            console.log('Like button clicked, article ID:', btn.dataset.id);
+
             const articleId = parseInt(btn.dataset.id);
             const liked = await toggleArticleLike(articleId);
+            console.log('Toggle result:', liked);
 
             // Update button state
             btn.classList.toggle('active', liked);
@@ -622,6 +687,7 @@ function initArticleActions() {
             const statsContainer = articleCard.querySelector('.article-stats');
             if (statsContainer) {
                 const stats = await getArticleStats(articleId);
+                console.log('Updated stats:', stats);
                 statsContainer.innerHTML = `
                     <span class="stat-item">👁️ ${formatNumber(stats.views)} views</span>
                     <span class="stat-item">❤️ ${formatNumber(stats.likes)} likes</span>
