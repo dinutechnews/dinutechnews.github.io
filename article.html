@@ -32,32 +32,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
 
-    <style>
-        /* Internal Icons - No external dependencies */
-        .icon-share::before { content: "↗"; }
-        .icon-work::before { content: "💼"; }
-        .icon-copy::before { content: "📋"; }
-        .icon-bookmark::before { content: "🔖"; }
-        .icon-visibility::before { content: "👁"; }
-        .icon-favorite::before { content: "♥"; }
-        .icon-arrow-back::before { content: "←"; }
-        .icon-menu::before { content: "☰"; }
-        .icon-dark-mode::before { content: "🌙"; }
-        .icon-keyboard-arrow-up::before { content: "↑"; }
-        .icon-flutter-dash::before { content: "🐦"; }
-        .icon-code::before { content: "⚡"; }
-        .icon-chat::before { content: "💬"; }
-
-        .internal-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            font-size: 16px;
-            line-height: 1;
-        }
-    </style>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -485,8 +461,8 @@
             <nav class="navbar">
                 <a href="index.html" class="logo">D-TECH NEWZ</a>
                 <div class="navbar-buttons">
-                    <button class="hamburger-btn" id="hamburger-btn"><span class="internal-icon icon-menu"></span></button>
-                    <button id="theme-toggle" class="theme-btn"><span class="internal-icon icon-dark-mode"></span></button>
+                    <button class="hamburger-btn" id="hamburger-btn"><i class="fas fa-bars"></i></button>
+                    <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
                 </div>
             </nav>
         </header>
@@ -513,7 +489,7 @@
 
         <!-- Jump to Top Button -->
         <button id="jump-to-top" class="jump-to-top-btn" title="Jump to top">
-            <span class="internal-icon icon-keyboard-arrow-up"></span>
+            <i class="fas fa-arrow-up"></i>
         </button>
 
         <!-- Stats Bar -->
@@ -524,7 +500,7 @@
         <!-- Main Content -->
         <main>
 
-            <a href="index.html" class="back-link"><span class="internal-icon icon-arrow-back"></span> Back to Home</a>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left-long"></i> Back to Home</a>
 
             <div class="article-container">
 
@@ -547,8 +523,8 @@
                         </div>
 
         <div class="article-stats">
-            <span class="stat-item"><span class="internal-icon icon-visibility"></span> <span id="article-views">0</span></span>
-            <span class="stat-item"><span class="internal-icon icon-favorite"></span> <span id="article-likes">0</span></span>
+            <span class="stat-item"><i class="fas fa-eye"></i> <span id="article-views">0</span></span>
+            <span class="stat-item"><i class="fas fa-heart"></i> <span id="article-likes">0</span></span>
         </div>
                     </article>
 
@@ -604,16 +580,16 @@
                         <div class="share-title">Share Article</div>
                         <div class="share-buttons">
                             <button class="share-btn" onclick="shareTwitter()">
-                                <span class="internal-icon icon-share"></span> Twitter
+                                <i class="fab fa-twitter"></i> Twitter
                             </button>
                             <button class="share-btn" onclick="shareLinkedIn()">
-                                <span class="internal-icon icon-work"></span> LinkedIn
+                                <i class="fab fa-linkedin"></i> LinkedIn
                             </button>
                             <button class="share-btn" onclick="copyLink()">
-                                <span class="internal-icon icon-copy"></span> Copy
+                                <i class="fas fa-copy"></i> Copy
                             </button>
                             <button class="share-btn" id="bookmark-btn" onclick="toggleBookmark()">
-                                <span class="internal-icon icon-bookmark"></span> Bookmark
+                                <i class="fas fa-bookmark"></i> Bookmark
                             </button>
                         </div>
                     </div>
@@ -664,10 +640,10 @@
                 <div class="footer-section">
                     <h4>අපේ Social Media Links ටික :</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="Twitter"><span class="internal-icon icon-flutter-dash"></span></a>
-                        <a href="#" class="social-link" title="LinkedIn"><span class="internal-icon icon-work"></span></a>
-                        <a href="#" class="social-link" title="GitHub"><span class="internal-icon icon-code"></span></a>
-                        <a href="#" class="social-link" title="Discord"><span class="internal-icon icon-chat"></span></a>
+                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
 
