@@ -9,6 +9,21 @@
     <title id="article-title">Article - D-TECH NEWZ</title>
     <meta name="description" id="article-description"
         content="Read the latest technology news and insights at D-TECH NEWZ">
+    <meta name="keywords"
+        content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation">
+    <meta name="author" content="D-TECH NEWZ">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Technology Article - D-TECH NEWZ">
+    <meta property="og:description" content="Read the latest technology news and insights">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dinutechnews.github.io/article.html">
+    <meta property="og:image" content="https://dinutechnews.github.io/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Technology Article - D-TECH NEWZ">
+    <meta name="twitter:description" content="Read the latest technology news and insights">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,18 +32,80 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
 
+    <style>
+        /* Internal Icons - No external dependencies */
+        .icon-share::before { content: "↗"; }
+        .icon-work::before { content: "💼"; }
+        .icon-copy::before { content: "📋"; }
+        .icon-bookmark::before { content: "🔖"; }
+        .icon-visibility::before { content: "👁"; }
+        .icon-favorite::before { content: "♥"; }
+        .icon-arrow-back::before { content: "←"; }
+        .icon-menu::before { content: "☰"; }
+        .icon-dark-mode::before { content: "🌙"; }
+        .icon-keyboard-arrow-up::before { content: "↑"; }
+        .icon-flutter-dash::before { content: "🐦"; }
+        .icon-code::before { content: "⚡"; }
+        .icon-chat::before { content: "💬"; }
+
+        .internal-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            font-size: 16px;
+            line-height: 1;
+        }
+    </style>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="compact-styles.css">
 
     <!-- Syntax Highlighting -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, increment, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWuZ1WCoCPyNvfQ7poCybyoj1GOLy6XG0",
+            authDomain: "dinutechnews-cc0f1.firebaseapp.com",
+            projectId: "dinutechnews-cc0f1",
+            storageBucket: "dinutechnews-cc0f1.firebasestorage.app",
+            messagingSenderId: "777283083312",
+            appId: "1:777283083312:web:9a5dbaf450e6d2e1b121f5",
+            measurementId: "G-G1XH7BL9M9"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make Firebase functions available globally
+        window.db = db;
+        window.doc = doc;
+        window.getDoc = getDoc;
+        window.setDoc = setDoc;
+        window.increment = increment;
+        window.updateDoc = updateDoc;
+
+        console.log('Firebase initialized successfully, db available:', !!window.db);
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
         crossorigin="anonymous"></script>
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
     <!-- giscus -->
     <script src="https://giscus.app/client.js"
@@ -331,6 +408,61 @@
             gap: var(--spacing-sm);
         }
 
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .reading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Jump to Top Button */
+        .jump-to-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-md);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .jump-to-top-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .jump-to-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
         @media (max-width: 1024px) {
             .article-container {
                 grid-template-columns: 1fr;
@@ -350,48 +482,39 @@
 
         <!-- Header -->
         <header>
-            <div class="header-top">
+            <nav class="navbar">
                 <a href="index.html" class="logo">D-TECH NEWZ</a>
-
-                <div class="header-actions">
-                    <button id="theme-toggle" class="theme-toggle">🌙</button>
-                    <button id="hamburger-btn" class="hamburger-btn">➕
-                    </button>
+                <div class="navbar-buttons">
+                    <button class="hamburger-btn" id="hamburger-btn"><span class="internal-icon icon-menu"></span></button>
+                    <button id="theme-toggle" class="theme-btn"><span class="internal-icon icon-dark-mode"></span></button>
                 </div>
-            </div>
-
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#categories">Categories</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#newsletter">Newsletter</a></li>
-                    <li><a href="privacy.html">Privacy</a></li>
-                </ul>
             </nav>
         </header>
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu">
-            <div class="mobile-menu-header">
-                <span class="mobile-menu-title">Menu</span>
-                <button id="close-menu" class="close-menu">+</button>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">🏠 Home</a></li>
-                    <li><a href="#categories">🏷️ Categories</a></li>
-                    <li><a href="about.html">ℹ️ About</a></li>
-                    <li><a href="#newsletter">📧 Newsletter</a></li>
-                    <li><a href="privacy.html">🔒 Privacy</a></li>
-                </ul>
+            <button id="close-menu" class="close-menu">×</button>
+            <nav class="mobile-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="#categories">Categories</a>
+                <a href="about.html">About</a>
+                <a href="#newsletter">Newsletter</a>
+                <a href="privacy.html">Privacy</a>
             </nav>
         </div>
 
         <!-- Menu Overlay -->
         <div id="menu-overlay" class="menu-overlay"></div>
 
+        <!-- Reading Progress Bar -->
+        <div id="reading-progress" class="reading-progress">
+            <div class="reading-progress-bar"></div>
+        </div>
 
+        <!-- Jump to Top Button -->
+        <button id="jump-to-top" class="jump-to-top-btn" title="Jump to top">
+            <span class="internal-icon icon-keyboard-arrow-up"></span>
+        </button>
 
         <!-- Stats Bar -->
         <div id="stats-bar" class="stats-bar">
@@ -401,7 +524,7 @@
         <!-- Main Content -->
         <main>
 
-            <a href="index.html" class="back-link">← Back to Home</a>
+            <a href="index.html" class="back-link"><span class="internal-icon icon-arrow-back"></span> Back to Home</a>
 
             <div class="article-container">
 
@@ -423,10 +546,10 @@
                             </div>
                         </div>
 
-                        <div class="article-stats">
-                            <span class="stat-item">👁️ <span id="article-views">0</span> views</span>
-                            <span class="stat-item">❤️ <span id="article-likes">0</span> likes</span>
-                        </div>
+        <div class="article-stats">
+            <span class="stat-item"><span class="internal-icon icon-visibility"></span> <span id="article-views">0</span></span>
+            <span class="stat-item"><span class="internal-icon icon-favorite"></span> <span id="article-likes">0</span></span>
+        </div>
                     </article>
 
                     <!-- Top AdSense Banner -->
@@ -448,13 +571,13 @@
 
                     <!-- Related Articles -->
                     <div class="related-articles" id="related-articles">
-                        <h3>📚 Related Articles</h3>
+                        <h3>Related Articles</h3>
                         <div id="related-articles-list"></div>
                     </div>
 
                     <!-- Giscus Comments Section -->
                     <section class="comments-section">
-                        <h3>💬 Comments & Discussion</h3>
+                        <h3>Comments & Discussion</h3>
                         <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">
                             Share your thoughts and engage with the community!
                         </p>
@@ -468,7 +591,7 @@
 
                     <!-- Table of Contents -->
                     <div class="toc-widget">
-                        <div class="toc-title">📑 Table of Contents</div>
+                        <div class="toc-title">Table of Contents</div>
                         <ul class="toc-list" id="toc-list">
                             <li><a href="#overview">Overview</a></li>
                             <li><a href="#key-points">Key Points</a></li>
@@ -478,19 +601,19 @@
 
                     <!-- Share Widget -->
                     <div class="share-widget">
-                        <div class="share-title">🔗 Share Article</div>
+                        <div class="share-title">Share Article</div>
                         <div class="share-buttons">
                             <button class="share-btn" onclick="shareTwitter()">
-                                🐦 Share on Twitter
+                                <span class="internal-icon icon-share"></span> Twitter
                             </button>
                             <button class="share-btn" onclick="shareLinkedIn()">
-                                💼 Share on LinkedIn
+                                <span class="internal-icon icon-work"></span> LinkedIn
                             </button>
                             <button class="share-btn" onclick="copyLink()">
-                                📋 Copy Link
+                                <span class="internal-icon icon-copy"></span> Copy
                             </button>
                             <button class="share-btn" id="bookmark-btn" onclick="toggleBookmark()">
-                                📑 Bookmark
+                                <span class="internal-icon icon-bookmark"></span> Bookmark
                             </button>
                         </div>
                     </div>
@@ -541,10 +664,10 @@
                 <div class="footer-section">
                     <h4>අපේ Social Media Links ටික :</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="Twitter">🔵</a>
-                        <a href="#" class="social-link" title="LinkedIn">🔗</a>
-                        <a href="#" class="social-link" title="GitHub">ℹ</a>
-                        <a href="#" class="social-link" title="Discord">💬</a>
+                        <a href="#" class="social-link" title="Twitter"><span class="internal-icon icon-flutter-dash"></span></a>
+                        <a href="#" class="social-link" title="LinkedIn"><span class="internal-icon icon-work"></span></a>
+                        <a href="#" class="social-link" title="GitHub"><span class="internal-icon icon-code"></span></a>
+                        <a href="#" class="social-link" title="Discord"><span class="internal-icon icon-chat"></span></a>
                     </div>
                 </div>
 
@@ -598,21 +721,22 @@
             document.getElementById('article-description').setAttribute('content', article.excerpt);
             document.getElementById('article-title-display').textContent = article.title;
             document.getElementById('article-category-display').textContent = article.category;
-            document.getElementById('article-date-display').textContent = '📅 ' + window.DTechNews.formatDate(article.date);
-            document.getElementById('article-reading-time').textContent = `⏱️ ${article.readingTime} min read`;
-            document.getElementById('author-avatar').textContent = article.authorAvatar;
+            document.getElementById('article-date-display').textContent = window.DTechNews.formatDate(article.date);
+            document.getElementById('article-reading-time').textContent = `${article.readingTime} min read`;
+            document.getElementById('author-avatar').innerHTML = 'USER';
             document.getElementById('author-name').textContent = article.author;
             document.getElementById('article-views').textContent = window.DTechNews.formatNumber(article.views);
             document.getElementById('article-likes').textContent = window.DTechNews.formatNumber(article.likes);
 
             document.getElementById('article-content').innerHTML = `
-        ${article.excerpt}`; 
+        ${article.content}`;
 
             // Re-highlight code blocks
             document.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightElement(block);
             });
 
+            generateTOC();
             updateBookmarkButton();
         }
 
@@ -649,7 +773,7 @@
 
         function copyLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Link copied to clipboard! 📋');
+                alert('Link copied to clipboard!');
             });
         }
 
@@ -675,13 +799,120 @@
             const btn = document.getElementById('bookmark-btn');
 
             if (bookmarks.has(currentArticle.id)) {
-                btn.innerHTML = '🔖 Bookmarked';
+                btn.innerHTML = 'BOOKMARKED';
             } else {
-                btn.innerHTML = '📑 Bookmark';
+                btn.innerHTML = 'BOOKMARK';
             }
         }
 
-       
+        function generateTOC() {
+            const articleContent = document.getElementById('article-content');
+            const headings = articleContent.querySelectorAll('h1, h2, h3');
+            const tocList = document.getElementById('toc-list');
+
+            if (headings.length === 0) {
+                tocList.innerHTML = '<li><span style="color: var(--text-muted); font-size: 0.9rem;">No headings found</span></li>';
+                return;
+            }
+
+            let tocHTML = '';
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+                const level = heading.tagName.toLowerCase();
+                const indent = level === 'h3' ? 'padding-left: 1rem;' : '';
+                tocHTML += `<li><a href="#${id}" style="${indent}">${heading.textContent}</a></li>`;
+            });
+
+            tocList.innerHTML = tocHTML;
+        }
+
+        function initReadingProgress() {
+            const progressBar = document.getElementById('reading-progress');
+            const progressBarInner = document.querySelector('.reading-progress-bar');
+
+            if (!progressBar || !progressBarInner) return;
+
+            function updateProgress() {
+                const articleContent = document.getElementById('article-content');
+                if (!articleContent) return;
+
+                const scrollTop = window.pageYOffset;
+                const articleTop = articleContent.offsetTop;
+                const articleHeight = articleContent.offsetHeight;
+                const windowHeight = window.innerHeight;
+
+                // Show progress bar when scrolling past header
+                if (scrollTop > articleTop - windowHeight) {
+                    progressBar.style.opacity = '1';
+
+                    // Calculate reading progress
+                    const scrollPosition = scrollTop - articleTop + windowHeight;
+                    const progress = Math.min(Math.max((scrollPosition / articleHeight) * 100, 0), 100);
+
+                    progressBarInner.style.width = progress + '%';
+                } else {
+                    progressBar.style.opacity = '0';
+                }
+            }
+
+            // Throttle scroll events for better performance
+            let ticking = false;
+            function handleScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        updateProgress();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            updateProgress(); // Initial call
+        }
+
+        function initJumpToTop() {
+            const jumpBtn = document.getElementById('jump-to-top');
+
+            if (!jumpBtn) return;
+
+            // Show/hide button based on scroll position
+            function toggleJumpButton() {
+                const scrollTop = window.pageYOffset;
+                const threshold = 300; // Show after scrolling 300px
+
+                if (scrollTop > threshold) {
+                    jumpBtn.classList.add('show');
+                } else {
+                    jumpBtn.classList.remove('show');
+                }
+            }
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', toggleJumpButton);
+            jumpBtn.addEventListener('click', scrollToTop);
+
+            // Initial check
+            toggleJumpButton();
+        }
+
+        // Initialize reading progress and jump to top after article loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a bit for article content to load
+            setTimeout(() => {
+                initReadingProgress();
+                initJumpToTop();
+            }, 1000);
+        });
 
     </script>
     <script src="script.js"></script>

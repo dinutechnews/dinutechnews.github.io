@@ -9,19 +9,66 @@
     <title>Privacy Policy - D-TECH NEWZ</title>
     <meta name="description"
         content="Read our privacy policy to understand how D-TECH NEWZ collects, uses, and protects your personal information.">
+    <meta name="keywords"
+        content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation">
+    <meta name="author" content="D-TECH NEWZ">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Privacy Policy - D-TECH NEWZ">
+    <meta property="og:description" content="Read our privacy policy to understand how we collect, use, and protect your personal information">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dinutechnews.github.io/privacy.html">
+    <meta property="og:image" content="https://dinutechnews.github.io/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy - D-TECH NEWZ">
+    <meta name="twitter:description" content="Read our privacy policy to understand how we collect, use, and protect your personal information">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="compact-styles.css">
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, increment, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWuZ1WCoCPyNvfQ7poCybyoj1GOLy6XG0",
+            authDomain: "dinutechnews-cc0f1.firebaseapp.com",
+            projectId: "dinutechnews-cc0f1",
+            storageBucket: "dinutechnews-cc0f1.firebasestorage.app",
+            messagingSenderId: "777283083312",
+            appId: "1:777283083312:web:9a5dbaf450e6d2e1b121f5",
+            measurementId: "G-G1XH7BL9M9"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make db available globally
+        window.db = db;
+        console.log('Firebase initialized successfully, db available:', !!window.db);
+    </script>
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
         crossorigin="anonymous"></script>
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
     <!-- giscus -->
     <script src="https://giscus.app/client.js" data-repo="dinutechnews/dinutechnews.github.io"
@@ -99,43 +146,25 @@
     <div class="container">
 
         <!-- Header -->
-        <!-- Header -->
         <header>
-            <div class="header-top">
+            <nav class="navbar">
                 <a href="index.html" class="logo">D-TECH NEWZ</a>
-
-                <div class="header-actions">
-                    <button id="theme-toggle" class="theme-toggle">🌙</button>
-                    <button id="hamburger-btn" class="hamburger-btn">➕
-                    </button>
+                <div class="navbar-buttons">
+                    <button class="hamburger-btn" id="hamburger-btn"><i class="fas fa-bars"></i></button>
+                    <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
                 </div>
-            </div>
-
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#categories">Categories</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#newsletter">Newsletter</a></li>
-                    <li><a href="privacy.html">Privacy</a></li>
-                </ul>
             </nav>
         </header>
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu">
-            <div class="mobile-menu-header">
-                <span class="mobile-menu-title">Menu</span>
-                <button id="close-menu" class="close-menu">+</button>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">🏠 Home</a></li>
-                    <li><a href="#categories">🏷️ Categories</a></li>
-                    <li><a href="about.html">ℹ️ About</a></li>
-                    <li><a href="#newsletter">📧 Newsletter</a></li>
-                    <li><a href="privacy.html">🔒 Privacy</a></li>
-                </ul>
+            <button id="close-menu" class="close-menu">×</button>
+            <nav class="mobile-nav">
+                <a href="index.html">Home</a>
+                <a href="#categories">Categories</a>
+                <a href="about.html">About</a>
+                <a href="#newsletter">Newsletter</a>
+                <a href="privacy.html" class="active">Privacy</a>
             </nav>
         </div>
 
@@ -356,10 +385,10 @@
                 <div class="footer-section">
                     <h4>අපේ Social Media Links ටික :</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="Twitter">🔵</a>
-                        <a href="#" class="social-link" title="LinkedIn">🔗</a>
-                        <a href="#" class="social-link" title="GitHub">ℹ</a>
-                        <a href="#" class="social-link" title="Discord">💬</a>
+                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
 
