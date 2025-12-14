@@ -172,42 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
 });
 
-// === Hamburger Menu ===
-function initHamburgerMenu() {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const closeMenu = document.getElementById('close-menu');
 
-    if (!hamburgerBtn || !mobileMenu || !menuOverlay) return;
-
-    // Open menu
-    hamburgerBtn.addEventListener('click', () => {
-        hamburgerBtn.classList.add('active');
-        mobileMenu.classList.add('active');
-        menuOverlay.classList.add('active');
-        document.body.classList.add('menu-open');
-    });
-
-    // Close menu
-    const closeMenuHandler = () => {
-        hamburgerBtn.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.classList.remove('menu-open');
-    };
-
-    if (closeMenu) {
-        closeMenu.addEventListener('click', closeMenuHandler);
-    }
-
-    menuOverlay.addEventListener('click', closeMenuHandler);
-
-    // Close menu when clicking on a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenuHandler);
-    });
-}
 
 // === Theme Management ===
 function initTheme() {
@@ -235,7 +200,7 @@ function toggleTheme() {
 function updateThemeIcon() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.innerHTML = `<i class="fa${state.theme === 'light' ? 's fa-moon' : 's fa-sun'}"></i>`;
+        themeToggle.innerHTML = state.theme === 'light' ? '🖤' : '🤍';
     }
 }
 
