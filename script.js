@@ -215,7 +215,7 @@ function toggleTheme() {
 function updateThemeIcon() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.innerHTML = state.theme === 'light' ? '🖤' : '🤍';
+        themeToggle.innerHTML = state.theme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     }
 }
 
