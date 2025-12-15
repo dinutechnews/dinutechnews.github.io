@@ -159,18 +159,33 @@ const state = {
 
 // === Initialize App ===
 document.addEventListener('DOMContentLoaded', () => {
+    // initSearch(); // Unused
+    // initMenuToggle(); // Unused
+    waitForDB().then(() => {
+        initVisitorCounter();
+        renderStats();
+        renderArticles();
+    });
     initTheme();
     initBookmarks();
-    initVisitorCounter();
     initCategoryFilter();
     initHamburgerMenu();
-    renderStats();
-    renderArticles();
     initGiscusComments();
     initAdSense();
     initNewsletterForm();
     initSmoothScroll();
 });
+
+async function waitForDB() {
+    let attempts = 0;
+    while (!window.db && attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+    if (!window.db) {
+        console.warn('Firebase DB not initialized after waiting. Some features may not work.');
+    }
+}
 
 
 
@@ -874,7 +889,7 @@ async function hasUserLiked(articleId) {
 function getUserId() {
     let userId = localStorage.getItem('dtechnews_user_id');
     if (!userId) {
-        userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        userId = 'user_' + Math.random().toString(36).slice(2, 11) + '_' + Date.now();
         localStorage.setItem('dtechnews_user_id', userId);
     }
     return userId;
