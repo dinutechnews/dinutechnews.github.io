@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVisitorCounter();
     initCategoryFilter();
     initHamburgerMenu();
+    initSearch();
     renderStats();
     renderArticles();
     initFirebaseComments();
@@ -200,53 +201,13 @@ function toggleTheme() {
 function updateThemeIcon() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        themeToggle.innerHTML = state.theme === 'light' ? '🖤' : '🤍';
-    }
-}
-
-// === Search Toggle Fix ===
-function initSearchToggle() {
-    const searchToggle = document.getElementById('search-toggle');
-    const searchContainer = document.getElementById('search-container');
-
-    if (searchToggle && searchContainer) {
-        searchToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            searchContainer.classList.toggle('active');
-
-            // Focus search input when opened
-            if (searchContainer.classList.contains('active')) {
-                const searchInput = searchContainer.querySelector('#search-input');
-                if (searchInput) {
-                    setTimeout(() => searchInput.focus(), 300);
-                }
-            }
-        });
-
-        // Close search when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!searchContainer.contains(e.target) && !searchToggle.contains(e.target)) {
-                searchContainer.classList.remove('active');
-            }
-        });
+        themeToggle.innerHTML = state.theme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     }
 }
 
 // === Search Functionality ===
 function initSearch() {
-    const searchToggle = document.getElementById('search-toggle');
-    const searchContainer = document.getElementById('search-container');
     const searchInput = document.getElementById('search-input');
-
-    if (searchToggle && searchContainer) {
-        searchToggle.addEventListener('click', () => {
-            searchContainer.classList.toggle('active');
-            if (searchContainer.classList.contains('active')) {
-                searchInput?.focus();
-            }
-        });
-    }
-
     if (searchInput) {
         searchInput.addEventListener('input', debounce(handleSearch, 300));
     }
@@ -360,11 +321,11 @@ async function renderStats() {
 
     const statsHTML = `
     <div class="stat-card">
-      <div class="stat-label">Total Articles</div>
+      <div class="stat-label">Articles</div>
       <div class="stat-value">${totalArticles}</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Total Views</div>
+      <div class="stat-label">Views</div>
       <div class="stat-value">${formatNumber(totalViews)}</div>
     </div>
     <div class="stat-card">
@@ -406,8 +367,8 @@ async function renderArticles() {
         })
     );
 
-    articlesGrid.innerHTML = articlesWithStats.map(article => `
-    <article class="article-card" data-id="${article.id}">
+    articlesGrid.innerHTML = articlesWithStats.map((article, index) => `
+    <article class="article-card fade-in" data-id="${article.id}" style="animation-delay: ${index * 0.1}s">
       <div class="article-meta">
         <span class="article-category">${article.category}</span>
         <span class="article-date"><i class="fas fa-calendar"></i> ${formatDate(article.date)}</span>
@@ -417,13 +378,6 @@ async function renderArticles() {
         <a href="article.html?id=${article.id}" onclick="incrementArticleView(${article.id})">${article.title}</a>
       </h2>
       <p class="article-excerpt">${article.excerpt}</p>
-      <div class="article-tags">
-        ${article.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-      </div>
-      <div class="article-stats">
-        <span class="stat-item"><i class="fas fa-eye"></i> ${formatNumber(article.views)} views</span>
-        <span class="stat-item"><i class="fas fa-heart"></i> ${formatNumber(article.likes)} likes</span>
-      </div>
       <div class="article-footer">
         <a href="article.html?id=${article.id}" onclick="incrementArticleView(${article.id})" class="read-more">
           Read More <i class="fas fa-arrow-right"></i>
@@ -532,11 +486,11 @@ function initArticleActions() {
             if (statsContainer) {
                 const stats = await getArticleStats(articleId);
                 console.log('Updated stats:', stats);
-                statsContainer.innerHTML = `
-                    <span class="stat-item"><i class="fas fa-eye"></i> ${formatNumber(stats.views)} views</span>
-                    <span class="stat-item"><i class="fas fa-heart"></i> ${formatNumber(stats.likes)} likes</span>
-                `;
+                // In the new design, we don't show stats on the card by default to keep it clean
+                // But if we did, we'd update it here.
             }
+
+            showToast(liked ? 'Added to favorites! ❤️' : 'Removed from favorites');
         });
     });
 
@@ -581,6 +535,7 @@ function toggleBookmark(articleId) {
 
     localStorage.setItem(CONFIG.storageKeys.bookmarks, JSON.stringify([...state.bookmarks]));
     renderArticles();
+    showToast(state.bookmarks.has(articleId) ? 'Article bookmarked! 🔖' : 'Bookmark removed');
 }
 
 // === Share Article ===
@@ -1089,6 +1044,46 @@ function formatDate(dateString) {
 
 function formatNumber(num) {
     return num.toLocaleString();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = message;
+    document.body.appendChild(toast);
+
+    // Add toast styles dynamically if not in CSS
+    if (!document.getElementById('toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-styles';
+        style.textContent = `
+            .toast {
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: var(--accent-primary);
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: var(--radius-md);
+                box-shadow: var(--glass-shadow);
+                z-index: 10000;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                font-weight: 600;
+                font-size: 0.875rem;
+            }
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function debounce(func, wait) {

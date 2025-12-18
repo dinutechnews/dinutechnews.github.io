@@ -1,326 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Meta Tags -->
-    <title>D-TECH NEWZ - Tech News with Enhanced Modern Theme</title>
-    <meta
-      name="description"
-      content="Stay ahead with D-TECH NEWZ - your premier source for cutting-edge technology news, AI breakthroughs, cybersecurity insights, and tech innovation updates."
-    />
-    <meta
-      name="keywords"
-      content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation"
-    />
-    <meta name="author" content="D-TECH NEWZ" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Open Graph Meta Tags -->
-    <meta
-      property="og:title"
-      content="D-TECH NEWZ - Latest Technology News & Innovation"
-    />
-    <meta
-      property="og:description"
-      content="Your source for cutting-edge technology news and insights"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dinutechnews.github.io" />
-    <meta
-      property="og:image"
-      content="https://dinutechnews.github.io/og-image.jpg"
-    />
+  <!-- SEO Meta Tags -->
+  <title>D-TECH NEWZ - Tech News with Enhanced Modern Theme</title>
+  <meta name="description"
+    content="Stay ahead with D-TECH NEWZ - your premier source for cutting-edge technology news, AI breakthroughs, cybersecurity insights, and tech innovation updates." />
+  <meta name="keywords"
+    content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation" />
+  <meta name="author" content="D-TECH NEWZ" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="D-TECH NEWZ - Technology News" />
-    <meta
-      name="twitter:description"
-      content="Latest tech news, AI, and innovation updates"
-    />
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="D-TECH NEWZ - Latest Technology News & Innovation" />
+  <meta property="og:description" content="Your source for cutting-edge technology news and insights" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dinutechnews.github.io" />
+  <meta property="og:image" content="https://dinutechnews.github.io/og-image.jpg" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="D-TECH NEWZ - Technology News" />
+  <meta name="twitter:description" content="Latest tech news, AI, and innovation updates" />
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Firebase -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
-      import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-      import { getFirestore } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" />
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyBhvtv4pWvtfoprzBsdPpmeSPAQBewnaLM",
-        authDomain: "dinutechnewz.firebaseapp.com",
-        projectId: "dinutechnewz",
-        storageBucket: "dinutechnewz.firebasestorage.app",
-        messagingSenderId: "278488425562",
-        appId: "1:278488425562:web:9e456a4a661e738431e463",
-        measurementId: "G-HSTHKP687Q",
-      };
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      window.auth = getAuth(app);
-      window.db = getFirestore(app);
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-      // Initialize anonymous authentication
-      signInAnonymously(window.auth).catch((error) => {
-        console.error("Anonymous sign-in failed:", error);
-      });
-    </script>
-+++++++ REPLACE</diff>
-</invoke>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhvtv4pWvtfoprzBsdPpmeSPAQBewnaLM",
+      authDomain: "dinutechnewz.firebaseapp.com",
+      projectId: "dinutechnewz",
+      storageBucket: "dinutechnewz.firebasestorage.app",
+      messagingSenderId: "278488425562",
+      appId: "1:278488425562:web:9e456a4a661e738431e463",
+      measurementId: "G-HSTHKP687Q",
+    };
 
-    <!-- Google AdSense -->
-    <meta name="google-adsense-account" content="ca-pub-2433918096859970" />
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
-      crossorigin="anonymous"
-    ></script>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    window.auth = getAuth(app);
+    window.db = getFirestore(app);
 
-    <!-- RSS Feed -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="D-TECH NEWZ RSS Feed"
-      href="/rss.xml"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
-    />
-  </head>
+    // Initialize anonymous authentication
+    signInAnonymously(window.auth).catch((error) => {
+      console.error("Anonymous sign-in failed:", error);
+    });
+  </script>
 
-  <body>
-    <div class="container">
-      <!-- Simple Navbar -->
-      <header>
-        <nav class="navbar">
-          <a href="index.html" class="logo"
-            ><svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M13 1l-6 8H4l2 4-6-8h5l-2-4z" />
-            </svg>
-            D-TECH NEWZ</a
-          >
-          <div class="navbar-buttons">
-            <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
-            <button id="theme-toggle" class="theme-btn">
-              <i class="fas fa-moon"></i>
-            </button>
-          </div>
-        </nav>
-      </header>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-2433918096859970" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
+    crossorigin="anonymous"></script>
 
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="mobile-menu">
-        <button id="close-menu" class="close-menu">×</button>
-        <nav class="mobile-nav">
-          <a href="index.html">Home</a>
-          <a href="#categories">Categories</a>
-          <a href="about.html">About</a>
-          <a href="#newsletter">Newsletter</a>
-          <a href="privacy.html">Privacy</a>
-        </nav>
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          D-TECH NEWZ
+        </a>
+        <div class="navbar-buttons">
+          <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="hamburger-btn" id="hamburger-btn" title="Open Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
       </div>
+    </header>
 
-      <!-- Menu Overlay -->
-      <div id="menu-overlay" class="menu-overlay"></div>
-
-      <!-- Stats Bar -->
-      <div id="stats-bar" class="stats-bar">
-        <!-- Stats will be dynamically loaded -->
-      </div>
-
-      <!-- Main Content -->
-      <main>
-        <!-- Category Filter -->
-        <div id="categories" class="category-filter">
-          <div class="filter-title">Filter by Category</div>
-          <div class="category-tags">
-            <button class="category-tag active" data-category="All">All</button>
-            <button class="category-tag" data-category="AI">AI</button>
-            <button class="category-tag" data-category="Computing">
-              Computing
-            </button>
-            <button class="category-tag" data-category="Networks">
-              Networks
-            </button>
-            <button class="category-tag" data-category="Security">
-              Security
-            </button>
-            <button class="category-tag" data-category="Green Tech">
-              Green Tech
-            </button>
-            <button class="category-tag" data-category="Blockchain">
-              Blockchain
-            </button>
-          </div>
-        </div>
-
-        <!-- Top AdSense Banner -->
-        <div class="ad-container">
-          <ins
-            class="adsbygoogle"
-            style="display: block"
-            data-ad-client="ca-pub-2433918096859970"
-            data-ad-slot="5746281116"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-        </div>
-
-        <!-- Articles Grid -->
-        <div class="articles-grid" id="articles-grid">
-          <div class="loading">Loading articles...</div>
-        </div>
-
-        <!-- Pagination -->
-        <div id="pagination" class="pagination"></div>
-
-        <!-- Middle AdSense Banner -->
-        <div class="ad-container">
-          <ins
-            class="adsbygoogle"
-            style="display: block"
-            data-ad-client="ca-pub-2433918096859970"
-            data-ad-slot="1236190464"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-        </div>
-
-        <!-- Newsletter Section -->
-        <section id="newsletter" class="newsletter">
-          <h3>
-            <i class="fas fa-envelope-open-text"></i> Subscribe to Our
-            Newsletter
-          </h3>
-          <p>
-            Get the latest tech news and insights delivered straight to your
-            inbox. Join 10,000+ subscribers!
-          </p>
-          <form id="newsletter-form" class="newsletter-form">
-            <input
-              type="email"
-              class="newsletter-input"
-              placeholder="Enter your email address"
-              required
-            />
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-          </form>
-        </section>
-
-        <!-- Giscus Comments Section -->
-        <section class="comments-section">
-          <h3><i class="fas fa-comments"></i> Community Discussions</h3>
-          <p
-            style="
-              color: var(--text-secondary);
-              margin-bottom: var(--spacing-md);
-            "
-          >
-            Join the conversation! Share your thoughts and engage with fellow
-            tech enthusiasts.
-          </p>
-          <div id="giscus-comments"></div>
-        </section>
-      </main>
-
-      <!-- Footer -->
-      <footer>
-        <div class="footer-content">
-          <div class="footer-section">
-            <h4>අපි ගැන,</h4>
-            <p>
-              mh.. එච්චර දෙයක් නෑ කියන්න ඉතින්, තාක්ෂණික ලෝකෙ සිද්ධවෙන දේවල්
-              සින්හලෙන්ම ඒවගේම තප්පරෙන් (ඊට වඩා වෙන්නත් පුළුවන්) අපි සපයනවා. And
-              also, we are currently looking for a talented tech article
-              writer..... so, if you are willing to join us, just let us know by
-              messaging to the number below 🙂:
-            </p>
-            <p><br />| 71 279 3528 |</p>
-          </div>
-
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="#newsletter">Newsletter</a></li>
-              <li><a href="/rss.xml">RSS Feed</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Categories</h4>
-            <ul>
-              <li>
-                <a href="#" data-category="AI">Artificial Intelligence</a>
-              </li>
-              <li><a href="#" data-category="Security">Cybersecurity</a></li>
-              <li>
-                <a href="#" data-category="Computing">Quantum Computing</a>
-              </li>
-              <li>
-                <a href="#" data-category="Blockchain">Blockchain & Web3</a>
-              </li>
-              <li>
-                <a href="#" data-category="Green Tech">Green Technology</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>අපේ Social Media Links ටික :</h4>
-            <div class="social-links">
-              <a href="#" class="social-link" title="Twitter"
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a href="#" class="social-link" title="LinkedIn"
-                ><i class="fab fa-linkedin"></i
-              ></a>
-              <a href="#" class="social-link" title="GitHub"
-                ><i class="fab fa-github"></i
-              ></a>
-              <a href="#" class="social-link" title="Discord"
-                ><i class="fab fa-discord"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p>&copy; 2025 D-TECH NEWZ. <br />ඔක්කොම rights reserved.</p>
-          <p>
-            \\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු ❤️//<br />\\❤️ එකම සයිට් එක ❤️//
-          </p>
-          <p style="margin-top: var(--spacing-xs); font-size: 0.7rem">
-            <a href="privacy.html">Privacy Policy</a> |
-            <a href="about.html">About</a>
-          </p>
-        </div>
-      </footer>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <button id="close-menu" class="close-menu" title="Close Menu">
+        <i class="fas fa-times"></i>
+      </button>
+      <nav class="mobile-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="about.html">About</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
     </div>
 
-    <!-- Main Script -->
-    <script src="script.js"></script>
-  </body>
+    <!-- Menu Overlay -->
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <!-- Stats Bar -->
+    <div id="stats-bar" class="stats-bar">
+      <!-- Stats will be dynamically loaded -->
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Category Filter -->
+      <div id="categories" class="category-filter">
+        <div class="filter-title">Filter by Category</div>
+        <div class="category-tags">
+          <button class="category-tag active" data-category="All">All</button>
+          <button class="category-tag" data-category="AI">AI</button>
+          <button class="category-tag" data-category="Computing">
+            Computing
+          </button>
+          <button class="category-tag" data-category="Networks">
+            Networks
+          </button>
+          <button class="category-tag" data-category="Security">
+            Security
+          </button>
+          <button class="category-tag" data-category="Green Tech">
+            Green Tech
+          </button>
+          <button class="category-tag" data-category="Blockchain">
+            Blockchain
+          </button>
+        </div>
+      </div>
+
+      <!-- Top AdSense Banner -->
+      <div class="ad-container">
+        <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-2433918096859970"
+          data-ad-slot="5746281116" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="articles-grid" id="articles-grid">
+        <div class="loading">Loading articles...</div>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination" class="pagination"></div>
+
+      <!-- Middle AdSense Banner -->
+      <div class="ad-container">
+        <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-2433918096859970"
+          data-ad-slot="1236190464" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- Newsletter Section -->
+      <section id="newsletter" class="newsletter">
+        <h3>Subscribe to Our Newsletter</h3>
+        <p>Get the latest tech news and insights delivered straight to your inbox. Join 10,000+ subscribers!</p>
+        <form id="newsletter-form" class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Enter your email address" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+      </section>
+
+      <!-- Giscus Comments Section -->
+      <section class="comments-section">
+        <h3><i class="fas fa-comments"></i> Community Discussions</h3>
+        <p style="
+              color: var(--text-secondary);
+              margin-bottom: var(--spacing-md);
+            ">
+          Join the conversation! Share your thoughts and engage with fellow
+          tech enthusiasts.
+        </p>
+        <div id="giscus-comments"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>About Us</h4>
+          <p>
+            තාක්ෂණික ලෝකයේ සිදුවන අලුත්ම දේවල් සිංහලෙන්ම දැනගන්න. අපි ඔබට නවතම පුවත් සහ විග්‍රහයන් සපයන්නෙමු.
+          </p>
+          <p style="margin-top: 1rem">Contact: | 71 279 3528 |</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+            <li><a href="/rss.xml">RSS Feed</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#" data-category="AI">Artificial Intelligence</a></li>
+            <li><a href="#" data-category="Security">Cybersecurity</a></li>
+            <li><a href="#" data-category="Computing">Quantum Computing</a></li>
+            <li><a href="#" data-category="Blockchain">Blockchain & Web3</a></li>
+            <li><a href="#" data-category="Green Tech">Green Technology</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 D-TECH NEWZ. All rights reserved.</p>
+        <p>\\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු එකම සයිට් එක ❤️//</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+
 </html>
