@@ -11,13 +11,13 @@
 /* === CSS Variables === */
 :root {
     /* Powerful Tech Theme - Light Mode */
-    --bg-primary: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f0f23 75%, #0a0a0a 100%);
-    --glass-bg: rgba(15, 23, 42, 0.85);
-    --glass-border: rgba(59, 130, 246, 0.3);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1);
-    --text-primary: #ffffff;
-    --text-secondary: #e2e8f0;
-    --text-muted: rgba(226, 232, 240, 0.6);
+    --bg-primary: #fafafa;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.3);
+    --glass-shadow: none;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: rgba(0, 0, 0, 0.6);
     --accent-primary: #ff6b35;
     /* Red-Orange */
     --accent-secondary: #f7931e;
@@ -122,20 +122,9 @@ body {
     position: relative;
 }
 
-/* Animated gradient background */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-primary);
-    z-index: -2;
-    animation: gradient-shift 20s ease infinite;
-}
 
-/* Enhanced Red-Orange-Yellow grid pattern overlay */
+
+/* Square notebook grid background */
 body::after {
     content: '';
     position: fixed;
@@ -144,44 +133,13 @@ body::after {
     right: 0;
     bottom: 0;
     background-image:
-        linear-gradient(rgba(255, 107, 53, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(247, 145, 30, 0.08) 1px, transparent 1px),
-        radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(247, 145, 30, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 182, 39, 0.1) 0%, transparent 50%);
-    background-size: 60px 60px, 60px 60px, 200px 200px, 300px 300px, 400px 400px;
+        linear-gradient(90deg, #ddd 1px, transparent 1px),
+        linear-gradient(#ddd 1px, transparent 1px);
+    background-size: 20px 20px;
     z-index: -1;
-    animation: grid-move 40s linear infinite, pulse-glow 8s ease-in-out infinite alternate;
 }
 
-/* Floating particles effect */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-primary);
-    z-index: -2;
-    animation: gradient-shift 25s ease infinite;
-}
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(247, 145, 30, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 50% 10%, rgba(255, 182, 39, 0.1) 0%, transparent 50%),
-        var(--bg-primary);
-    z-index: -2;
-    animation: gradient-shift 25s ease infinite, floating-orbs 20s ease-in-out infinite;
-}
 
 @keyframes gradient-shift {
 
@@ -284,8 +242,8 @@ body::before {
 /* === Glass Morphism Utility === */
 .glass {
     background: var(--glass-bg);
-    backdrop-filter: var(--blur-md);
-    -webkit-backdrop-filter: var(--blur-md);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
 }
@@ -303,8 +261,8 @@ body::before {
 header {
     height: 60px;
     background: var(--glass-bg);
-    backdrop-filter: var(--blur-md);
-    -webkit-backdrop-filter: var(--blur-md);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-lg);
@@ -1572,12 +1530,12 @@ footer,
     }
 }
 
-/* === Cloud Services Styles === */
+    /* === Cloud Services Styles === */
 
-/* Cloud Status Section */
+    /* Cloud Status Section */
 .cloud-status-section {
     background: var(--glass-bg);
-    backdrop-filter: var(--blur-md);
+    backdrop-filter: none;
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
