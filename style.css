@@ -76,6 +76,78 @@ body {
     overflow-x: hidden;
 }
 
+/* --- Premium Polish --- */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-glass);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Text Selection */
+::selection {
+    background: var(--primary);
+    color: #000;
+}
+
+/* Global Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.news-card,
+.hero-card,
+.sidebar-section,
+.poll-container,
+.weather-grid {
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Staggered Delays for Grid */
+.news-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.news-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.news-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.news-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.news-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.news-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
 /* Custom Cursor */
 .custom-cursor {
     width: 20px;
@@ -130,10 +202,42 @@ body {
 /* Utilities */
 .glass {
     background: var(--bg-glass);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border-glass);
-    box-shadow: var(--shadow-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Premium Buttons */
+button,
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateZ(0);
+    /* GPU Force */
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::after {
+    width: 200%;
+    height: 200%;
 }
 
 .app-container {
@@ -158,6 +262,32 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.sys-btn {
+    background: var(--primary);
+    color: #000;
+    border: none;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: none;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 5px rgba(0, 242, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 255, 0);
+    }
 }
 
 /* Crypto Ticker */
@@ -284,6 +414,14 @@ body {
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-main);
     font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .search-bar i {
@@ -326,6 +464,16 @@ body {
 }
 
 .icon-btn:hover {
+    color: var(--primary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+a:hover {
     color: var(--primary);
 }
 
@@ -800,10 +948,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.2rem;
+    background: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s;
-    z-index: 1400;
+    transition: all 0.3s ease;
+    z-index: 1500;
 }
 
 #backToTop.visible {
@@ -811,39 +962,94 @@ body {
     pointer-events: all;
 }
 
+/* Article Modal Content */
+#articleModalContent {
+    background: var(--bg-body);
+    min-height: 100%;
+}
+
 /* Cookie Banner */
 .cookie-banner {
     position: fixed;
     bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(150%);
+    right: 20px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 350px;
+    z-index: 9999;
     display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 15px 25px;
-    border-radius: 50px;
-    z-index: 5000;
-    width: 90%;
-    max-width: 500px;
-    transition: transform 0.5s;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: var(--shadow-glass);
+    transform: translateY(150%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cookie-banner.active {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
-.cookie-banner button {
-    background: var(--primary);
-    color: #000;
+.cookie-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cookie-btn {
+    flex: 1;
+    padding: 8px;
     border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
+    border-radius: 8px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.cookie-accept {
+    background: var(--primary);
+    color: black;
+}
+
+.cookie-decline {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+
     .sidebar {
-        display: none;
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .news-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .system-bar {
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
