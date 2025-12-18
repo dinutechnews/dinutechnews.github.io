@@ -1,4 +1,4 @@
-/* --- D-TECH DASHBOARD REDESIGN --- */
+/* --- D-TECH NEWZ ESSENTIALS (v5) --- */
 
 :root {
     --bg-app: #0f0f12;
@@ -19,6 +19,16 @@
     --nav-width: 80px;
 }
 
+[data-theme="light"] {
+    --bg-app: #f0f2f5;
+    --bg-panel: #ffffff;
+    --bg-card: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666;
+    --border: rgba(0, 0, 0, 0.1);
+    --glass: rgba(255, 255, 255, 0.8);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -30,12 +40,79 @@ body {
     background-color: var(--bg-app);
     color: var(--text-main);
     overflow: hidden;
-    /* App-like feel */
     height: 100vh;
     display: flex;
 }
 
-/* --- Layout: Navigation Rail --- */
+/* --- Layout --- */
+.app-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 1. System Bar */
+.system-bar {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 0 20px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.sys-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 2. Crypto Ticker */
+.crypto-ticker {
+    height: 30px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ticker-track {
+    display: flex;
+    gap: 40px;
+    animation: scroll 30s linear infinite;
+    padding-left: 100%;
+    white-space: nowrap;
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-item {
+    font-size: 0.8rem;
+    display: flex;
+    gap: 10px;
+    color: var(--text-muted);
+}
+
+.ticker-up {
+    color: #00ff88;
+}
+
+.ticker-down {
+    color: #ff3333;
+}
+
+/* Navigation Rail */
 .navbar {
     width: var(--nav-width);
     height: 100vh;
@@ -45,6 +122,9 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
+    position: fixed;
+    left: 0;
+    top: 0;
     z-index: 1000;
 }
 
@@ -54,12 +134,10 @@ body {
     margin-bottom: 40px;
 }
 
-.nav-content {
+.nav-actions {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 100%;
-    align-items: center;
 }
 
 .icon-btn {
@@ -75,6 +153,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .icon-btn:hover,
@@ -83,84 +162,121 @@ body {
     color: var(--primary);
 }
 
-/* --- Layout: Main Area --- */
-.app-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* Header */
-.system-bar {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-}
-
-.search-bar input {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 10px 20px;
-    border-radius: 20px;
+.badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--accent);
     color: white;
-    width: 300px;
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 10px;
 }
 
-/* Dashboard Grid */
+/* Main Content */
 .main-content {
+    margin-left: var(--nav-width);
     flex: 1;
     display: grid;
-    grid-template-columns: 300px 1fr 350px;
-    /* Sidebar | Feed | Widgets */
+    grid-template-columns: 250px 1fr;
+    /* Sidebar | Feed */
     gap: 20px;
     padding: 20px;
     overflow-y: auto;
+    height: calc(100vh - 70px);
+    /* Minus bars */
 }
 
-/* Columns */
-.sidebar,
-.news-feed,
-.widgets-col {
+/* Sidebar */
+.sidebar {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.widgets-col {
-    display: flex;
-    /* Ensure it's visible */
+.sidebar-section {
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
 }
 
-/* Cards */
-.card,
-.news-card,
-.hero-card,
-.weather-item,
-.poll-container {
+.sidebar-section h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+/* 6. Weather */
+.weather-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.weather-item {
+    text-align: center;
+    background: var(--bg-panel);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* 7. Categories */
+.category-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.category-list li:hover,
+.category-list li.active {
+    background: var(--bg-panel);
+    color: var(--text-main);
+}
+
+/* 8. News Feed */
+.news-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. Search */
+.search-bar {
+    position: relative;
+    width: 100%;
+}
+
+.search-bar input {
+    width: 100%;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    transition: transform 0.2s;
+    padding: 12px 20px 12px 40px;
+    border-radius: 20px;
+    color: var(--text-main);
 }
 
-.card:hover,
-.news-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+.search-bar i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
 }
 
 /* Hero */
 .hero-section {
-    grid-column: 2;
     height: 300px;
     border-radius: var(--radius);
     overflow: hidden;
@@ -168,15 +284,20 @@ body {
 }
 
 .hero-card {
-    padding: 0;
-    border: none;
     height: 100%;
+    position: relative;
+    cursor: pointer;
 }
 
 .hero-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.hero-card:hover img {
+    transform: scale(1.05);
 }
 
 .hero-overlay {
@@ -185,21 +306,38 @@ body {
     left: 0;
     right: 0;
     padding: 30px;
-    background: linear-gradient(to top, black, transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
 }
 
-/* News Grid */
+.hero-title {
+    font-size: 2rem;
+    color: white;
+}
+
+/* Grid */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+}
+
+.news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
 }
 
 .card-image {
     height: 160px;
-    border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 15px;
 }
 
 .card-image img {
@@ -208,98 +346,220 @@ body {
     object-fit: cover;
 }
 
-/* Typography */
-h1 {
-    font-size: 2rem;
+.card-content {
+    padding: 15px;
 }
 
-h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+.card-tag {
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-p {
-    color: var(--text-muted);
+.card-title {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.card-excerpt {
     font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-/* Utilities */
-.glass {
-    backdrop-filter: blur(10px);
-}
-
-.sys-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
     color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* Ticker */
-.crypto-ticker {
-    position: absolute;
-    bottom: 0;
-    left: var(--nav-width);
-    right: 0;
-    height: 30px;
+/* 9. AI Chat */
+.ai-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    z-index: 2000;
+    transition: all 0.3s;
+}
+
+.ai-chat.collapsed {
+    height: 50px;
+    width: 200px;
+}
+
+.chat-header {
+    padding: 15px;
+    background: var(--primary);
+    color: black;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.msg {
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+    font-size: 0.9rem;
+}
+
+.msg.bot {
     background: var(--bg-panel);
+    align-self: flex-start;
+}
+
+.msg.user {
+    background: var(--secondary);
+    color: white;
+    align-self: flex-end;
+}
+
+.chat-input {
+    padding: 10px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 5px;
+}
+
+.chat-input input {
+    flex: 1;
+    background: var(--bg-panel);
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    color: var(--text-main);
+}
+
+/* 10. TTS Player */
+.tts-player {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--primary);
     display: flex;
     align-items: center;
-    z-index: 100;
+    gap: 20px;
+    z-index: 2000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tts-controls button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 3000;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    z-index: 3001;
+    display: none;
+    flex-direction: column;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.article-footer {
+    padding: 20px;
     border-top: 1px solid var(--border);
 }
 
-.ticker-track {
+.modal-actions {
     display: flex;
-    gap: 40px;
-    animation: scroll 20s linear infinite;
-    padding-left: 100%;
-    white-space: nowrap;
+    gap: 10px;
 }
 
-@keyframes scroll {
-    to {
-        transform: translateX(-100%);
-    }
+.action-btn {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Mobile */
-@media (max-width: 1200px) {
-    .main-content {
-        grid-template-columns: 250px 1fr;
-    }
-
-    .widgets-col {
-        display: none;
-    }
+.action-btn:hover {
+    background: var(--primary);
+    color: black;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        height: auto;
-        overflow: auto;
-    }
-
     .navbar {
         width: 100%;
         height: 60px;
-        flex-direction: row;
-        padding: 0 20px;
-        position: fixed;
         bottom: 0;
         top: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
         border-top: 1px solid var(--border);
     }
 
-    .nav-content {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
     .main-content {
+        margin-left: 0;
         grid-template-columns: 1fr;
         padding-bottom: 80px;
     }
@@ -308,8 +568,15 @@ p {
         display: none;
     }
 
+    .logo {
+        display: none;
+    }
+
+    .nav-actions {
+        flex-direction: row;
+    }
+
     .crypto-ticker {
-        bottom: 60px;
-        left: 0;
+        display: none;
     }
 }

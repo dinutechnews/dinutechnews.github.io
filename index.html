@@ -1,256 +1,158 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
-<div class="app-container">
-    <!-- System Status Bar -->
-    <div class="system-bar glass">
-        <div class="sys-item"><i class="fa-solid fa-wifi"></i> <span id="netStatus">Online</span></div>
-        <div class="sys-item"><i class="fa-solid fa-bolt"></i> <span id="batteryStatus">100%</span></div>
-        <div class="sys-item"><i class="fa-solid fa-gauge-high"></i> <span id="fpsCounter">60 FPS</span></div>
-        <div class="sys-item"><i class="fa-regular fa-clock"></i> <span id="binaryClock">0000</span></div>
-        <div class="sys-item"><i class="fa-solid fa-users"></i> <span id="liveReaders">1,204 Online</span></div>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="D-TECH-NEWZ - The Ultimate Tech News Experience">
+    <title>D-TECH-NEWZ | Future of Tech</title>
 
-    <!-- Crypto Ticker -->
-    <div class="crypto-ticker glass">
-        <div class="ticker-track" id="cryptoTicker"></div>
-    </div>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
 
-    <!-- Navigation -->
-    <nav class="navbar glass">
-        <div class="nav-content">
-            <div class="logo glitch-effect" data-text="D-TECH-NEWZ">
-                <i class="fa-solid fa-microchip"></i>
-                <span>D-TECH-NEWZ</span>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- 1. System Status Bar -->
+        <div class="system-bar glass">
+            <div class="sys-item"><i class="fa-solid fa-wifi"></i> <span id="netStatus">Online</span></div>
+            <div class="sys-item"><i class="fa-solid fa-bolt"></i> <span id="batteryStatus">100%</span></div>
+            <div class="sys-item"><i class="fa-regular fa-clock"></i> <span id="clock">00:00</span></div>
+        </div>
+
+        <!-- 2. Crypto Ticker -->
+        <div class="crypto-ticker glass">
+            <div class="ticker-track" id="cryptoTicker"></div>
+        </div>
+
+        <!-- Navigation Rail -->
+        <nav class="navbar glass">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+
+                <!-- 3. Search -->
+                <div class="nav-actions">
+                    <button id="homeBtn" class="icon-btn active" title="Home"><i class="fa-solid fa-house"></i></button>
+
+                    <!-- 4. Theme Toggle -->
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i
+                            class="fa-solid fa-moon"></i></button>
+
+                    <!-- 5. Bookmarks -->
+                    <button id="bookmarksBtn" class="icon-btn" title="Bookmarks">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span class="badge" id="bookmarkCount">0</span>
+                    </button>
+                </div>
             </div>
+        </nav>
 
-            <div class="search-bar">
-                <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search news... (Press '/')">
-                <div class="kbd-shortcut">/</div>
-            </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar Widgets -->
+            <aside class="sidebar glass">
+                <!-- 6. Weather Widget -->
+                <div class="sidebar-section weather-widget" id="weatherWidget">
+                    <h3>Weather</h3>
+                    <div class="weather-grid" id="weatherGrid"></div>
+                </div>
 
-            <div class="nav-actions">
-                <button id="toolboxBtn" class="icon-btn" title="Toolbox"><i class="fa-solid fa-toolbox"></i></button>
-                <button id="gameBtn" class="icon-btn" title="Games"><i class="fa-solid fa-gamepad"></i></button>
-                <button id="a11yBtn" class="icon-btn" title="Accessibility"><i
-                        class="fa-solid fa-universal-access"></i></button>
+                <!-- 7. Categories -->
+                <div class="sidebar-section">
+                    <h3>Categories</h3>
+                    <ul class="category-list" id="categoryList">
+                        <li class="active" data-category="all"><i class="fa-solid fa-layer-group"></i> All News</li>
+                        <li data-category="AI"><i class="fa-solid fa-robot"></i> AI & Robotics</li>
+                        <li data-category="Mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</li>
+                        <li data-category="Hardware"><i class="fa-solid fa-memory"></i> Hardware</li>
+                        <li data-category="Software"><i class="fa-solid fa-code"></i> Software</li>
+                        <li data-category="Gaming"><i class="fa-solid fa-gamepad"></i> Gaming</li>
+                    </ul>
+                </div>
+            </aside>
 
-                <div class="xp-badge" id="xpBadge">
-                    <span class="level">Lvl <span id="userLevel">1</span></span>
-                    <div class="xp-bar">
-                        <div class="xp-fill" id="xpFill"></div>
+            <!-- 8. News Feed -->
+            <section class="news-feed">
+                <div class="feed-header">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search news...">
                     </div>
                 </div>
 
-                <button id="themeToggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
-                <button id="bookmarksBtn" class="icon-btn">
-                    <i class="fa-solid fa-bookmark"></i>
-                    <span class="badge" id="bookmarkCount">0</span>
-                </button>
+                <div class="hero-section" id="heroSection"></div>
+                <div class="news-grid" id="newsGrid"></div>
+            </section>
+        </main>
+
+        <!-- 9. AI Chat Bot -->
+        <div class="ai-chat glass collapsed" id="aiChat">
+            <div class="chat-header" id="chatHeader">
+                <span><i class="fa-solid fa-robot"></i> D-Bot</span>
+                <button id="closeChat"><i class="fa-solid fa-minus"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="msg bot">Hello! I'm D-Bot. Ask me anything about tech!</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask D-Bot...">
+                <button id="sendChat"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Sidebar -->
-        <aside class="sidebar glass">
-            <div class="sidebar-section weather-widget" id="weatherWidget">
-                <h3>Tech Hub Weather</h3>
-                <div class="weather-grid" id="weatherGrid"></div>
+        <!-- 10. TTS Player (Reading Mode) -->
+        <div class="tts-player glass" id="ttsPlayer" style="display: none;">
+            <div class="tts-info">
+                <span class="tts-label">Playing:</span>
+                <span id="ttsTitle">Article Title</span>
             </div>
-
-            <div class="sidebar-section">
-                <h3>Categories</h3>
-                <ul class="category-list" id="categoryList">
-                    <li class="active" data-category="all"><i class="fa-solid fa-layer-group"></i> All News</li>
-                    <li data-category="AI"><i class="fa-solid fa-robot"></i> AI & Robotics</li>
-                    <li data-category="Mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</li>
-                    <li data-category="Hardware"><i class="fa-solid fa-memory"></i> Hardware</li>
-                    <li data-category="Software"><i class="fa-solid fa-code"></i> Software</li>
-                    <li data-category="Gaming"><i class="fa-solid fa-gamepad"></i> Gaming</li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section poll-widget">
-                <h3>Poll of the Week</h3>
-                <div class="poll-container" id="pollContainer">
-                    <p class="poll-question">Which tech trend are you most excited for?</p>
-                    <div class="poll-options" id="pollOptions"></div>
-                </div>
-            </div>
-
-            <div class="sidebar-section newsletter-widget">
-                <h3><i class="fa-regular fa-paper-plane"></i> Subscribe</h3>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">Join</button>
-                </form>
-            </div>
-        </aside>
-
-        <!-- News Feed -->
-        <section class="news-feed">
-            <div class="hero-section" id="heroSection"></div>
-
-            <div class="feed-header">
-                <h2 id="feedTitle" class="typewriter">Latest News</h2>
-                <div class="view-options">
-                    <button class="active" data-view="grid"><i class="fa-solid fa-grid-2"></i></button>
-                    <button data-view="list"><i class="fa-solid fa-list"></i></button>
-                </div>
-            </div>
-
-            <div class="news-grid" id="newsGrid"></div>
-        </section>
-    </main>
-
-    <!-- AI Chat Bot -->
-    <div class="ai-chat glass collapsed" id="aiChat">
-        <div class="chat-header" id="chatHeader">
-            <span><i class="fa-solid fa-robot"></i> D-Bot Assistant</span>
-            <button id="closeChat"><i class="fa-solid fa-minus"></i></button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg bot">Hello! I'm D-Bot. Ask me anything about tech!</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Ask D-Bot...">
-            <button id="sendChat"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- TTS Player -->
-    <div class="tts-player glass" id="ttsPlayer">
-        <div class="tts-info">
-            <span class="tts-label">Playing:</span>
-            <span id="ttsTitle">Article Title</span>
-        </div>
-        <div class="tts-controls">
-            <button id="ttsPlayPause"><i class="fa-solid fa-pause"></i></button>
-            <button id="ttsStop"><i class="fa-solid fa-stop"></i></button>
-        </div>
-    </div>
-
-    <!-- Back to Top -->
-    <button id="backToTop" class="glass"><i class="fa-solid fa-arrow-up"></i></button>
-</div>
-
-<!-- Modals -->
-<div class="modal-overlay" id="modalOverlay"></div>
-
-<!-- Article Modal -->
-<div class="modal glass" id="articleModal">
-    <div class="reading-progress-bar" id="readingProgress"></div>
-    <button class="close-modal" id="closeArticleModal"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-content" id="articleModalContent"></div>
-    <div class="article-footer">
-        <div class="modal-actions">
-            <button class="action-btn" id="modalLikeBtn"><i class="fa-regular fa-heart"></i> <span
-                    id="likeCount">0</span></button>
-            <button class="action-btn" id="modalBookmarkBtn"><i class="fa-regular fa-bookmark"></i> Save</button>
-            <button class="action-btn" id="modalShareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
-            <button class="action-btn" id="modalTTSBtn"><i class="fa-solid fa-headphones"></i> Listen</button>
-            <button class="action-btn" id="modalPrintBtn"><i class="fa-solid fa-print"></i> Print</button>
-        </div>
-        <div class="comments-section">
-            <h3>Comments (<span id="commentCount">0</span>)</h3>
-            <div class="comment-form">
-                <input type="text" id="commentInput" placeholder="Add a comment...">
-                <button id="postCommentBtn">Post</button>
-            </div>
-            <div class="comments-list" id="commentsList"></div>
-        </div>
-    </div>
-</div>
-
-<!-- Bookmarks Modal -->
-<div class="modal glass" id="bookmarksModal">
-    <div class="modal-header">
-        <h2>Saved Articles</h2>
-        <button class="close-modal" id="closeBookmarksModal"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="bookmarks-list" id="bookmarksList"></div>
-</div>
-
-<!-- Toolbox Modal -->
-<div class="modal glass" id="toolboxModal">
-    <div class="modal-header">
-        <h2>Tech Toolbox</h2>
-        <button class="close-modal" id="closeToolboxModal"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="toolbox-grid">
-        <div class="tool-card" id="toolCalc">
-            <i class="fa-solid fa-calculator"></i>
-            <span>Calculator</span>
-        </div>
-        <div class="tool-card" id="toolPomodoro">
-            <i class="fa-solid fa-clock"></i>
-            <span>Pomodoro</span>
-        </div>
-        <div class="tool-card" id="toolQR">
-            <i class="fa-solid fa-qrcode"></i>
-            <span>QR Gen</span>
-        </div>
-        <div class="tool-card" id="toolNotepad">
-            <i class="fa-solid fa-note-sticky"></i>
-            <span>Notepad</span>
-        </div>
-    </div>
-    <div class="tool-content" id="toolContent"></div>
-</div>
-
-<!-- Games Modal -->
-<div class="modal glass" id="gamesModal">
-    <div class="modal-header">
-        <h2>Arcade</h2>
-        <button class="close-modal" id="closeGamesModal"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="game-container">
-        <canvas id="snakeCanvas" width="400" height="400"></canvas>
-        <div class="game-controls">
-            <button id="startSnakeBtn">Start Game</button>
-            <span id="snakeScore">Score: 0</span>
-        </div>
-    </div>
-</div>
-
-<!-- Accessibility Modal -->
-<div class="modal glass" id="a11yModal">
-    <div class="modal-header">
-        <h2>Accessibility Settings</h2>
-        <button class="close-modal" id="closeA11yModal"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="a11y-controls">
-        <div class="control-group">
-            <label>Font Size</label>
-            <div class="btn-group">
-                <button onclick="adjustFontSize(-1)">-</button>
-                <button onclick="adjustFontSize(1)">+</button>
+            <div class="tts-controls">
+                <button id="ttsPlayPause"><i class="fa-solid fa-pause"></i></button>
+                <button id="ttsStop"><i class="fa-solid fa-stop"></i></button>
             </div>
         </div>
-        <div class="control-group">
-            <label>Dyslexia Friendly</label>
-            <button id="toggleDyslexia" class="toggle-btn">Off</button>
-        </div>
-        <div class="control-group">
-            <label>High Contrast</label>
-            <button id="toggleContrast" class="toggle-btn">Off</button>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Article Modal -->
+    <div class="modal glass" id="articleModal">
+        <button class="close-modal" id="closeArticleModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content" id="articleModalContent"></div>
+        <div class="article-footer">
+            <div class="modal-actions">
+                <button class="action-btn" id="modalBookmarkBtn"><i class="fa-regular fa-bookmark"></i> Save</button>
+                <button class="action-btn" id="modalShareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                <button class="action-btn" id="modalTTSBtn"><i class="fa-solid fa-headphones"></i> Listen</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Cookie Consent -->
-<div class="cookie-banner glass" id="cookieBanner">
-    <div class="cookie-content">
-        <i class="fa-solid fa-cookie-bite"></i>
-        <p>We use cookies to ensure you get the best experience.</p>
+    <!-- Bookmarks Modal -->
+    <div class="modal glass" id="bookmarksModal">
+        <div class="modal-header">
+            <h2>Saved Articles</h2>
+            <button class="close-modal" id="closeBookmarksModal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="bookmarks-list" id="bookmarksList"></div>
     </div>
-    <button id="acceptCookiesBtn">Accept</button>
-</div>
 
-<script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 
 </html>
