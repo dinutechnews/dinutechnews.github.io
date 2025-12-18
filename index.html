@@ -1,41 +1,138 @@
-<div id="hero-container" class="hero">
-    <!-- Injected by JS -->
-</div>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 
-<!-- Main Content -->
-<main>
-    <h2 class="section-title">The Latest</h2>
-    <div id="feed-container">
-        <p>Loading news...</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="D-TECH-NEWZ - The latest in technology, AI, and gadgets.">
+    <title>D-TECH-NEWZ | Future of Tech</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar glass">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>D-TECH-NEWZ</span>
+                </div>
+
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search news...">
+                </div>
+
+                <div class="nav-actions">
+                    <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button id="bookmarksBtn" class="icon-btn" aria-label="Bookmarks">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span class="badge" id="bookmarkCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar glass">
+                <div class="sidebar-section">
+                    <h3>Categories</h3>
+                    <ul class="category-list" id="categoryList">
+                        <li class="active" data-category="all"><i class="fa-solid fa-layer-group"></i> All News</li>
+                        <li data-category="AI"><i class="fa-solid fa-robot"></i> AI & Robotics</li>
+                        <li data-category="Mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</li>
+                        <li data-category="Hardware"><i class="fa-solid fa-memory"></i> Hardware</li>
+                        <li data-category="Software"><i class="fa-solid fa-code"></i> Software</li>
+                        <li data-category="Gaming"><i class="fa-solid fa-gamepad"></i> Gaming</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Trending</h3>
+                    <div class="trending-list" id="trendingList">
+                        <!-- Trending items injected here -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- News Feed -->
+            <section class="news-feed">
+                <div class="hero-section" id="heroSection">
+                    <!-- Hero article injected here -->
+                </div>
+
+                <div class="feed-header">
+                    <h2 id="feedTitle">Latest News</h2>
+                    <div class="view-options">
+                        <button class="active" data-view="grid"><i class="fa-solid fa-grid-2"></i></button>
+                        <button data-view="list"><i class="fa-solid fa-list"></i></button>
+                    </div>
+                </div>
+
+                <div class="news-grid" id="newsGrid">
+                    <!-- News cards injected here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Player / TTS Control (Hidden by default) -->
+        <div class="tts-player glass" id="ttsPlayer">
+            <div class="tts-info">
+                <span class="tts-label">Playing:</span>
+                <span id="ttsTitle">Article Title</span>
+            </div>
+            <div class="tts-controls">
+                <button id="ttsPlayPause"><i class="fa-solid fa-pause"></i></button>
+                <button id="ttsStop"><i class="fa-solid fa-stop"></i></button>
+            </div>
+        </div>
     </div>
-</main>
-</div>
 
-<!-- Article View (Hidden by default) -->
-<div id="article-view" class="single-article-container" style="display: none;">
-    <!-- Injected by JS -->
-</div>
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay"></div>
 
-<!-- Sidebar -->
-<aside id="sidebar">
-    <div class="sidebar-widget">
-        <h3 style="font-weight: 900; margin-bottom: 1rem;">THE DAILY CRUNCH</h3>
-        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">Get the top tech stories delivered to
-            your inbox.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
-            <input type="email" placeholder="Your email address" required>
-            <button type="submit">Subscribe</button>
-        </form>
+    <!-- Article Modal -->
+    <div class="modal glass" id="articleModal">
+        <button class="close-modal" id="closeArticleModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content" id="articleModalContent">
+            <!-- Article content injected here -->
+        </div>
+        <div class="modal-actions">
+            <button class="action-btn" id="modalBookmarkBtn"><i class="fa-regular fa-bookmark"></i> Save</button>
+            <button class="action-btn" id="modalShareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+            <button class="action-btn" id="modalTTSBtn"><i class="fa-solid fa-headphones"></i> Listen</button>
+        </div>
     </div>
-</aside>
-</div>
 
-<footer>
-    <p>&copy; 2025 D-Tech Newz. All rights reserved.</p>
-    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Powered by Firebase & GitHub Pages</p>
-</footer>
+    <!-- Bookmarks Modal -->
+    <div class="modal glass" id="bookmarksModal">
+        <div class="modal-header">
+            <h2>Saved Articles</h2>
+            <button class="close-modal" id="closeBookmarksModal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="bookmarks-list" id="bookmarksList">
+            <!-- Bookmarks injected here -->
+        </div>
+    </div>
 
-<script type="module" src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
