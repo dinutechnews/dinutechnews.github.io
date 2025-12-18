@@ -83,17 +83,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Router Logic
-    const path = window.location.pathname;
     const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const category = params.get('category');
 
-    if (path.includes('article.html')) {
-        const id = params.get('id');
-        loadArticle(id);
+    if (id) {
+        showArticleView(id);
     } else {
-        const category = params.get('category');
-        loadHome(category);
+        showHomeView(category);
     }
 });
+
+function showHomeView(category) {
+    const homeView = document.getElementById('home-view');
+    const articleView = document.getElementById('article-view');
+    const sidebar = document.getElementById('sidebar');
+
+    if (homeView) homeView.style.display = 'block';
+    if (articleView) articleView.style.display = 'none';
+    if (sidebar) sidebar.style.display = 'block';
+
+    loadHome(category);
+}
+
+function showArticleView(id) {
+    const homeView = document.getElementById('home-view');
+    const articleView = document.getElementById('article-view');
+    const sidebar = document.getElementById('sidebar');
+
+    if (homeView) homeView.style.display = 'none';
+    if (articleView) articleView.style.display = 'block';
+    if (sidebar) sidebar.style.display = 'none';
+
+    loadArticle(id);
+}
 
 // Data Fetching
 async function getArticles() {
@@ -135,11 +158,10 @@ async function loadHome(category) {
 
     if (category) {
         articles = articles.filter(a => a.category.toLowerCase() === category.toLowerCase());
-        // Hide hero on category pages if desired, or just show first matching as hero
     }
 
     if (articles.length === 0) {
-        feedContainer.innerHTML = '<p>No articles found.</p>';
+        if (feedContainer) feedContainer.innerHTML = '<p>No articles found.</p>';
         return;
     }
 
@@ -147,7 +169,7 @@ async function loadHome(category) {
     const hero = articles[0];
     if (heroContainer) {
         heroContainer.innerHTML = `
-            <a href="article.html?id=${hero.id}">
+            <a href="?id=${hero.id}">
                 <img src="${hero.image}" alt="${hero.title}">
                 <div class="hero-overlay">
                     <span class="category-tag">${hero.category}</span>
@@ -165,14 +187,14 @@ async function loadHome(category) {
         feedContainer.innerHTML = articles.slice(1).map(article => `
             <article class="article-card">
                 <div class="card-image">
-                    <a href="article.html?id=${article.id}">
+                    <a href="?id=${article.id}">
                         <img src="${article.image}" alt="${article.title}">
                     </a>
                 </div>
                 <div class="card-content">
                     <span class="card-category">${article.category}</span>
                     <h2 class="card-title">
-                        <a href="article.html?id=${article.id}">${article.title}</a>
+                        <a href="?id=${article.id}">${article.title}</a>
                     </h2>
                     <p class="card-excerpt">${article.excerpt}</p>
                     <div class="meta">
@@ -185,19 +207,20 @@ async function loadHome(category) {
 }
 
 async function loadArticle(id) {
-    const container = document.getElementById('article-content');
+    const container = document.getElementById('article-view');
     if (!container) return;
 
     const article = await getArticleById(id);
 
     if (!article) {
-        container.innerHTML = '<h1>Article not found</h1>';
+        container.innerHTML = '<h1>Article not found</h1><p><a href="index.html">Go back home</a></p>';
         return;
     }
 
     document.title = `${article.title} | D-Tech Newz`;
 
     container.innerHTML = `
+        <div style="margin-bottom: 2rem;"><a href="index.html" style="font-weight:bold;">← Back to Home</a></div>
         <header class="single-header">
             <span class="category-tag">${article.category}</span>
             <h1 class="single-title">${article.title}</h1>
