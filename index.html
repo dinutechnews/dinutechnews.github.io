@@ -1,61 +1,41 @@
-<body>
+<div id="hero-container" class="hero">
+    <!-- Injected by JS -->
+</div>
 
-    <header>
-        <div class="header-inner">
-            <a href="index.html" class="logo">D-Tech <span>Newz</span></a>
-            <nav>
-                <ul>
-                    <li><a href="index.html?category=startups">Startups</a></li>
-                    <li><a href="index.html?category=ai">AI</a></li>
-                    <li><a href="index.html?category=gadgets">Gadgets</a></li>
-                    <li><a href="index.html?category=apps">Apps</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- Home View -->
-        <div id="home-view">
-            <!-- Hero Section -->
-            <div id="hero-container" class="hero">
-                <!-- Injected by JS -->
-            </div>
-
-            <!-- Main Content -->
-            <main>
-                <h2 class="section-title">The Latest</h2>
-                <div id="feed-container">
-                    <p>Loading news...</p>
-                </div>
-            </main>
-        </div>
-
-        <!-- Article View (Hidden by default) -->
-        <div id="article-view" class="single-article-container" style="display: none;">
-            <!-- Injected by JS -->
-        </div>
-
-        <!-- Sidebar -->
-        <aside id="sidebar">
-            <div class="sidebar-widget">
-                <h3 style="font-weight: 900; margin-bottom: 1rem;">THE DAILY CRUNCH</h3>
-                <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">Get the top tech stories delivered to
-                    your inbox.</p>
-                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
-        </aside>
+<!-- Main Content -->
+<main>
+    <h2 class="section-title">The Latest</h2>
+    <div id="feed-container">
+        <p>Loading news...</p>
     </div>
+</main>
+</div>
 
-    <footer>
-        <p>&copy; 2025 D-Tech Newz. All rights reserved.</p>
-        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Powered by Firebase & GitHub Pages</p>
-    </footer>
+<!-- Article View (Hidden by default) -->
+<div id="article-view" class="single-article-container" style="display: none;">
+    <!-- Injected by JS -->
+</div>
 
-    <script type="module" src="script.js"></script>
+<!-- Sidebar -->
+<aside id="sidebar">
+    <div class="sidebar-widget">
+        <h3 style="font-weight: 900; margin-bottom: 1rem;">THE DAILY CRUNCH</h3>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">Get the top tech stories delivered to
+            your inbox.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</aside>
+</div>
+
+<footer>
+    <p>&copy; 2025 D-Tech Newz. All rights reserved.</p>
+    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Powered by Firebase & GitHub Pages</p>
+</footer>
+
+<script type="module" src="script.js"></script>
 </body>
 
 </html>

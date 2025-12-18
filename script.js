@@ -82,6 +82,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Theme Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (themeToggle) themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    }
+
+    // Search Logic
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const articles = document.querySelectorAll('.article-card');
+            articles.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.card-excerpt').textContent.toLowerCase();
+                if (title.includes(term) || excerpt.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
     // Router Logic
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -98,10 +134,12 @@ function showHomeView(category) {
     const homeView = document.getElementById('home-view');
     const articleView = document.getElementById('article-view');
     const sidebar = document.getElementById('sidebar');
+    const searchContainer = document.querySelector('.search-container');
 
     if (homeView) homeView.style.display = 'block';
     if (articleView) articleView.style.display = 'none';
     if (sidebar) sidebar.style.display = 'block';
+    if (searchContainer) searchContainer.style.display = 'flex';
 
     loadHome(category);
 }
@@ -110,10 +148,12 @@ function showArticleView(id) {
     const homeView = document.getElementById('home-view');
     const articleView = document.getElementById('article-view');
     const sidebar = document.getElementById('sidebar');
+    const searchContainer = document.querySelector('.search-container');
 
     if (homeView) homeView.style.display = 'none';
     if (articleView) articleView.style.display = 'block';
     if (sidebar) sidebar.style.display = 'none';
+    if (searchContainer) searchContainer.style.display = 'none';
 
     loadArticle(id);
 }
@@ -218,6 +258,8 @@ async function loadArticle(id) {
     }
 
     document.title = `${article.title} | D-Tech Newz`;
+    const currentUrl = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(article.title);
 
     container.innerHTML = `
         <div style="margin-bottom: 2rem;"><a href="index.html" style="font-weight:bold;">← Back to Home</a></div>
@@ -226,6 +268,11 @@ async function loadArticle(id) {
             <h1 class="single-title">${article.title}</h1>
             <div class="meta">
                 <span>By <strong>${article.author}</strong></span> • <span>${article.date}</span>
+            </div>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=${title}&url=${currentUrl}" target="_blank" class="share-btn share-twitter">Twitter</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${currentUrl}" target="_blank" class="share-btn share-facebook">Facebook</a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=${currentUrl}&title=${title}" target="_blank" class="share-btn share-linkedin">LinkedIn</a>
             </div>
         </header>
         <img src="${article.image}" alt="${article.title}" class="single-image">
