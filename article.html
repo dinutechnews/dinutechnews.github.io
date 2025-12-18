@@ -1,299 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
     <title id="article-title">Article - D-TECH NEWZ</title>
-    <meta name="description" id="article-description"
-        content="Read the latest technology news and insights at D-TECH NEWZ">
-    <meta name="keywords"
-        content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation">
-    <meta name="author" content="D-TECH NEWZ">
+    <meta
+      name="description"
+      id="article-description"
+      content="Read the latest technology news and insights at D-TECH NEWZ"
+    />
+    <meta
+      name="keywords"
+      content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation"
+    />
+    <meta name="author" content="D-TECH NEWZ" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Technology Article - D-TECH NEWZ">
-    <meta property="og:description" content="Read the latest technology news and insights">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://dinutechnews.github.io/article.html">
-    <meta property="og:image" content="https://dinutechnews.github.io/og-image.jpg">
+    <meta property="og:title" content="Technology Article - D-TECH NEWZ" />
+    <meta
+      property="og:description"
+      content="Read the latest technology news and insights"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://dinutechnews.github.io/article.html"
+    />
+    <meta
+      property="og:image"
+      content="https://dinutechnews.github.io/og-image.jpg"
+    />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Technology Article - D-TECH NEWZ">
-    <meta name="twitter:description" content="Read the latest technology news and insights">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Technology Article - D-TECH NEWZ" />
+    <meta
+      name="twitter:description"
+      content="Read the latest technology news and insights"
+    />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v6.4.2/css/all.css"
+    />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Syntax Highlighting -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Firebase -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, doc, getDoc, setDoc, increment, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
-        const firebaseConfig = {
-            apiKey: "AIzaSyBWuZ1WCoCPyNvfQ7poCybyoj1GOLy6XG0",
-            authDomain: "dinutechnews-cc0f1.firebaseapp.com",
-            projectId: "dinutechnews-cc0f1",
-            storageBucket: "dinutechnews-cc0f1.firebasestorage.app",
-            messagingSenderId: "777283083312",
-            appId: "1:777283083312:web:9a5dbaf450e6d2e1b121f5",
-            measurementId: "G-G1XH7BL9M9"
-        };
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBhvtv4pWvtfoprzBsdPpmeSPAQBewnaLM",
+        authDomain: "dinutechnewz.firebaseapp.com",
+        projectId: "dinutechnewz",
+        storageBucket: "dinutechnewz.firebasestorage.app",
+        messagingSenderId: "278488425562",
+        appId: "1:278488425562:web:9e456a4a661e738431e463",
+        measurementId: "G-HSTHKP687Q",
+      };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Make db available globally
-        window.db = db;
-        console.log('Firebase initialized successfully, db available:', !!window.db);
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
     </script>
 
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
-        crossorigin="anonymous"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="D-TECH NEWZ RSS Feed"
+      href="/rss.xml"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+    />
 
     <!-- giscus -->
-    <script src="https://giscus.app/client.js" data-repo="dinutechnews/dinutechnews.github.io"
-        data-repo-id="R_kgDOQl7m4w" data-category="General" data-category-id="DIC_kwDOQl7m484Czm2d"
-        data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
-        data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
-        crossorigin="anonymous" async>
-        </script>
-</head>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="dinutechnews/dinutechnews.github.io"
+      data-repo-id="R_kgDOQl7m4w"
+      data-category="General"
+      data-category-id="DIC_kwDOQl7m484Czm2d"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async
+    ></script>
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
+      <!-- Simple Navbar -->
+      <header>
+        <nav class="navbar">
+          <a href="index.html" class="logo">D-TECH NEWZ</a>
+          <div class="navbar-buttons">
+            <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
+            <button id="theme-toggle" class="theme-btn"></button>
+          </div>
+        </nav>
+      </header>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu">
+        <button id="close-menu" class="close-menu">×</button>
+        <nav class="mobile-nav">
+          <a href="index.html" class="active">Home</a>
+          <a href="#categories">Categories</a>
+          <a href="about.html">About</a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
 
+      <!-- Menu Overlay -->
+      <div id="menu-overlay" class="menu-overlay"></div>
 
-        <!-- Simple Navbar -->
-        <header>
-            <nav class="navbar">
-                <a href="index.html" class="logo">D-TECH NEWZ</a>
-                <div class="navbar-buttons">
-                    <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
-                    <button id="theme-toggle" class="theme-btn"></button>
+      <!-- Reading Progress Bar -->
+      <div id="reading-progress" class="reading-progress">
+        <div class="reading-progress-bar"></div>
+      </div>
+
+      <!-- Jump to Top Button -->
+      <button
+        id="jump-to-top"
+        class="jump-to-top-btn"
+        title="Jump to top"
+      ></button>
+
+      <!-- Stats Bar -->
+      <div id="stats-bar" class="stats-bar">
+        <!-- Stats will be dynamically loaded -->
+      </div>
+
+      <!-- Main Content -->
+      <main>
+        <a href="index.html" class="back-link"
+          ><i class="fas fa-arrow-left-long"></i> Back to Home</a
+        >
+
+        <div class="article-container">
+          <!-- Article Main Content -->
+          <div class="article-main">
+            <!-- Article Header -->
+            <article class="article-header">
+              <h1 class="article-title" id="article-title-display">
+                Loading...
+              </h1>
+
+              <div class="article-info">
+                <span class="article-category" id="article-category-display"
+                  >Category</span
+                >
+                <span class="article-date" id="article-date-display">Date</span>
+                <span class="article-reading-time" id="article-reading-time"
+                  >⏱️ 5 min read</span
+                >
+
+                <div class="author-info">
+                  <span class="author-avatar" id="author-avatar">👤</span>
+                  <span id="author-name">Author</span>
                 </div>
-            </nav>
-        </header>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu">
-            <button id="close-menu" class="close-menu">×</button>
-            <nav class="mobile-nav">
-                <a href="index.html" class="active">Home</a>
-                <a href="#categories">Categories</a>
-                <a href="about.html">About</a>
-                <a href="#newsletter">Newsletter</a>
-                <a href="privacy.html">Privacy</a>
-            </nav>
-        </div>
+              </div>
 
-        <!-- Menu Overlay -->
-        <div id="menu-overlay" class="menu-overlay"></div>
+              <div class="article-stats">
+                <span class="stat-item"
+                  ><i class="fas fa-eye"></i>
+                  <span id="article-views">0</span> views</span
+                >
+                <span class="stat-item"
+                  ><i class="fas fa-heart"></i>
+                  <span id="article-likes">0</span> likes</span
+                >
+              </div>
+            </article>
 
-        <!-- Reading Progress Bar -->
-        <div id="reading-progress" class="reading-progress">
-            <div class="reading-progress-bar"></div>
-        </div>
-
-        <!-- Jump to Top Button -->
-        <button id="jump-to-top" class="jump-to-top-btn" title="Jump to top">
-        </button>
-
-        <!-- Stats Bar -->
-        <div id="stats-bar" class="stats-bar">
-            <!-- Stats will be dynamically loaded -->
-        </div>
-
-        <!-- Main Content -->
-        <main>
-
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left-long"></i> Back to Home</a>
-
-            <div class="article-container">
-
-                <!-- Article Main Content -->
-                <div class="article-main">
-
-                    <!-- Article Header -->
-                    <article class="article-header">
-                        <h1 class="article-title" id="article-title-display">Loading...</h1>
-
-                        <div class="article-info">
-                            <span class="article-category" id="article-category-display">Category</span>
-                            <span class="article-date" id="article-date-display">Date</span>
-                            <span class="article-reading-time" id="article-reading-time">⏱️ 5 min read</span>
-
-                            <div class="author-info">
-                                <span class="author-avatar" id="author-avatar">👤</span>
-                                <span id="author-name">Author</span>
-                            </div>
-                        </div>
-
-                        <div class="article-stats">
-                            <span class="stat-item"><i class="fas fa-eye"></i> <span id="article-views">0</span>
-                                views</span>
-                            <span class="stat-item"><i class="fas fa-heart"></i> <span id="article-likes">0</span>
-                                likes</span>
-                        </div>
-                    </article>
-
-                    <!-- Top AdSense Banner -->
-                    <div class="ad-container">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2433918096859970"
-                            data-ad-slot="9067590782" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    </div>
-
-                    <!-- Article Body -->
-                    <div class="article-body" id="article-content">
-                        <p>Loading article content...</p>
-                    </div>
-
-                    <!-- Middle AdSense Banner -->
-                    <div class="ad-container">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2433918096859970"
-                            data-ad-slot="8172585166" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    </div>
-
-                    <!-- Related Articles -->
-                    <div class="related-articles" id="related-articles">
-                        <h3>Related Articles</h3>
-                        <div id="related-articles-list"></div>
-                    </div>
-
-                    <!-- Giscus Comments Section -->
-                    <section class="comments-section">
-                        <h3>Comments & Discussion</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">
-                            Share your thoughts and engage with the community!
-                        </p>
-                        <div id="giscus-comments"></div>
-                    </section>
-
-                </div>
-
-                <!-- Article Sidebar -->
-                <aside class="article-sidebar">
-
-                    <!-- Table of Contents -->
-                    <div class="toc-widget">
-                        <div class="toc-title">Table of Contents</div>
-                        <ul class="toc-list" id="toc-list">
-                            <li><a href="#overview">Overview</a></li>
-                            <li><a href="#key-points">Key Points</a></li>
-                            <li><a href="#conclusion">Conclusion</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Share Widget -->
-                    <div class="share-widget">
-                        <div class="share-title">Share Article</div>
-                        <div class="share-buttons">
-                            <button class="share-btn" onclick="shareTwitter()">
-                                <i class="fab fa-twitter"></i> Share on Twitter
-                            </button>
-                            <button class="share-btn" onclick="shareLinkedIn()">
-                                <i class="fab fa-linkedin"></i> Share on LinkedIn
-                            </button>
-                            <button class="share-btn" onclick="copyLink()">
-                                <i class="fas fa-copy"></i> Copy Link
-                            </button>
-                            <button class="share-btn" id="bookmark-btn" onclick="toggleBookmark()">
-                                <i class="fas fa-bookmark"></i> Bookmark
-                            </button>
-                        </div>
-                    </div>
-
-                </aside>
-
+            <!-- Top AdSense Banner -->
+            <div class="ad-container">
+              <ins
+                class="adsbygoogle"
+                style="display: block"
+                data-ad-client="ca-pub-2433918096859970"
+                data-ad-slot="9067590782"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
 
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-
-                <div class="footer-section">
-                    <h4>අපි ගැන,</h4>
-                    <p>
-                        mh.. එච්චර දෙයක් නෑ කියන්න ඉතින්, තාක්ෂණික ලෝකෙ සිද්ධවෙන දේවල් සින්හලෙන්ම ඒවගේම තප්පරෙන් (ඊට
-                        වඩා වෙන්නත් පුළුවන්) අපි සපයනවා. And also, we are currently looking for a talented tech article
-                        writer..... so, if you are willing to join us, just let us know by messaging to the number below
-                        🙂:
-                    </p>
-                    <p><br>| 71 279 3528 |</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="#newsletter">Newsletter</a></li>
-                        <li><a href="/rss.xml">RSS Feed</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Categories</h4>
-                    <ul>
-                        <li><a href="#" data-category="AI">Artificial Intelligence</a></li>
-                        <li><a href="#" data-category="Security">Cybersecurity</a></li>
-                        <li><a href="#" data-category="Computing">Quantum Computing</a></li>
-                        <li><a href="#" data-category="Blockchain">Blockchain & Web3</a></li>
-                        <li><a href="#" data-category="Green Tech">Green Technology</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>අපේ Social Media Links ටික :</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
-                    </div>
-                </div>
-
+            <!-- Article Body -->
+            <div class="article-body" id="article-content">
+              <p>Loading article content...</p>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2025 D-TECH NEWZ. <br>ඔක්කොම rights reserved.</p>
-                <p> \\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු ❤️//<br>\\❤️ එකම සයිට් එක ❤️//</p>
-                <p style="margin-top: var(--spacing-xs); font-size: 0.7rem;">
-
-                    <a href="privacy.html">Privacy Policy</a> |
-                    <a href="about.html">About</a>
-                </p>
+            <!-- Middle AdSense Banner -->
+            <div class="ad-container">
+              <ins
+                class="adsbygoogle"
+                style="display: block"
+                data-ad-client="ca-pub-2433918096859970"
+                data-ad-slot="8172585166"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
-        </footer>
+
+            <!-- Related Articles -->
+            <div class="related-articles" id="related-articles">
+              <h3>Related Articles</h3>
+              <div id="related-articles-list"></div>
+            </div>
+
+            <!-- Giscus Comments Section -->
+            <section class="comments-section">
+              <h3>Comments & Discussion</h3>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  margin-bottom: var(--spacing-md);
+                "
+              >
+                Share your thoughts and engage with the community!
+              </p>
+              <div id="giscus-comments"></div>
+            </section>
+          </div>
+
+          <!-- Article Sidebar -->
+          <aside class="article-sidebar">
+            <!-- Table of Contents -->
+            <div class="toc-widget">
+              <div class="toc-title">Table of Contents</div>
+              <ul class="toc-list" id="toc-list">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#key-points">Key Points</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+              </ul>
+            </div>
+
+            <!-- Share Widget -->
+            <div class="share-widget">
+              <div class="share-title">Share Article</div>
+              <div class="share-buttons">
+                <button class="share-btn" onclick="shareTwitter()">
+                  <i class="fab fa-twitter"></i> Share on Twitter
+                </button>
+                <button class="share-btn" onclick="shareLinkedIn()">
+                  <i class="fab fa-linkedin"></i> Share on LinkedIn
+                </button>
+                <button class="share-btn" onclick="copyLink()">
+                  <i class="fas fa-copy"></i> Copy Link
+                </button>
+                <button
+                  class="share-btn"
+                  id="bookmark-btn"
+                  onclick="toggleBookmark()"
+                >
+                  <i class="fas fa-bookmark"></i> Bookmark
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>අපි ගැන,</h4>
+            <p>
+              mh.. එච්චර දෙයක් නෑ කියන්න ඉතින්, තාක්ෂණික ලෝකෙ සිද්ධවෙන දේවල්
+              සින්හලෙන්ම ඒවගේම තප්පරෙන් (ඊට වඩා වෙන්නත් පුළුවන්) අපි සපයනවා. And
+              also, we are currently looking for a talented tech article
+              writer..... so, if you are willing to join us, just let us know by
+              messaging to the number below 🙂:
+            </p>
+            <p><br />| 71 279 3528 |</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="#newsletter">Newsletter</a></li>
+              <li><a href="/rss.xml">RSS Feed</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Categories</h4>
+            <ul>
+              <li>
+                <a href="#" data-category="AI">Artificial Intelligence</a>
+              </li>
+              <li><a href="#" data-category="Security">Cybersecurity</a></li>
+              <li>
+                <a href="#" data-category="Computing">Quantum Computing</a>
+              </li>
+              <li>
+                <a href="#" data-category="Blockchain">Blockchain & Web3</a>
+              </li>
+              <li>
+                <a href="#" data-category="Green Tech">Green Technology</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>අපේ Social Media Links ටික :</h4>
+            <div class="social-links">
+              <a href="#" class="social-link" title="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" class="social-link" title="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="social-link" title="GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" class="social-link" title="Discord"
+                ><i class="fab fa-discord"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 D-TECH NEWZ. <br />ඔක්කොම rights reserved.</p>
+          <p>
+            \\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු ❤️//<br />\\❤️ එකම සයිට් එක ❤️//
+          </p>
+          <p style="margin-top: var(--spacing-xs); font-size: 0.7rem">
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="about.html">About</a>
+          </p>
+        </div>
+      </footer>
     </div>
 
     <!-- Main Script -->
@@ -301,233 +385,273 @@
 
     <!-- Article-specific Script -->
     <script>
-        let currentArticle = null;
+      let currentArticle = null;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadArticle();
-            initTheme();
-            hljs.highlightAll(); // Initialize syntax highlighting
-        });
+      document.addEventListener("DOMContentLoaded", () => {
+        loadArticle();
+        initTheme();
+        hljs.highlightAll(); // Initialize syntax highlighting
+      });
 
-        function loadArticle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = parseInt(urlParams.get('id'));
+      function loadArticle() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = parseInt(urlParams.get("id"));
 
-            currentArticle = window.DTechNews.articles.find(a => a.id === articleId);
+        currentArticle = window.DTechNews.articles.find(
+          (a) => a.id === articleId
+        );
 
-            if (currentArticle) {
-                displayArticle(currentArticle);
-                loadRelatedArticles(currentArticle);
-                window.DTechNews.initGiscusComments();
-                window.DTechNews.initAdSense();
-            } else {
-                document.getElementById('article-title-display').textContent = 'Article Not Found';
-                document.getElementById('article-content').innerHTML =
-                    '<p>Sorry, the requested article could not be found. <a href="index.html">Return to home</a>.</p>';
-            }
+        if (currentArticle) {
+          displayArticle(currentArticle);
+          loadRelatedArticles(currentArticle);
+          window.DTechNews.initGiscusComments();
+          window.DTechNews.initAdSense();
+        } else {
+          document.getElementById("article-title-display").textContent =
+            "Article Not Found";
+          document.getElementById("article-content").innerHTML =
+            '<p>Sorry, the requested article could not be found. <a href="index.html">Return to home</a>.</p>';
         }
+      }
 
-        function displayArticle(article) {
-            document.getElementById('article-title').textContent = article.title + ' - D-TECH NEWZ';
-            document.getElementById('article-description').setAttribute('content', article.excerpt);
-            document.getElementById('article-title-display').textContent = article.title;
-            document.getElementById('article-category-display').textContent = article.category;
-            document.getElementById('article-date-display').textContent = '<i class="fas fa-calendar"></i> ' + window.DTechNews.formatDate(article.date);
-            document.getElementById('article-reading-time').textContent = `<i class="fas fa-clock"></i> ${article.readingTime} min read`;
-            document.getElementById('author-avatar').innerHTML = article.authorAvatar;
-            document.getElementById('author-name').textContent = article.author;
-            document.getElementById('article-views').textContent = window.DTechNews.formatNumber(article.views);
-            document.getElementById('article-likes').textContent = window.DTechNews.formatNumber(article.likes);
+      function displayArticle(article) {
+        document.getElementById("article-title").textContent =
+          article.title + " - D-TECH NEWZ";
+        document
+          .getElementById("article-description")
+          .setAttribute("content", article.excerpt);
+        document.getElementById("article-title-display").textContent =
+          article.title;
+        document.getElementById("article-category-display").textContent =
+          article.category;
+        document.getElementById("article-date-display").textContent =
+          '<i class="fas fa-calendar"></i> ' +
+          window.DTechNews.formatDate(article.date);
+        document.getElementById(
+          "article-reading-time"
+        ).textContent = `<i class="fas fa-clock"></i> ${article.readingTime} min read`;
+        document.getElementById("author-avatar").innerHTML =
+          article.authorAvatar;
+        document.getElementById("author-name").textContent = article.author;
+        document.getElementById("article-views").textContent =
+          window.DTechNews.formatNumber(article.views);
+        document.getElementById("article-likes").textContent =
+          window.DTechNews.formatNumber(article.likes);
 
-            document.getElementById('article-content').innerHTML = `
+        document.getElementById("article-content").innerHTML = `
         ${article.content}`;
 
-            // Re-highlight code blocks
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-            });
+        // Re-highlight code blocks
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightElement(block);
+        });
 
-            generateTOC();
-            updateBookmarkButton();
-        }
+        generateTOC();
+        updateBookmarkButton();
+      }
 
-        function loadRelatedArticles(currentArticle) {
-            const related = window.DTechNews.articles
-                .filter(a => a.id !== currentArticle.id && a.category === currentArticle.category)
-                .slice(0, 3);
+      function loadRelatedArticles(currentArticle) {
+        const related = window.DTechNews.articles
+          .filter(
+            (a) =>
+              a.id !== currentArticle.id &&
+              a.category === currentArticle.category
+          )
+          .slice(0, 3);
 
-            const relatedList = document.getElementById('related-articles-list');
-            if (related.length > 0) {
-                relatedList.innerHTML = related.map(article => `
+        const relatedList = document.getElementById("related-articles-list");
+        if (related.length > 0) {
+          relatedList.innerHTML = related
+            .map(
+              (article) => `
           <div class="related-article-item">
             <a href="article.html?id=${article.id}">${article.title}</a>
             <div class="related-article-meta">
               ${article.category} • ${article.readingTime} min read
             </div>
           </div>
-        `).join('');
-            } else {
-                relatedList.innerHTML = '<p style="color: var(--text-muted);">No related articles found.</p>';
-            }
+        `
+            )
+            .join("");
+        } else {
+          relatedList.innerHTML =
+            '<p style="color: var(--text-muted);">No related articles found.</p>';
+        }
+      }
+
+      function shareTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(currentArticle.title);
+        window.open(
+          `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+          "_blank"
+        );
+      }
+
+      function shareLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+          "_blank"
+        );
+      }
+
+      function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert("Link copied to clipboard!");
+        });
+      }
+
+      function toggleBookmark() {
+        if (!currentArticle) return;
+
+        const bookmarks = new Set(
+          JSON.parse(localStorage.getItem("dtechnews_bookmarks") || "[]")
+        );
+
+        if (bookmarks.has(currentArticle.id)) {
+          bookmarks.delete(currentArticle.id);
+        } else {
+          bookmarks.add(currentArticle.id);
         }
 
-        function shareTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(currentArticle.title);
-            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        localStorage.setItem(
+          "dtechnews_bookmarks",
+          JSON.stringify([...bookmarks])
+        );
+        updateBookmarkButton();
+      }
+
+      function updateBookmarkButton() {
+        if (!currentArticle) return;
+
+        const bookmarks = new Set(
+          JSON.parse(localStorage.getItem("dtechnews_bookmarks") || "[]")
+        );
+        const btn = document.getElementById("bookmark-btn");
+
+        if (bookmarks.has(currentArticle.id)) {
+          btn.innerHTML = '<i class="fas fa-bookmark"></i> Bookmarked';
+        } else {
+          btn.innerHTML = '<i class="fas fa-bookmark"></i> Bookmark';
+        }
+      }
+
+      function generateTOC() {
+        const articleContent = document.getElementById("article-content");
+        const headings = articleContent.querySelectorAll("h1, h2, h3");
+        const tocList = document.getElementById("toc-list");
+
+        if (headings.length === 0) {
+          tocList.innerHTML =
+            '<li><span style="color: var(--text-muted); font-size: 0.9rem;">No headings found</span></li>';
+          return;
         }
 
-        function shareLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-        }
-
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Link copied to clipboard!');
-            });
-        }
-
-        function toggleBookmark() {
-            if (!currentArticle) return;
-
-            const bookmarks = new Set(JSON.parse(localStorage.getItem('dtechnews_bookmarks') || '[]'));
-
-            if (bookmarks.has(currentArticle.id)) {
-                bookmarks.delete(currentArticle.id);
-            } else {
-                bookmarks.add(currentArticle.id);
-            }
-
-            localStorage.setItem('dtechnews_bookmarks', JSON.stringify([...bookmarks]));
-            updateBookmarkButton();
-        }
-
-        function updateBookmarkButton() {
-            if (!currentArticle) return;
-
-            const bookmarks = new Set(JSON.parse(localStorage.getItem('dtechnews_bookmarks') || '[]'));
-            const btn = document.getElementById('bookmark-btn');
-
-            if (bookmarks.has(currentArticle.id)) {
-                btn.innerHTML = '<i class="fas fa-bookmark"></i> Bookmarked';
-            } else {
-                btn.innerHTML = '<i class="fas fa-bookmark"></i> Bookmark';
-            }
-        }
-
-        function generateTOC() {
-            const articleContent = document.getElementById('article-content');
-            const headings = articleContent.querySelectorAll('h1, h2, h3');
-            const tocList = document.getElementById('toc-list');
-
-            if (headings.length === 0) {
-                tocList.innerHTML = '<li><span style="color: var(--text-muted); font-size: 0.9rem;">No headings found</span></li>';
-                return;
-            }
-
-            let tocHTML = '';
-            headings.forEach((heading, index) => {
-                const id = `heading-${index}`;
-                heading.id = id;
-                const level = heading.tagName.toLowerCase();
-                const indent = level === 'h3' ? 'padding-left: 1rem;' : '';
-                tocHTML += `<li><a href="#${id}" style="${indent}">${heading.textContent}</a></li>`;
-            });
-
-            tocList.innerHTML = tocHTML;
-        }
-
-        function initReadingProgress() {
-            const progressBar = document.getElementById('reading-progress');
-            const progressBarInner = document.querySelector('.reading-progress-bar');
-
-            if (!progressBar || !progressBarInner) return;
-
-            function updateProgress() {
-                const articleContent = document.getElementById('article-content');
-                if (!articleContent) return;
-
-                const scrollTop = window.pageYOffset;
-                const articleTop = articleContent.offsetTop;
-                const articleHeight = articleContent.offsetHeight;
-                const windowHeight = window.innerHeight;
-
-                // Show progress bar when scrolling past header
-                if (scrollTop > articleTop - windowHeight) {
-                    progressBar.style.opacity = '1';
-
-                    // Calculate reading progress
-                    const scrollPosition = scrollTop - articleTop + windowHeight;
-                    const progress = Math.min(Math.max((scrollPosition / articleHeight) * 100, 0), 100);
-
-                    progressBarInner.style.width = progress + '%';
-                } else {
-                    progressBar.style.opacity = '0';
-                }
-            }
-
-            // Throttle scroll events for better performance
-            let ticking = false;
-            function handleScroll() {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
-                        updateProgress();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            window.addEventListener('scroll', handleScroll);
-            updateProgress(); // Initial call
-        }
-
-        function initJumpToTop() {
-            const jumpBtn = document.getElementById('jump-to-top');
-
-            if (!jumpBtn) return;
-
-            // Show/hide button based on scroll position
-            function toggleJumpButton() {
-                const scrollTop = window.pageYOffset;
-                const threshold = 300; // Show after scrolling 300px
-
-                if (scrollTop > threshold) {
-                    jumpBtn.classList.add('show');
-                } else {
-                    jumpBtn.classList.remove('show');
-                }
-            }
-
-            // Smooth scroll to top
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Event listeners
-            window.addEventListener('scroll', toggleJumpButton);
-            jumpBtn.addEventListener('click', scrollToTop);
-
-            // Initial check
-            toggleJumpButton();
-        }
-
-        // Initialize reading progress and jump to top after article loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // Wait a bit for article content to load
-            setTimeout(() => {
-                initReadingProgress();
-                initJumpToTop();
-            }, 1000);
+        let tocHTML = "";
+        headings.forEach((heading, index) => {
+          const id = `heading-${index}`;
+          heading.id = id;
+          const level = heading.tagName.toLowerCase();
+          const indent = level === "h3" ? "padding-left: 1rem;" : "";
+          tocHTML += `<li><a href="#${id}" style="${indent}">${heading.textContent}</a></li>`;
         });
 
+        tocList.innerHTML = tocHTML;
+      }
+
+      function initReadingProgress() {
+        const progressBar = document.getElementById("reading-progress");
+        const progressBarInner = document.querySelector(
+          ".reading-progress-bar"
+        );
+
+        if (!progressBar || !progressBarInner) return;
+
+        function updateProgress() {
+          const articleContent = document.getElementById("article-content");
+          if (!articleContent) return;
+
+          const scrollTop = window.pageYOffset;
+          const articleTop = articleContent.offsetTop;
+          const articleHeight = articleContent.offsetHeight;
+          const windowHeight = window.innerHeight;
+
+          // Show progress bar when scrolling past header
+          if (scrollTop > articleTop - windowHeight) {
+            progressBar.style.opacity = "1";
+
+            // Calculate reading progress
+            const scrollPosition = scrollTop - articleTop + windowHeight;
+            const progress = Math.min(
+              Math.max((scrollPosition / articleHeight) * 100, 0),
+              100
+            );
+
+            progressBarInner.style.width = progress + "%";
+          } else {
+            progressBar.style.opacity = "0";
+          }
+        }
+
+        // Throttle scroll events for better performance
+        let ticking = false;
+        function handleScroll() {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              updateProgress();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+
+        window.addEventListener("scroll", handleScroll);
+        updateProgress(); // Initial call
+      }
+
+      function initJumpToTop() {
+        const jumpBtn = document.getElementById("jump-to-top");
+
+        if (!jumpBtn) return;
+
+        // Show/hide button based on scroll position
+        function toggleJumpButton() {
+          const scrollTop = window.pageYOffset;
+          const threshold = 300; // Show after scrolling 300px
+
+          if (scrollTop > threshold) {
+            jumpBtn.classList.add("show");
+          } else {
+            jumpBtn.classList.remove("show");
+          }
+        }
+
+        // Smooth scroll to top
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+
+        // Event listeners
+        window.addEventListener("scroll", toggleJumpButton);
+        jumpBtn.addEventListener("click", scrollToTop);
+
+        // Initial check
+        toggleJumpButton();
+      }
+
+      // Initialize reading progress and jump to top after article loads
+      document.addEventListener("DOMContentLoaded", () => {
+        // Wait a bit for article content to load
+        setTimeout(() => {
+          initReadingProgress();
+          initJumpToTop();
+        }, 1000);
+      });
     </script>
     <script src="script.js"></script>
-
-</body>
-
+  </body>
 </html>

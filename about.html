@@ -1,274 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
     <title>About Us - D-TECH NEWZ</title>
-    <meta name="description"
-        content="Learn more about D-TECH NEWZ, your trusted source for technology news, insights, and updates.">
-    <meta name="keywords"
-        content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation">
-    <meta name="author" content="D-TECH NEWZ">
+    <meta
+      name="description"
+      content="Learn more about D-TECH NEWZ, your trusted source for technology news, insights, and updates."
+    />
+    <meta
+      name="keywords"
+      content="technology news, AI, artificial intelligence, cybersecurity, quantum computing, blockchain, web3, 5G, tech innovation"
+    />
+    <meta name="author" content="D-TECH NEWZ" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="About D-TECH NEWZ - Technology News & Innovation">
-    <meta property="og:description"
-        content="Learn about our mission to deliver cutting-edge technology news and insights">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dinutechnews.github.io/about.html">
-    <meta property="og:image" content="https://dinutechnews.github.io/og-image.jpg">
+    <meta
+      property="og:title"
+      content="About D-TECH NEWZ - Technology News & Innovation"
+    />
+    <meta
+      property="og:description"
+      content="Learn about our mission to deliver cutting-edge technology news and insights"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://dinutechnews.github.io/about.html"
+    />
+    <meta
+      property="og:image"
+      content="https://dinutechnews.github.io/og-image.jpg"
+    />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About D-TECH NEWZ - Technology News">
-    <meta name="twitter:description" content="Learn about our technology news platform">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About D-TECH NEWZ - Technology News" />
+    <meta
+      name="twitter:description"
+      content="Learn about our technology news platform"
+    />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v6.4.2/css/all.css"
+    />
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Firebase -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, doc, getDoc, setDoc, increment, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
-        const firebaseConfig = {
-            apiKey: "AIzaSyBWuZ1WCoCPyNvfQ7poCybyoj1GOLy6XG0",
-            authDomain: "dinutechnews-cc0f1.firebaseapp.com",
-            projectId: "dinutechnews-cc0f1",
-            storageBucket: "dinutechnews-cc0f1.firebasestorage.app",
-            messagingSenderId: "777283083312",
-            appId: "1:777283083312:web:9a5dbaf450e6d2e1b121f5",
-            measurementId: "G-G1XH7BL9M9"
-        };
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBhvtv4pWvtfoprzBsdPpmeSPAQBewnaLM",
+        authDomain: "dinutechnewz.firebaseapp.com",
+        projectId: "dinutechnewz",
+        storageBucket: "dinutechnewz.firebasestorage.app",
+        messagingSenderId: "278488425562",
+        appId: "1:278488425562:web:9e456a4a661e738431e463",
+        measurementId: "G-HSTHKP687Q",
+      };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Make db available globally
-        window.db = db;
-        console.log('Firebase initialized successfully, db available:', !!window.db);
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
     </script>
 
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
-        crossorigin="anonymous"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2433918096859970"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="D-TECH NEWZ RSS Feed" href="/rss.xml">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="D-TECH NEWZ RSS Feed"
+      href="/rss.xml"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+    />
 
     <!-- giscus -->
-    <script src="https://giscus.app/client.js" data-repo="dinutechnews/dinutechnews.github.io"
-        data-repo-id="R_kgDOQl7m4w" data-category="General" data-category-id="DIC_kwDOQl7m484Czm2d"
-        data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0"
-        data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
-        crossorigin="anonymous" async>
-        </script>
-</head>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="dinutechnews/dinutechnews.github.io"
+      data-repo-id="R_kgDOQl7m4w"
+      data-category="General"
+      data-category-id="DIC_kwDOQl7m484Czm2d"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async
+    ></script>
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
+      <!-- Simple Navbar -->
+      <header>
+        <nav class="navbar">
+          <a href="index.html" class="logo"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M13 1l-6 8H4l2 4-6-8h5l-2-4z" />
+            </svg>
+            D-TECH NEWZ</a
+          >
+          <div class="navbar-buttons">
+            <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
+            <button id="theme-toggle" class="theme-btn">
+              <i class="fas fa-moon"></i>
+            </button>
+          </div>
+        </nav>
+      </header>
 
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu">
+        <button id="close-menu" class="close-menu">×</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Home</a>
+          <a href="#categories">Categories</a>
+          <a href="about.html" class="active">About</a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
 
-        <!-- Simple Navbar -->
-        <header>
-            <nav class="navbar">
-                <a href="index.html" class="logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 1l-6 8H4l2 4-6-8h5l-2-4z" />
-                    </svg> D-TECH NEWZ</a>
-                <div class="navbar-buttons">
-                    <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
-                    <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
-                </div>
-            </nav>
-        </header>
+      <!-- Menu Overlay -->
+      <div id="menu-overlay" class="menu-overlay"></div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu">
-            <button id="close-menu" class="close-menu">×</button>
-            <nav class="mobile-nav">
-                <a href="index.html">Home</a>
-                <a href="#categories">Categories</a>
-                <a href="about.html" class="active">About</a>
-                <a href="#newsletter">Newsletter</a>
-                <a href="privacy.html">Privacy</a>
-            </nav>
+      <!-- Stats Bar -->
+      <div id="stats-bar" class="stats-bar">
+        <!-- Stats will be dynamically loaded -->
+      </div>
+
+      <!-- Main Content -->
+      <main>
+        <!-- About Content -->
+        <div class="about-content">
+          <h1>About D-TECH NEWZ</h1>
+
+          <p>
+            Welcome to <strong>D-TECH NEWZ</strong>, your premier destination
+            for cutting-edge technology news, insights, and analysis. We are
+            dedicated to bringing you the latest developments in the
+            ever-evolving world of technology.
+          </p>
+
+          <div class="mission-box">
+            <h3>Our Mission</h3>
+            <p>
+              To deliver accurate, timely, and insightful technology news that
+              empowers our readers to stay informed and make better decisions in
+              the digital age.
+            </p>
+          </div>
+
+          <h2>What We Cover</h2>
+          <p>
+            Our team of passionate tech enthusiasts covers a wide range of
+            topics, including:
+          </p>
+          <ul>
+            <li>
+              <strong>Artificial Intelligence & Machine Learning</strong> -
+              Latest AI breakthroughs and applications
+            </li>
+            <li>
+              <strong>Cybersecurity</strong> - Security threats, best practices,
+              and protection strategies
+            </li>
+            <li>
+              <strong>Cloud Computing</strong> - Cloud technologies, services,
+              and infrastructure
+            </li>
+            <li>
+              <strong>Quantum Computing</strong> - Advances in quantum
+              technology and research
+            </li>
+            <li>
+              <strong>5G & Networking</strong> - Next-generation connectivity
+              and network innovations
+            </li>
+            <li>
+              <strong>Blockchain & Web3</strong> - Decentralized technologies
+              and cryptocurrencies
+            </li>
+            <li>
+              <strong>Green Technology</strong> - Sustainable tech solutions and
+              environmental innovations
+            </li>
+            <li>
+              <strong>Consumer Electronics</strong> - Latest gadgets, devices,
+              and reviews
+            </li>
+          </ul>
+
+          <h2>Why Choose D-TECH NEWZ?</h2>
+          <p>In a world overflowing with information, we stand out by:</p>
+          <ul>
+            <li>
+              <strong>Quality Over Quantity</strong> - We focus on delivering
+              well-researched, accurate content
+            </li>
+            <li>
+              <strong>Expert Analysis</strong> - Our team provides in-depth
+              insights and expert perspectives
+            </li>
+            <li>
+              <strong>Timely Updates</strong> - Stay current with the latest
+              tech developments as they happen
+            </li>
+            <li>
+              <strong>Community Engagement</strong> - Join discussions and share
+              your thoughts with fellow tech enthusiasts
+            </li>
+            <li>
+              <strong>Ad-Free Reading Experience</strong> - Clean, minimal
+              design for distraction-free reading
+            </li>
+          </ul>
+
+          <h2>Our Values</h2>
+          <p>We are committed to:</p>
+          <ul>
+            <li>
+              <strong>Accuracy</strong> - Fact-checking and verifying all
+              information before publication
+            </li>
+            <li>
+              <strong>Transparency</strong> - Clear disclosure of sources and
+              potential conflicts of interest
+            </li>
+            <li>
+              <strong>Independence</strong> - Unbiased reporting free from
+              external influence
+            </li>
+            <li>
+              <strong>Innovation</strong> - Embracing new technologies to
+              enhance our platform
+            </li>
+            <li>
+              <strong>Community</strong> - Building a vibrant community of tech
+              enthusiasts
+            </li>
+          </ul>
+
+          <h2>Join Our Community</h2>
+          <p>
+            D-TECH NEWZ is more than just a news site—it's a community of
+            technology enthusiasts, professionals, and curious minds. We
+            encourage you to:
+          </p>
+          <ul>
+            <li>Engage in discussions through our comment sections</li>
+            <li>Share articles that interest you</li>
+            <li>Provide feedback to help us improve</li>
+            <li>Suggest topics you'd like us to cover</li>
+          </ul>
+
+          <h2>Contact Us</h2>
+          <p>
+            Have questions, suggestions, or feedback? We'd love to hear from
+            you! Reach out through our comment sections or connect with us on
+            social media.
+          </p>
+
+          <p
+            style="
+              margin-top: var(--spacing-xl);
+              font-style: italic;
+              color: var(--accent-blue);
+            "
+          >
+            Thank you for being part of the D-TECH NEWZ community. Together,
+            let's explore the future of technology!
+          </p>
         </div>
 
-        <!-- Menu Overlay -->
-        <div id="menu-overlay" class="menu-overlay"></div>
+        <!-- AdSense Banner -->
+        <div class="ad-container">
+          <ins
+            class="adsbygoogle"
+            style="display: block"
+            data-ad-client="ca-pub-2433918096859970"
+            data-ad-slot="3111830176"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+      </main>
 
+      <footer>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>අපි ගැන,</h4>
+            <p>
+              mh.. එච්චර දෙයක් නෑ කියන්න ඉතින්, තාක්ෂණික ලෝකෙ සිද්ධවෙන දේවල්
+              සින්හලෙන්ම ඒවගේම තප්පරෙන් (ඊට වඩා වෙන්නත් පුළුවන්) අපි සපයනවා. And
+              also, we are currently looking for a talented tech article
+              writer..... so, if you are willing to join us, just let us know by
+              messaging to the number below 🙂:
+            </p>
+            <p><br />| 71 279 3528 |</p>
+          </div>
 
-        <!-- Stats Bar -->
-        <div id="stats-bar" class="stats-bar">
-            <!-- Stats will be dynamically loaded -->
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="#newsletter">Newsletter</a></li>
+              <li><a href="/rss.xml">RSS Feed</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Categories</h4>
+            <ul>
+              <li>
+                <a href="#" data-category="AI">Artificial Intelligence</a>
+              </li>
+              <li><a href="#" data-category="Security">Cybersecurity</a></li>
+              <li>
+                <a href="#" data-category="Computing">Quantum Computing</a>
+              </li>
+              <li>
+                <a href="#" data-category="Blockchain">Blockchain & Web3</a>
+              </li>
+              <li>
+                <a href="#" data-category="Green Tech">Green Technology</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>අපේ Social Media Links ටික :</h4>
+            <div class="social-links">
+              <a href="#" class="social-link" title="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" class="social-link" title="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="social-link" title="GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" class="social-link" title="Discord"
+                ><i class="fab fa-discord"></i
+              ></a>
+            </div>
+          </div>
         </div>
 
-        <!-- Main Content -->
-        <main>
-
-            <!-- About Content -->
-            <div class="about-content">
-                <h1>About D-TECH NEWZ</h1>
-
-                <p>Welcome to <strong>D-TECH NEWZ</strong>, your premier destination for cutting-edge technology news,
-                    insights, and analysis. We are dedicated to bringing you the latest developments in the
-                    ever-evolving world of technology.</p>
-
-                <div class="mission-box">
-                    <h3>Our Mission</h3>
-                    <p>To deliver accurate, timely, and insightful technology news that empowers our readers to stay
-                        informed and make better decisions in the digital age.</p>
-                </div>
-
-                <h2>What We Cover</h2>
-                <p>Our team of passionate tech enthusiasts covers a wide range of topics, including:</p>
-                <ul>
-                    <li><strong>Artificial Intelligence & Machine Learning</strong> - Latest AI breakthroughs and
-                        applications</li>
-                    <li><strong>Cybersecurity</strong> - Security threats, best practices, and protection strategies
-                    </li>
-                    <li><strong>Cloud Computing</strong> - Cloud technologies, services, and infrastructure</li>
-                    <li><strong>Quantum Computing</strong> - Advances in quantum technology and research</li>
-                    <li><strong>5G & Networking</strong> - Next-generation connectivity and network innovations</li>
-                    <li><strong>Blockchain & Web3</strong> - Decentralized technologies and cryptocurrencies</li>
-                    <li><strong>Green Technology</strong> - Sustainable tech solutions and environmental innovations
-                    </li>
-                    <li><strong>Consumer Electronics</strong> - Latest gadgets, devices, and reviews</li>
-                </ul>
-
-                <h2>Why Choose D-TECH NEWZ?</h2>
-                <p>In a world overflowing with information, we stand out by:</p>
-                <ul>
-                    <li><strong>Quality Over Quantity</strong> - We focus on delivering well-researched, accurate
-                        content</li>
-                    <li><strong>Expert Analysis</strong> - Our team provides in-depth insights and expert perspectives
-                    </li>
-                    <li><strong>Timely Updates</strong> - Stay current with the latest tech developments as they happen
-                    </li>
-                    <li><strong>Community Engagement</strong> - Join discussions and share your thoughts with fellow
-                        tech enthusiasts</li>
-                    <li><strong>Ad-Free Reading Experience</strong> - Clean, minimal design for distraction-free reading
-                    </li>
-                </ul>
-
-                <h2>Our Values</h2>
-                <p>We are committed to:</p>
-                <ul>
-                    <li><strong>Accuracy</strong> - Fact-checking and verifying all information before publication</li>
-                    <li><strong>Transparency</strong> - Clear disclosure of sources and potential conflicts of interest
-                    </li>
-                    <li><strong>Independence</strong> - Unbiased reporting free from external influence</li>
-                    <li><strong>Innovation</strong> - Embracing new technologies to enhance our platform</li>
-                    <li><strong>Community</strong> - Building a vibrant community of tech enthusiasts</li>
-                </ul>
-
-                <h2>Join Our Community</h2>
-                <p>D-TECH NEWZ is more than just a news site—it's a community of technology enthusiasts, professionals,
-                    and curious minds. We encourage you to:</p>
-                <ul>
-                    <li>Engage in discussions through our comment sections</li>
-                    <li>Share articles that interest you</li>
-                    <li>Provide feedback to help us improve</li>
-                    <li>Suggest topics you'd like us to cover</li>
-                </ul>
-
-                <h2>Contact Us</h2>
-                <p>Have questions, suggestions, or feedback? We'd love to hear from you! Reach out through our comment
-                    sections or connect with us on social media.</p>
-
-                <p style="margin-top: var(--spacing-xl); font-style: italic; color: var(--accent-blue);">Thank you for
-                    being part of the D-TECH NEWZ community. Together, let's explore the future of technology!</p>
-            </div>
-
-            <!-- AdSense Banner -->
-            <div class="ad-container">
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2433918096859970"
-                    data-ad-slot="3111830176" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            </div>
-
-        </main>
-
-        <footer>
-            <div class="footer-content">
-
-                <div class="footer-section">
-                    <h4>අපි ගැන,</h4>
-                    <p>
-                        mh.. එච්චර දෙයක් නෑ කියන්න ඉතින්, තාක්ෂණික ලෝකෙ සිද්ධවෙන දේවල් සින්හලෙන්ම ඒවගේම තප්පරෙන් (ඊට
-                        වඩා වෙන්නත් පුළුවන්) අපි සපයනවා. And also, we are currently looking for a talented tech article
-                        writer..... so, if you are willing to join us, just let us know by messaging to the number below
-                        🙂:
-                    </p>
-                    <p><br>| 71 279 3528 |</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="#newsletter">Newsletter</a></li>
-                        <li><a href="/rss.xml">RSS Feed</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Categories</h4>
-                    <ul>
-                        <li><a href="#" data-category="AI">Artificial Intelligence</a></li>
-                        <li><a href="#" data-category="Security">Cybersecurity</a></li>
-                        <li><a href="#" data-category="Computing">Quantum Computing</a></li>
-                        <li><a href="#" data-category="Blockchain">Blockchain & Web3</a></li>
-                        <li><a href="#" data-category="Green Tech">Green Technology</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>අපේ Social Media Links ටික :</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" title="Discord"><i class="fab fa-discord"></i></a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 D-TECH NEWZ. <br>ඔක්කොම rights reserved.</p>
-                <p> \\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු ❤️//<br>\\❤️ එකම සයිට් එක ❤️//</p>
-                <p style="margin-top: var(--spacing-xs); font-size: 0.7rem;">
-
-                    <a href="privacy.html">Privacy Policy</a> |
-                    <a href="about.html">About</a>
-                </p>
-            </div>
-        </footer>
-
+        <div class="footer-bottom">
+          <p>&copy; 2025 D-TECH NEWZ. <br />ඔක්කොම rights reserved.</p>
+          <p>
+            \\❤️ ටෙක් පිස්සන්ට බොක්කෙන්ම හදපු ❤️//<br />\\❤️ එකම සයිට් එක ❤️//
+          </p>
+          <p style="margin-top: var(--spacing-xs); font-size: 0.7rem">
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="about.html">About</a>
+          </p>
+        </div>
+      </footer>
     </div>
 
     <!-- Main Script -->
     <script src="script.js"></script>
-
-</body>
-
+  </body>
 </html>

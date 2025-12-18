@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHamburgerMenu();
     renderStats();
     renderArticles();
-    initGiscusComments();
+    initFirebaseComments();
     initAdSense();
     initNewsletterForm();
     initSmoothScroll();
@@ -898,29 +898,140 @@ async function getTotalViews() {
     }
 }
 
-// === Giscus Comments ===
-function initGiscusComments() {
+// === Firebase Comments ===
+async function initFirebaseComments() {
     const commentsContainer = document.getElementById('giscus-comments');
     if (!commentsContainer) return;
 
-    const script = document.createElement('script');
-    script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'dinutechnews/dinutechnews.github.io');
-    script.setAttribute('data-repo-id', 'R_kgDOQl7m4w');
-    script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'DIC_kwDOQl7m484Czm2d');
-    script.setAttribute('data-mapping', 'pathname');
-    script.setAttribute('data-strict', '0');
-    script.setAttribute('data-reactions-enabled', '1');
-    script.setAttribute('data-emit-metadata', '0');
-    script.setAttribute('data-input-position', 'bottom');
-    script.setAttribute('data-theme', 'preferred_color_scheme');
-    script.setAttribute('data-lang', 'en');
-    script.setAttribute('data-loading', 'lazy');
-    script.crossOrigin = 'anonymous';
-    script.async = true;
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id') || 'index';
 
-    commentsContainer.appendChild(script);
+    commentsContainer.innerHTML = `
+        <div class="comments-section">
+            <h3><i class="fas fa-comments"></i> Comments</h3>
+            <div class="comment-form">
+                <form id="comment-form">
+                    <div class="form-group">
+                        <input type="text" id="comment-name" placeholder="Your name (optional)" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment-content" placeholder="Write your comment..." rows="4" maxlength="1000" required></textarea>
+                    </div>
+                    <button type="submit" class="comment-submit-btn">
+                        <i class="fas fa-paper-plane"></i> Post Comment
+                    </button>
+                </form>
+            </div>
+            <div id="comments-list" class="comments-list">
+                <div class="loading">Loading comments...</div>
+            </div>
+        </div>
+    `;
+
+    // Load existing comments
+    await loadComments(articleId);
+
+    // Handle form submission
+    const form = document.getElementById('comment-form');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await submitComment(articleId);
+        });
+    }
+}
+
+async function submitComment(articleId) {
+    const nameInput = document.getElementById('comment-name');
+    const contentInput = document.getElementById('comment-content');
+
+    const name = nameInput.value.trim() || 'Anonymous';
+    const content = contentInput.value.trim();
+
+    if (!content) return;
+
+    try {
+        if (window.db) {
+            const commentsRef = collection(window.db, 'comments', articleId, 'comments');
+            await addDoc(commentsRef, {
+                name: name,
+                content: content,
+                timestamp: new Date(),
+                userId: getUserId()
+            });
+
+            // Clear form
+            nameInput.value = '';
+            contentInput.value = '';
+
+            // Reload comments
+            await loadComments(articleId);
+        } else {
+            // Demo mode
+            const comment = {
+                name: name,
+                content: content,
+                timestamp: new Date(),
+                id: Date.now()
+            };
+
+            const storedComments = JSON.parse(localStorage.getItem(`comments_${articleId}`) || '[]');
+            storedComments.push(comment);
+            localStorage.setItem(`comments_${articleId}`, JSON.stringify(storedComments));
+
+            await loadComments(articleId);
+        }
+    } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('Failed to post comment. Please try again.');
+    }
+}
+
+async function loadComments(articleId) {
+    const commentsList = document.getElementById('comments-list');
+    if (!commentsList) return;
+
+    try {
+        let comments = [];
+
+        if (window.db) {
+            const commentsRef = collection(window.db, 'comments', articleId, 'comments');
+            const q = query(commentsRef, orderBy('timestamp', 'desc'));
+            const querySnapshot = await getDocs(q);
+
+            comments = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                timestamp: doc.data().timestamp.toDate()
+            }));
+        } else {
+            // Demo mode
+            const storedComments = JSON.parse(localStorage.getItem(`comments_${articleId}`) || '[]');
+            comments = storedComments.map(c => ({
+                ...c,
+                timestamp: new Date(c.timestamp)
+            })).sort((a, b) => b.timestamp - a.timestamp);
+        }
+
+        if (comments.length === 0) {
+            commentsList.innerHTML = '<div class="no-comments">No comments yet. Be the first to comment!</div>';
+            return;
+        }
+
+        commentsList.innerHTML = comments.map(comment => `
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author">${comment.name}</span>
+                    <span class="comment-date">${formatDate(comment.timestamp)} at ${comment.timestamp.toLocaleTimeString()}</span>
+                </div>
+                <div class="comment-content">${comment.content.replace(/\n/g, '<br>')}</div>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Error loading comments:', error);
+        commentsList.innerHTML = '<div class="error">Failed to load comments.</div>';
+    }
 }
 
 // === AdSense ===
