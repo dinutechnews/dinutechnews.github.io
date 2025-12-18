@@ -1,71 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D-Tech Newz | The Latest Tech News</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-  <header>
-    <div class="header-container">
-      <a href="index.html" class="logo">D-Tech <span>Newz</span></a>
-      <nav>
-        <ul>
-          <li><a href="#">Startups</a></li>
-          <li><a href="#">Apps</a></li>
-          <li><a href="#">Gadgets</a></li>
-          <li><a href="#">Events</a></li>
-          <li><a href="#">More</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <div class="container">
-    <!-- Hero Section will be injected here by JS -->
-    <div id="hero-container" class="hero"></div>
-
-    <!-- Main Feed -->
-    <main>
-      <h2 class="section-title">The Latest</h2>
-      <div id="article-feed">
-        <!-- Articles will be injected here -->
-        <div class="loading">Loading news...</div>
-      </div>
-    </main>
-
-    <!-- Sidebar -->
-    <aside>
-      <div class="sidebar-widget newsletter-box">
-        <h3>The Daily Crunch</h3>
-        <p>Get the top tech stories delivered to your inbox.</p>
-        <form onsubmit="event.preventDefault(); alert('Subscribed!');">
-          <input type="email" placeholder="Your email address" required>
-          <button type="submit">Subscribe</button>
-        </form>
-      </div>
-
-      <div class="sidebar-widget">
-        <h2 class="section-title">Trending</h2>
-        <div id="trending-feed">
-          <!-- Trending articles injected here -->
-        </div>
-      </div>
-    </aside>
-  </div>
-
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 D-Tech Newz. All rights reserved.</p>
-      <p>Designed for InfinityFree Hosting.</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>temp_app</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
