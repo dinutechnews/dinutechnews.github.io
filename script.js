@@ -1,151 +1,275 @@
 /**
- * D-TECH-NEWZ Main Script
- * Handles data rendering, interactivity, and advanced features.
+ * D-TECH-NEWZ Mega Script
+ * Implements 50+ features including Real APIs, Games, Tools, and System APIs.
  */
 
-// --- Mock Data ---
-const articles = [
-    {
-        id: 1,
-        title: "The Future of AI: Beyond Generative Models",
-        category: "AI",
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-18",
-        summary: "As LLMs reach maturity, the next frontier involves reasoning agents and physical world interaction. We explore what's next for Artificial Intelligence.",
-        content: `
-            <p>Artificial Intelligence has seen explosive growth in the last few years, primarily driven by Generative Pre-trained Transformers (GPT). However, researchers are now looking beyond text generation.</p>
-            <p>The next phase, often termed "Actionable AI", involves agents that can not only understand language but also execute complex tasks in the real world. From coding assistants that can deploy software to robots that can navigate unstructured environments, the scope is widening.</p>
-            <p>Key developments to watch include:</p>
-            <ul>
-                <li><strong>Reasoning Engines:</strong> AI that can plan multiple steps ahead.</li>
-                <li><strong>Embodied AI:</strong> Intelligence integrated into physical robots.</li>
-                <li><strong>Neuromorphic Computing:</strong> Hardware designed to mimic the human brain's efficiency.</li>
-            </ul>
-        `
-    },
-    {
-        id: 2,
-        title: "Quantum Computing: The 2026 Breakthrough?",
-        category: "Hardware",
-        image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-17",
-        summary: "IBM and Google are racing to reach quantum advantage. New error-correction techniques might finally make quantum PCs a reality.",
-        content: `
-            <p>Quantum computing has long been the "always 10 years away" technology. However, recent breakthroughs in error correction are changing the timeline.</p>
-            <p>Traditional computers use bits (0 or 1), while quantum computers use qubits, which can exist in multiple states simultaneously. This allows them to solve specific problems—like protein folding or cryptography—exponentially faster.</p>
-        `
-    },
-    {
-        id: 3,
-        title: "Apple Vision Pro 2: Cheaper, Lighter, Faster",
-        category: "Mobile",
-        image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-16",
-        summary: "Rumors suggest the next iteration of Apple's spatial computer will drop the external battery and cost half as much.",
-        content: `
-            <p>The original Vision Pro was a technical marvel but a commercial niche. The Vision Pro 2 aims to change that.</p>
-            <p>Insiders report a switch to Micro-OLED displays that are cheaper to manufacture, along with a new "Air" model that offloads processing to a connected iPhone.</p>
-        `
-    },
-    {
-        id: 4,
-        title: "Rust vs C++: The Kernel Wars",
-        category: "Software",
-        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-15",
-        summary: "Linux kernel development is seeing a massive shift towards Rust. Here is why memory safety is becoming the top priority.",
-        content: `
-            <p>For decades, C and C++ have ruled systems programming. But memory safety bugs—buffer overflows, use-after-free—account for 70% of all security vulnerabilities.</p>
-            <p>Rust offers a solution: memory safety without garbage collection. The Linux kernel has officially adopted Rust support, and drivers are now being rewritten at a rapid pace.</p>
-        `
-    },
-    {
-        id: 5,
-        title: "SpaceX Starship: Mars Colonization Plan",
-        category: "Hardware",
-        image: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-14",
-        summary: "The latest Starship test flight achieved orbit and successfully refueled. Elon Musk updates the timeline for the first human landing.",
-        content: `
-            <p>Starship is the largest rocket ever built. Its goal is simple but ambitious: make life multi-planetary.</p>
-            <p>The recent IFT-6 mission demonstrated successful orbital refueling, a critical technology for long-duration missions to Mars.</p>
-        `
-    },
-    {
-        id: 6,
-        title: "Unreal Engine 6: Photorealism in Real-Time",
-        category: "Gaming",
-        image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1000",
-        date: "2025-12-13",
-        summary: "Epic Games teases the next generation of game engines. Nanite and Lumen get massive upgrades for open-world rendering.",
-        content: `
-            <p>Video game graphics are hitting a point of diminishing returns, but Unreal Engine 6 focuses on lighting and physics.</p>
-            <p>The new "Neural Rendering" pipeline uses AI to upscale textures and simulate realistic fluid dynamics in real-time, allowing for worlds that look indistinguishable from film.</p>
-        `
-    }
+// --- Data & State ---
+// Initial Mock Data (Fallback)
+const initialArticles = [
+    { id: 1, title: "Loading Real News...", category: "System", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000", date: "Just Now", summary: "Fetching the latest tech headlines from around the world...", content: "<p>Please wait while we connect to the global news network.</p>" }
 ];
 
-// --- State Management ---
 const state = {
-    articles: [...articles],
-    filter: 'all',
-    searchQuery: '',
+    articles: [...initialArticles],
     bookmarks: JSON.parse(localStorage.getItem('dtech_bookmarks')) || [],
+    xp: parseInt(localStorage.getItem('dtech_xp')) || 0,
+    level: 1,
     theme: localStorage.getItem('dtech_theme') || 'dark',
-    ttsPlaying: false,
-    currentUtterance: null
+    konami: [],
+    konami: [],
+    snakeGame: null,
+    deferredPrompt: null,
+    weatherCities: [
+        { name: "San Francisco", lat: 37.7749, lon: -122.4194 },
+        { name: "New York", lat: 40.7128, lon: -74.0060 },
+        { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+        { name: "London", lat: 51.5074, lon: -0.1278 }
+    ]
 };
 
-// --- DOM Elements ---
-const dom = {
-    heroSection: document.getElementById('heroSection'),
-    newsGrid: document.getElementById('newsGrid'),
-    trendingList: document.getElementById('trendingList'),
-    searchInput: document.getElementById('searchInput'),
-    categoryList: document.getElementById('categoryList'),
-    themeToggle: document.getElementById('themeToggle'),
-    bookmarksBtn: document.getElementById('bookmarksBtn'),
-    bookmarkCount: document.getElementById('bookmarkCount'),
-    modalOverlay: document.getElementById('modalOverlay'),
-    articleModal: document.getElementById('articleModal'),
-    closeArticleModal: document.getElementById('closeArticleModal'),
-    articleModalContent: document.getElementById('articleModalContent'),
-    modalBookmarkBtn: document.getElementById('modalBookmarkBtn'),
-    modalShareBtn: document.getElementById('modalShareBtn'),
-    modalTTSBtn: document.getElementById('modalTTSBtn'),
-    bookmarksModal: document.getElementById('bookmarksModal'),
-    closeBookmarksModal: document.getElementById('closeBookmarksModal'),
-    bookmarksList: document.getElementById('bookmarksList'),
-    ttsPlayer: document.getElementById('ttsPlayer'),
-    ttsTitle: document.getElementById('ttsTitle'),
-    ttsPlayPause: document.getElementById('ttsPlayPause'),
-    ttsStop: document.getElementById('ttsStop')
-};
+const KONAMI_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
-// --- Initialization ---
-function init() {
-    applyTheme(state.theme);
-    renderHero();
-    renderNews();
-    renderTrending();
-    updateBookmarkCount();
-    setupEventListeners();
+// --- Init ---
+document.addEventListener('DOMContentLoaded', () => {
+    initVisuals();
+    initSystem();
+    initContent();
+    initGamification();
+    initTools();
+    initGames();
+    initAI();
+    setupEvents();
+    initPWA();
+
+    // Fetch Real Data
+    fetchRealNews();
+    fetchRealCrypto();
+    fetchRealWeather();
+});
+
+// --- PWA Logic ---
+function initPWA() {
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('Service Worker Registered'))
+            .catch(err => console.error('SW Registration Failed:', err));
+    }
+
+    // Install Prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        state.deferredPrompt = e;
+        const btn = document.getElementById('installAppBtn');
+        if (btn) {
+            btn.style.display = 'block';
+            btn.addEventListener('click', () => {
+                btn.style.display = 'none';
+                state.deferredPrompt.prompt();
+                state.deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                        updateXP(50);
+                        showToast("App Installed! +50 XP");
+                    }
+                    state.deferredPrompt = null;
+                });
+            });
+        }
+    });
 }
 
-// --- Rendering ---
-function renderHero() {
-    // Pick the first article as Hero for now, or random
-    const heroArticle = state.articles[0];
+// --- 0. Real Data Integration ---
 
-    dom.heroSection.innerHTML = `
-        <div class="hero-card" onclick="openArticle(${heroArticle.id})">
-            <img src="${heroArticle.image}" alt="${heroArticle.title}">
+async function fetchRealNews() {
+    try {
+        // Using saurav.tech proxy for NewsAPI to avoid CORS and API key exposure on frontend
+        const res = await fetch('https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json');
+        const data = await res.json();
+
+        if (data.articles) {
+            state.articles = data.articles.map((a, index) => ({
+                id: index + 100, // Offset IDs
+                title: a.title,
+                category: "Tech", // API doesn't give granular categories, default to Tech
+                image: a.urlToImage || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000",
+                date: new Date(a.publishedAt).toLocaleDateString(),
+                summary: a.description || "No description available.",
+                content: a.content || a.description || "Read the full story at the source.",
+                url: a.url
+            })).slice(0, 12); // Limit to 12
+
+            renderNews();
+            renderHero();
+            showToast("Live News Updated 🌍");
+        }
+    } catch (e) {
+        console.error("News Fetch Error:", e);
+        showToast("Using Offline News Mode");
+    }
+}
+
+async function fetchRealCrypto() {
+    try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple,cardano,dogecoin&vs_currencies=usd&include_24hr_change=true');
+        const data = await res.json();
+
+        const mapping = {
+            bitcoin: "BTC", ethereum: "ETH", solana: "SOL",
+            ripple: "XRP", cardano: "ADA", dogecoin: "DOGE"
+        };
+
+        const tickerData = Object.keys(data).map(key => ({
+            symbol: mapping[key],
+            price: data[key].usd.toLocaleString(),
+            change: data[key].usd_24h_change.toFixed(2) + "%",
+            up: data[key].usd_24h_change >= 0
+        }));
+
+        renderTicker(tickerData);
+    } catch (e) {
+        console.error("Crypto Fetch Error:", e);
+    }
+}
+
+async function fetchRealWeather() {
+    const grid = document.getElementById('weatherGrid');
+    grid.innerHTML = ''; // Clear mock
+
+    for (const city of state.weatherCities) {
+        try {
+            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true`);
+            const data = await res.json();
+
+            const temp = Math.round(data.current_weather.temperature);
+            const code = data.current_weather.weathercode;
+            let icon = "fa-sun";
+
+            // Simple WMO code mapping
+            if (code > 3) icon = "fa-cloud";
+            if (code > 50) icon = "fa-cloud-rain";
+            if (code > 70) icon = "fa-snowflake";
+            if (code > 95) icon = "fa-bolt";
+
+            const div = document.createElement('div');
+            div.className = 'weather-item';
+            div.innerHTML = `
+                <i class="fa-solid ${icon}"></i>
+                <span class="weather-temp">${temp}°C</span>
+                <span class="weather-city">${city.name}</span>
+            `;
+            grid.appendChild(div);
+        } catch (e) {
+            console.error("Weather Fetch Error:", e);
+        }
+    }
+}
+
+// --- 1. Visuals & UI Pack ---
+function initVisuals() {
+    // Custom Cursor
+    const cursor = document.getElementById('customCursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .news-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scrollProgress').style.width = scrolled + "%";
+
+        // Back to Top
+        const btn = document.getElementById('backToTop');
+        if (winScroll > 300) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+    });
+
+    // Theme
+    document.documentElement.setAttribute('data-theme', state.theme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('dtech_theme', state.theme);
+        document.documentElement.setAttribute('data-theme', state.theme);
+        document.querySelector('#themeToggle i').className = state.theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+}
+
+// --- 2. System Status ---
+function initSystem() {
+    // Network
+    const netStatus = document.getElementById('netStatus');
+    const updateNet = () => {
+        netStatus.textContent = navigator.onLine ? "Online" : "Offline";
+        netStatus.style.color = navigator.onLine ? "#00ff88" : "#ff3333";
+    };
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
+
+    // Battery
+    if (navigator.getBattery) {
+        navigator.getBattery().then(battery => {
+            const updateBat = () => {
+                document.getElementById('batteryStatus').textContent = Math.round(battery.level * 100) + "%";
+            };
+            battery.addEventListener('levelchange', updateBat);
+            updateBat();
+        });
+    }
+
+    // Binary Clock
+    setInterval(() => {
+        const now = new Date();
+        const time = now.getHours().toString(2).padStart(4, '0') + ':' + now.getMinutes().toString(2).padStart(6, '0');
+        document.getElementById('binaryClock').textContent = time;
+    }, 1000);
+
+    // Live Readers (Mock)
+    setInterval(() => {
+        const count = 1200 + Math.floor(Math.random() * 50);
+        document.getElementById('liveReaders').textContent = count.toLocaleString() + " Online";
+    }, 3000);
+}
+
+// --- 3. Content Rendering ---
+function initContent() {
+    renderTicker([]); // Init empty
+    renderPoll();
+    renderNews(); // Init with placeholder
+}
+
+function renderTicker(data) {
+    const ticker = document.getElementById('cryptoTicker');
+    if (data.length === 0) {
+        ticker.innerHTML = '<div class="ticker-item">Loading Market Data...</div>';
+        return;
+    }
+
+    const tickerContent = data.map(i => `
+        <div class="ticker-item"><strong>${i.symbol}</strong> <span>$${i.price}</span> <span class="${i.up ? 'ticker-up' : 'ticker-down'}">${i.change}</span></div>
+    `).join('');
+    ticker.innerHTML = tickerContent + tickerContent; // Duplicate for loop
+}
+
+function renderHero() {
+    if (state.articles.length === 0) return;
+    const hero = state.articles[0];
+    const section = document.getElementById('heroSection');
+    section.innerHTML = `
+        <div class="hero-card" onclick="openArticle(${hero.id})">
+            <img src="${hero.image}" alt="${hero.title}">
             <div class="hero-overlay">
-                <span class="hero-tag">${heroArticle.category}</span>
-                <h1 class="hero-title">${heroArticle.title}</h1>
+                <span class="hero-tag">${hero.category}</span>
+                <h1 class="hero-title">${hero.title}</h1>
                 <div class="hero-meta">
-                    <span><i class="fa-regular fa-calendar"></i> ${heroArticle.date}</span>
-                    <span style="margin-left: 15px;"><i class="fa-regular fa-clock"></i> ${calculateReadingTime(heroArticle.content + heroArticle.summary)} min read</span>
+                    <span><i class="fa-regular fa-calendar"></i> ${hero.date}</span>
                 </div>
             </div>
         </div>
@@ -153,347 +277,307 @@ function renderHero() {
 }
 
 function renderNews() {
-    dom.newsGrid.innerHTML = '';
-
-    const filtered = state.articles.filter(article => {
-        const matchesCategory = state.filter === 'all' || article.category === state.filter;
-        const matchesSearch = article.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
-            article.summary.toLowerCase().includes(state.searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
-
-    if (filtered.length === 0) {
-        dom.newsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No articles found.</p>';
-        return;
-    }
-
-    // Skip the first one if it's the hero and we are in 'all' view? 
-    // For simplicity, let's show all matching in grid, or skip hero if filter is 'all'.
-    // Let's just show all for now to populate the grid.
-
-    filtered.forEach(article => {
-        // Don't show hero in grid if showing all
-        if (state.filter === 'all' && article.id === state.articles[0].id) return;
-
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.onclick = () => openArticle(article.id);
-
-        card.innerHTML = `
-            <div class="card-image">
-                <img src="${article.image}" alt="${article.title}" loading="lazy">
-            </div>
+    const grid = document.getElementById('newsGrid');
+    grid.innerHTML = state.articles.slice(1).map(a => `
+        <div class="news-card" onclick="openArticle(${a.id})">
+            <div class="card-image"><img src="${a.image}" loading="lazy"></div>
             <div class="card-content">
-                <span class="card-tag">${article.category}</span>
-                <h3 class="card-title">${article.title}</h3>
-                <p class="card-excerpt">${article.summary}</p>
-                <div class="card-footer">
-                    <span>${article.date}</span>
-                    <div class="read-time">
-                        <i class="fa-regular fa-clock"></i>
-                        ${calculateReadingTime(article.content + article.summary)} min
-                    </div>
-                </div>
-            </div>
-        `;
-        dom.newsGrid.appendChild(card);
-    });
-}
-
-function renderTrending() {
-    // Just pick random 3 for trending
-    const trending = [...state.articles].sort(() => 0.5 - Math.random()).slice(0, 3);
-
-    dom.trendingList.innerHTML = trending.map(article => `
-        <div class="trending-item" onclick="openArticle(${article.id})" style="display: flex; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-            <img src="${article.image}" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
-            <div>
-                <h4 style="font-size: 0.9rem; margin-bottom: 5px; line-height: 1.3;">${article.title}</h4>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">${article.date}</span>
+                <span class="card-tag">${a.category}</span>
+                <h3 class="card-title">${a.title}</h3>
+                <p class="card-excerpt">${a.summary}</p>
             </div>
         </div>
     `).join('');
+
+    // Init 3D Tilt
+    document.querySelectorAll('.news-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
 }
 
-// --- Logic & Helpers ---
-function calculateReadingTime(text) {
-    const wpm = 200;
-    const words = text.trim().split(/\s+/).length;
-    return Math.ceil(words / wpm);
+function renderPoll() {
+    const opts = document.getElementById('pollOptions');
+    opts.innerHTML = `
+        <div class="poll-option" onclick="vote(this)"><div class="poll-bar-bg"><div class="poll-text"><span>AGI</span></div></div></div>
+        <div class="poll-option" onclick="vote(this)"><div class="poll-bar-bg"><div class="poll-text"><span>Quantum</span></div></div></div>
+        <div class="poll-option" onclick="vote(this)"><div class="poll-bar-bg"><div class="poll-text"><span>Metaverse</span></div></div></div>
+    `;
 }
 
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('dtech_theme', theme);
+window.vote = (el) => {
+    if (el.classList.contains('voted')) return;
+    el.classList.add('voted');
+    el.querySelector('.poll-bar-bg').style.background = 'rgba(0, 242, 255, 0.2)';
+    updateXP(5);
+    showToast("Vote Recorded!");
+};
 
-    const icon = dom.themeToggle.querySelector('i');
-    if (theme === 'dark') {
-        icon.className = 'fa-solid fa-moon';
-    } else {
-        icon.className = 'fa-solid fa-sun';
-    }
+// --- 4. Gamification ---
+function initGamification() {
+    updateXP(0); // Init UI
 }
 
-function toggleTheme() {
-    state.theme = state.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(state.theme);
+function updateXP(amount) {
+    state.xp += amount;
+    state.level = Math.floor(state.xp / 100) + 1;
+    localStorage.setItem('dtech_xp', state.xp);
+
+    document.getElementById('userLevel').textContent = state.level;
+    const progress = state.xp % 100;
+    document.getElementById('xpFill').style.width = progress + "%";
+
+    if (amount > 0) showToast(`+${amount} XP`);
 }
 
-// --- Event Listeners ---
-function setupEventListeners() {
-    // Theme
-    dom.themeToggle.addEventListener('click', toggleTheme);
-
-    // Search
-    dom.searchInput.addEventListener('input', (e) => {
-        state.searchQuery = e.target.value;
-        renderNews();
+// --- 5. Tools & Games ---
+function initTools() {
+    document.getElementById('toolboxBtn').addEventListener('click', () => {
+        document.getElementById('modalOverlay').classList.add('active');
+        document.getElementById('toolboxModal').classList.add('active');
     });
 
-    // Categories
-    dom.categoryList.querySelectorAll('li').forEach(li => {
-        li.addEventListener('click', () => {
-            // Update UI
-            dom.categoryList.querySelector('.active').classList.remove('active');
-            li.classList.add('active');
+    // Calculator Logic (Simple)
+    document.getElementById('toolCalc').addEventListener('click', () => {
+        const content = document.getElementById('toolContent');
+        content.innerHTML = `
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-top:20px;">
+                <input id="calcDisp" style="grid-column:1/-1; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.5); color:white; border:none;" readonly>
+                ${[7, 8, 9, '/', 4, 5, 6, '*', 1, 2, 3, '-', 0, '.', '=', '+'].map(b => `<button onclick="calc('${b}')" style="padding:10px; background:rgba(255,255,255,0.1); border:none; color:white; cursor:pointer;">${b}</button>`).join('')}
+            </div>
+        `;
+    });
 
-            // Update State
-            state.filter = li.dataset.category;
-            renderNews();
+    // QR Gen
+    document.getElementById('toolQR').addEventListener('click', () => {
+        const content = document.getElementById('toolContent');
+        content.innerHTML = `
+            <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+                <input id="qrInput" placeholder="Enter URL..." style="padding:10px; background:rgba(255,255,255,0.1); border:none; color:white;">
+                <button onclick="genQR()" style="padding:10px; background:var(--primary); border:none; font-weight:bold;">Generate</button>
+                <img id="qrImg" style="margin-top:10px; display:none; background:white; padding:10px;">
+            </div>
+        `;
+    });
+}
+
+window.calc = (val) => {
+    const disp = document.getElementById('calcDisp');
+    if (val === '=') { try { disp.value = eval(disp.value); } catch { disp.value = 'Err'; } }
+    else disp.value += val;
+};
+
+window.genQR = () => {
+    const input = document.getElementById('qrInput').value;
+    if (!input) return;
+    const img = document.getElementById('qrImg');
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(input)}`;
+    img.style.display = 'block';
+};
+
+function initGames() {
+    document.getElementById('gameBtn').addEventListener('click', () => {
+        document.getElementById('modalOverlay').classList.add('active');
+        document.getElementById('gamesModal').classList.add('active');
+    });
+
+    document.getElementById('startSnakeBtn').addEventListener('click', startSnake);
+}
+
+function startSnake() {
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    let snake = [{ x: 10, y: 10 }];
+    let food = { x: 15, y: 15 };
+    let dx = 1, dy = 0;
+    let score = 0;
+
+    if (state.snakeGame) clearInterval(state.snakeGame);
+
+    state.snakeGame = setInterval(() => {
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+        snake.unshift(head);
+
+        if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            document.getElementById('snakeScore').textContent = "Score: " + score;
+            food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+            updateXP(5);
+        } else {
+            snake.pop();
+        }
+
+        // Draw
+        ctx.fillStyle = 'black'; ctx.fillRect(0, 0, 400, 400);
+        ctx.fillStyle = '#00f2ff';
+        snake.forEach(s => ctx.fillRect(s.x * 20, s.y * 20, 18, 18));
+        ctx.fillStyle = '#ff0055';
+        ctx.fillRect(food.x * 20, food.y * 20, 18, 18);
+
+        // Collision (Simple)
+        if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) {
+            clearInterval(state.snakeGame);
+            alert('Game Over! XP Gained: ' + (score / 2));
+        }
+    }, 100);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowUp' && dy !== 1) { dx = 0; dy = -1; }
+        if (e.key === 'ArrowDown' && dy !== -1) { dx = 0; dy = 1; }
+        if (e.key === 'ArrowLeft' && dx !== 1) { dx = -1; dy = 0; }
+        if (e.key === 'ArrowRight' && dx !== -1) { dx = 1; dy = 0; }
+    });
+}
+
+// --- 6. AI Chat (Upgraded) ---
+function initAI() {
+    const chat = document.getElementById('aiChat');
+    document.getElementById('chatHeader').addEventListener('click', () => {
+        chat.classList.toggle('collapsed');
+    });
+
+    const send = () => {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim().toLowerCase();
+        if (!text) return;
+
+        const msgs = document.getElementById('chatMessages');
+        msgs.innerHTML += `<div class="msg user">${input.value}</div>`;
+        input.value = '';
+
+        // Smart Responses
+        let reply = "I'm not sure about that, but I'm learning!";
+
+        if (text.includes('hello') || text.includes('hi')) reply = "Hello! Ready to talk tech?";
+        else if (text.includes('news')) reply = "I've updated the feed with the latest headlines from NewsAPI.";
+        else if (text.includes('crypto') || text.includes('price')) reply = "Check the ticker at the top for live CoinGecko prices!";
+        else if (text.includes('weather')) reply = "I'm pulling weather data from Open-Meteo for major tech hubs.";
+        else if (text.includes('snake')) reply = "You can play Snake in the Game Center (Controller icon)!";
+        else if (text.includes('who are you')) reply = "I am D-Bot, your AI news assistant.";
+
+        setTimeout(() => {
+            msgs.innerHTML += `<div class="msg bot">${reply}</div>`;
+            msgs.scrollTop = msgs.scrollHeight;
+        }, 800);
+    };
+
+    document.getElementById('sendChat').addEventListener('click', send);
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') send();
+    });
+}
+
+// --- 7. Events & Easter Eggs ---
+function setupEvents() {
+    // Konami Code
+    document.addEventListener('keydown', (e) => {
+        state.konami.push(e.key);
+        if (state.konami.length > KONAMI_CODE.length) state.konami.shift();
+        if (JSON.stringify(state.konami) === JSON.stringify(KONAMI_CODE)) {
+            activateMatrix();
+        }
+    });
+
+    // Modal Close
+    document.querySelectorAll('.close-modal, #modalOverlay').forEach(el => {
+        el.addEventListener('click', (e) => {
+            if (e.target === el || el.classList.contains('close-modal')) {
+                document.querySelectorAll('.modal, #modalOverlay').forEach(m => m.classList.remove('active'));
+                if (state.snakeGame) clearInterval(state.snakeGame);
+            }
         });
     });
 
-    // Modals
-    dom.closeArticleModal.addEventListener('click', closeArticleModal);
-    dom.closeBookmarksModal.addEventListener('click', () => {
-        dom.bookmarksModal.classList.remove('active');
-        dom.modalOverlay.classList.remove('active');
-    });
-    dom.modalOverlay.addEventListener('click', () => {
-        closeArticleModal();
-        dom.bookmarksModal.classList.remove('active');
-        dom.modalOverlay.classList.remove('active');
+    // Back to Top
+    document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Bookmarks Button (Header)
-    dom.bookmarksBtn.addEventListener('click', openBookmarksModal);
-
-    // Article Modal Actions
-    dom.modalBookmarkBtn.addEventListener('click', toggleBookmarkCurrent);
-    dom.modalShareBtn.addEventListener('click', shareCurrentArticle);
-    dom.modalTTSBtn.addEventListener('click', toggleTTSCurrent);
-
-    // TTS Player Controls
-    dom.ttsPlayPause.addEventListener('click', () => {
-        if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            dom.ttsPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        } else if (window.speechSynthesis.speaking) {
-            window.speechSynthesis.pause();
-            dom.ttsPlayPause.innerHTML = '<i class="fa-solid fa-play"></i>';
-        }
+    // Accessibility
+    document.getElementById('a11yBtn').addEventListener('click', () => {
+        document.getElementById('modalOverlay').classList.add('active');
+        document.getElementById('a11yModal').classList.add('active');
     });
-    dom.ttsStop.addEventListener('click', stopTTS);
+
+    document.getElementById('toggleDyslexia').addEventListener('click', (e) => {
+        document.body.classList.toggle('dyslexia-mode');
+        e.target.textContent = document.body.classList.contains('dyslexia-mode') ? "On" : "Off";
+    });
+
+    document.getElementById('toggleContrast').addEventListener('click', (e) => {
+        document.body.classList.toggle('high-contrast');
+        e.target.textContent = document.body.classList.contains('high-contrast') ? "On" : "Off";
+    });
 }
 
-// --- Article Modal Logic ---
-let currentArticleId = null;
+window.adjustFontSize = (change) => {
+    const current = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    document.documentElement.style.fontSize = (current + change) + 'px';
+};
 
-function openArticle(id) {
+function activateMatrix() {
+    const canvas = document.getElementById('matrixCanvas');
+    canvas.classList.add('active');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01";
+    const drops = Array(Math.floor(canvas.width / 20)).fill(1);
+
+    setInterval(() => {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0F0';
+        ctx.font = '20px monospace';
+
+        drops.forEach((y, i) => {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * 20, y * 20);
+            if (y * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }, 50);
+
+    showToast("MATRIX MODE ACTIVATED");
+}
+
+function showToast(msg) {
+    const t = document.createElement('div');
+    t.style.cssText = "position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--primary); color:black; padding:10px 20px; border-radius:20px; z-index:9999; font-weight:bold; box-shadow:0 5px 15px rgba(0,0,0,0.3);";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+// --- Helpers ---
+window.openArticle = (id) => {
     const article = state.articles.find(a => a.id === id);
     if (!article) return;
 
-    currentArticleId = id;
-
-    // Populate Modal
-    dom.articleModalContent.innerHTML = `
-        <img src="${article.image}" class="article-full-image" alt="${article.title}">
-        <div class="article-body">
-            <div class="article-meta">
-                <span class="card-tag">${article.category}</span>
-                <span>${article.date}</span>
-                <span>${calculateReadingTime(article.content)} min read</span>
-            </div>
-            <h1>${article.title}</h1>
-            <div class="article-text">
-                ${article.content}
-            </div>
+    const content = document.getElementById('articleModalContent');
+    content.innerHTML = `
+        <img src="${article.image}" style="width:100%; height:300px; object-fit:cover;">
+        <div style="padding:20px;">
+            <span style="color:var(--primary); font-weight:bold;">${article.category}</span>
+            <h1 style="font-size:2rem; margin:10px 0;">${article.title}</h1>
+            <p style="color:var(--text-muted); line-height:1.6;">${article.content}</p>
+            ${article.url ? `<a href="${article.url}" target="_blank" style="display:inline-block; margin-top:20px; color:var(--primary);">Read Full Story <i class="fa-solid fa-external-link"></i></a>` : ''}
         </div>
     `;
 
-    // Update Bookmark Button State
-    updateBookmarkBtnState();
-
-    // Show Modal
-    dom.modalOverlay.classList.add('active');
-    dom.articleModal.classList.add('active');
-}
-
-function closeArticleModal() {
-    dom.articleModal.classList.remove('active');
-    dom.modalOverlay.classList.remove('active');
-    currentArticleId = null;
-}
-
-// --- Bookmarks Logic ---
-function toggleBookmarkCurrent() {
-    if (!currentArticleId) return;
-
-    const index = state.bookmarks.indexOf(currentArticleId);
-    if (index === -1) {
-        state.bookmarks.push(currentArticleId);
-        showToast('Article saved to bookmarks');
-    } else {
-        state.bookmarks.splice(index, 1);
-        showToast('Article removed from bookmarks');
-    }
-
-    localStorage.setItem('dtech_bookmarks', JSON.stringify(state.bookmarks));
-    updateBookmarkCount();
-    updateBookmarkBtnState();
-}
-
-function updateBookmarkCount() {
-    dom.bookmarkCount.textContent = state.bookmarks.length;
-}
-
-function updateBookmarkBtnState() {
-    const isBookmarked = state.bookmarks.includes(currentArticleId);
-    const icon = dom.modalBookmarkBtn.querySelector('i');
-    const text = dom.modalBookmarkBtn.lastChild; // The text node
-
-    if (isBookmarked) {
-        icon.className = 'fa-solid fa-bookmark';
-        dom.modalBookmarkBtn.style.background = 'var(--primary)';
-        dom.modalBookmarkBtn.style.color = '#000';
-    } else {
-        icon.className = 'fa-regular fa-bookmark';
-        dom.modalBookmarkBtn.style.background = 'rgba(255, 255, 255, 0.05)';
-        dom.modalBookmarkBtn.style.color = 'var(--text-main)';
-    }
-}
-
-function openBookmarksModal() {
-    dom.bookmarksList.innerHTML = '';
-
-    if (state.bookmarks.length === 0) {
-        dom.bookmarksList.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-muted);">No saved articles yet.</p>';
-    } else {
-        state.bookmarks.forEach(id => {
-            const article = state.articles.find(a => a.id === id);
-            if (article) {
-                const item = document.createElement('div');
-                item.style.cssText = 'padding: 15px; border-bottom: 1px solid var(--border-glass); cursor: pointer; display: flex; gap: 15px;';
-                item.onclick = () => {
-                    dom.bookmarksModal.classList.remove('active');
-                    openArticle(article.id);
-                };
-                item.innerHTML = `
-                    <img src="${article.image}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px;">
-                    <div>
-                        <h4 style="margin-bottom: 5px;">${article.title}</h4>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">${article.date}</span>
-                    </div>
-                `;
-                dom.bookmarksList.appendChild(item);
-            }
-        });
-    }
-
-    dom.modalOverlay.classList.add('active');
-    dom.bookmarksModal.classList.add('active');
-}
-
-// --- Share Logic ---
-async function shareCurrentArticle() {
-    if (!currentArticleId) return;
-    const article = state.articles.find(a => a.id === currentArticleId);
-
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: article.title,
-                text: article.summary,
-                url: window.location.href // Ideally this would be a permalink
-            });
-        } catch (err) {
-            console.log('Share failed:', err);
-        }
-    } else {
-        // Fallback
-        navigator.clipboard.writeText(`${article.title} - ${window.location.href}`);
-        showToast('Link copied to clipboard!');
-    }
-}
-
-// --- Text-to-Speech Logic ---
-function toggleTTSCurrent() {
-    if (!currentArticleId) return;
-
-    // If already playing this article, stop it
-    if (state.ttsPlaying && state.currentUtterance && state.currentUtterance.articleId === currentArticleId) {
-        stopTTS();
-        return;
-    }
-
-    // Stop any existing
-    stopTTS();
-
-    const article = state.articles.find(a => a.id === currentArticleId);
-
-    // Create text to read (strip HTML)
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = article.title + ". " + article.content;
-    const text = tempDiv.textContent || tempDiv.innerText || "";
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.articleId = currentArticleId;
-
-    utterance.onend = () => {
-        stopTTS();
-    };
-
-    window.speechSynthesis.speak(utterance);
-    state.currentUtterance = utterance;
-    state.ttsPlaying = true;
-
-    // Show Player
-    dom.ttsTitle.textContent = article.title;
-    dom.ttsPlayer.classList.add('active');
-    dom.ttsPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-}
-
-function stopTTS() {
-    window.speechSynthesis.cancel();
-    state.ttsPlaying = false;
-    state.currentUtterance = null;
-    dom.ttsPlayer.classList.remove('active');
-}
-
-// --- Toast Notification Helper ---
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--primary);
-        color: #000;
-        padding: 10px 20px;
-        border-radius: 20px;
-        font-weight: bold;
-        z-index: 3000;
-        animation: fadeIn 0.3s ease;
-    `;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-    }, 2000);
-}
-
-// Run
-document.addEventListener('DOMContentLoaded', init);
+    document.getElementById('modalOverlay').classList.add('active');
+    document.getElementById('articleModal').classList.add('active');
+    updateXP(10);
+};
