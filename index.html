@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="D-TECH-NEWZ - The Ultimate Tech News Experience">
+    <title>D-TECH-NEWZ | Future of Tech</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- 1. System Status Bar -->
+        <div class="system-bar glass">
+            <div class="sys-item"><i class="fa-solid fa-wifi"></i> <span id="netStatus">Online</span></div>
+            <div class="sys-item"><i class="fa-solid fa-bolt"></i> <span id="batteryStatus">100%</span></div>
+            <div class="sys-item"><i class="fa-regular fa-clock"></i> <span id="clock">00:00</span></div>
+        </div>
+
+        <!-- 2. Crypto Ticker -->
+        <div class="crypto-ticker glass">
+            <div class="ticker-track" id="cryptoTicker"></div>
+        </div>
+
+        <!-- Navigation Rail -->
+        <nav class="navbar glass">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+
+                <!-- 3. Search -->
+                <div class="nav-actions">
+                    <button id="homeBtn" class="icon-btn active" title="Home"><i class="fa-solid fa-house"></i></button>
+
+                    <!-- 4. Theme Toggle -->
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i
+                            class="fa-solid fa-moon"></i></button>
+
+                    <!-- 5. Bookmarks -->
+                    <button id="bookmarksBtn" class="icon-btn" title="Bookmarks">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span class="badge" id="bookmarkCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar Widgets -->
+            <aside class="sidebar glass">
+                <!-- 6. Weather Widget -->
+                <div class="sidebar-section weather-widget" id="weatherWidget">
+                    <h3>Weather</h3>
+                    <div class="weather-grid" id="weatherGrid"></div>
+                </div>
+
+                <!-- 7. Categories -->
+                <div class="sidebar-section">
+                    <h3>Categories</h3>
+                    <ul class="category-list" id="categoryList">
+                        <li class="active" data-category="all"><i class="fa-solid fa-layer-group"></i> All News</li>
+                        <li data-category="AI"><i class="fa-solid fa-robot"></i> AI & Robotics</li>
+                        <li data-category="Mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</li>
+                        <li data-category="Hardware"><i class="fa-solid fa-memory"></i> Hardware</li>
+                        <li data-category="Software"><i class="fa-solid fa-code"></i> Software</li>
+                        <li data-category="Gaming"><i class="fa-solid fa-gamepad"></i> Gaming</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- 8. News Feed -->
+            <section class="news-feed">
+                <div class="feed-header">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search news...">
+                    </div>
+                </div>
+
+                <div class="hero-section" id="heroSection"></div>
+                <div class="news-grid" id="newsGrid"></div>
+            </section>
+        </main>
+
+        <!-- 9. AI Chat Bot -->
+        <div class="ai-chat glass collapsed" id="aiChat">
+            <div class="chat-header" id="chatHeader">
+                <span><i class="fa-solid fa-robot"></i> D-Bot</span>
+                <button id="closeChat"><i class="fa-solid fa-minus"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="msg bot">Hello! I'm D-Bot. Ask me anything about tech!</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask D-Bot...">
+                <button id="sendChat"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- 10. TTS Player (Reading Mode) -->
+        <div class="tts-player glass" id="ttsPlayer" style="display: none;">
+            <div class="tts-info">
+                <span class="tts-label">Playing:</span>
+                <span id="ttsTitle">Article Title</span>
+            </div>
+            <div class="tts-controls">
+                <button id="ttsPlayPause"><i class="fa-solid fa-pause"></i></button>
+                <button id="ttsStop"><i class="fa-solid fa-stop"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Article Modal -->
+    <div class="modal glass" id="articleModal">
+        <button class="close-modal" id="closeArticleModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content" id="articleModalContent"></div>
+        <div class="article-footer">
+            <div class="modal-actions">
+                <button class="action-btn" id="modalBookmarkBtn"><i class="fa-regular fa-bookmark"></i> Save</button>
+                <button class="action-btn" id="modalShareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                <button class="action-btn" id="modalTTSBtn"><i class="fa-solid fa-headphones"></i> Listen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bookmarks Modal -->
+    <div class="modal glass" id="bookmarksModal">
+        <div class="modal-header">
+            <h2>Saved Articles</h2>
+            <button class="close-modal" id="closeBookmarksModal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="bookmarks-list" id="bookmarksList"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
