@@ -130,6 +130,138 @@ nav {
     border-bottom: 2px solid transparent;
 }
 
+/* CSS Variables for Theme Management */
+:root {
+    --primary-color: #2563eb;
+    /* Modern Blue */
+    --primary-hover: #1d4ed8;
+    --background-color: #f8f9fa;
+    /* Light Gray Background */
+    --card-bg: #ffffff;
+    /* White Card Background */
+    --text-color: #1f2937;
+    /* Dark Gray Text */
+    --text-secondary: #6b7280;
+    /* Muted Text */
+    --border-color: #e5e7eb;
+    /* Light Border */
+    --nav-bg: #ffffff;
+    --header-bg: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition: all 0.3s ease;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary-color: #60a5fa;
+    /* Lighter Blue for Dark Mode */
+    --primary-hover: #3b82f6;
+    --background-color: #111827;
+    /* Very Dark Gray/Blue */
+    --card-bg: #1f2937;
+    /* Dark Card Background */
+    --text-color: #f3f4f6;
+    /* Light Text */
+    --text-secondary: #9ca3af;
+    --border-color: #374151;
+    --nav-bg: #1f2937;
+    --header-bg: #1f2937;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* Global Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+/* Navigation Styles */
+nav {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    /* Allow horizontal scroll on small screens */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    white-space: nowrap;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+}
+
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--primary-color);
@@ -139,7 +271,8 @@ nav {
 /* News Grid Layout */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    /* Enforce 3 columns */
     gap: 2rem;
     padding-bottom: 3rem;
 }
@@ -225,6 +358,37 @@ nav {
     text-decoration: underline;
 }
 
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.pagination-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Footer Styles */
 footer {
     background-color: var(--nav-bg);
@@ -238,6 +402,13 @@ footer {
 }
 
 /* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on tablets */
+    }
+}
+
 @media (max-width: 640px) {
     .news-grid {
         grid-template-columns: 1fr;
