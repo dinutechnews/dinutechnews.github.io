@@ -186,66 +186,26 @@ const newsData = [
 ];
 
 // DOM Elements
-const newsGrid = document.getElementById('news-grid');
-const paginationContainer = document.getElementById('pagination');
+const articleContent = document.getElementById('article-content');
 const themeToggle = document.getElementById('theme-toggle');
-const searchInput = document.getElementById('search-input');
 
-// State
-const ITEMS_PER_PAGE = 9;
-let currentPage = 1;
-let currentCategory = 'all';
-let filteredNews = [...newsData];
+// Get article ID from URL
+function getArticleId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('id'));
+}
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', async () => {
-    await filterNews(''); // Initial render
-    initTheme();
-
-    // Search functionality
-    searchInput.addEventListener('input', async (e) => {
-        const searchTerm = e.target.value.toLowerCase().trim();
-        await filterNews(searchTerm);
-    });
-});
-
-/**
- * Filters news data based on search term and resets pagination
- * @param {string} searchTerm
- */
-async function filterNews(searchTerm) {
-    currentPage = 1;
-
-    filteredNews = newsData.filter(item =>
-        item.title.toLowerCase().includes(searchTerm) ||
-        item.description.toLowerCase().includes(searchTerm)
-    );
-
-    await renderApp();
+// Find article by ID
+function findArticle(id) {
+    return newsData.find(article => article.id === id);
 }
 
 /**
- * Renders the application (News Grid + Pagination)
- */
-async function renderApp() {
-    // Calculate total pages
-    const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
-
-    // Get current page data
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    const pageData = filteredNews.slice(startIndex, endIndex);
-
-    await renderNewsGrid(pageData);
-    renderPagination(totalPages);
-}
-
-/**
- * Generates a fast-loading tech-focused image URL based on category using generated images
+ * Generates a fast-loading tech-focused image URL for articles using generated images
  * @param {string} category - The news category
  * @returns {string} Image URL
  */
-function generateFastImage(category) {
+function generateArticleImage(category) {
     // Generated placeholder images using Lorem Picsum service
     const categorySeeds = {
         'AI': 'ai-technology-brain',
@@ -256,126 +216,44 @@ function generateFastImage(category) {
 
     const seed = categorySeeds[category] || 'technology';
     // Use Lorem Picsum to generate consistent images based on seed
-    return `https://picsum.photos/seed/${seed}/160/90`;
+    return `https://picsum.photos/seed/${seed}/800/600`;
 }
 
-/**
- * Ensures all news items have image URLs - uses original image if available, otherwise fallback
- * @param {Array} news - Array of news items
- * @returns {Array} News items with image URLs
- */
-function cacheImagesForNews(news) {
-    return news.map((item) => {
-        if (!item.imageUrl) {
-            // Check if item has an original image field, otherwise use fallback
-            item.imageUrl = item.image && item.image.trim() !== "" ? item.image : generateFastImage(item.category);
-        }
-        return item;
-    });
-}
-
-/**
- * Renders news cards to the DOM
- * @param {Array} news - Array of news objects for the current page
- */
-async function renderNewsGrid(news) {
-    // Clear existing content
-    newsGrid.innerHTML = '';
-
-    // Handle empty state
-    if (news.length === 0) {
-        newsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No news found for this category.</p>';
+// Render article
+function renderArticle(article) {
+    if (!article) {
+        articleContent.innerHTML = '<p>Article not found.</p>';
         return;
     }
 
-    // Cache images for news items if not already cached
-    const newsWithImages = cacheImagesForNews(news);
+    // Check if article has original image, otherwise use fallback
+    const imageUrl = article.image && article.image.trim() !== "" ? article.image : generateArticleImage(article.category);
 
-    // Generate and append cards
-    newsWithImages.forEach((item) => {
-        const card = document.createElement('article');
-        card.className = 'news-card';
+    // Format content with paragraphs
+    const paragraphs = article.content.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 
-        card.innerHTML = `
-            <img src="${item.imageUrl}" alt="${item.title}" class="card-image">
-            <div class="card-content">
-                <div class="card-meta">
-                    <span class="category-tag">${item.category}</span>
-                    <span class="publish-date">${item.date}</span>
-                </div>
-                <h3 class="card-title">${item.title}</h3>
-                <p class="card-description">${item.description}</p>
-            </div>
-            <div class="card-loading-overlay">
-                <div class="loading-spinner"></div>
-                <p>Loading article...</p>
-            </div>
-        `;
-
-        // Make card clickable
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', () => {
-            const overlay = card.querySelector('.card-loading-overlay');
-            overlay.classList.add('active');
-            setTimeout(() => {
-                overlay.classList.remove('active');
-                // Redirect to article page
-                window.location.href = `article.html?id=${item.id}`;
-            }, 1000);
-        });
-
-        newsGrid.appendChild(card);
-    });
+    articleContent.innerHTML = `
+        <div class="article-header">
+            <span class="article-category">${article.category}</span>
+            <h1 class="article-title">${article.title}</h1>
+            <div class="article-meta">Published on ${article.date}</div>
+        </div>
+        <img src="${imageUrl}" alt="${article.title}" class="article-image" loading="lazy">
+        <div class="article-body">
+            ${paragraphs}
+        </div>
+    `;
 }
 
-/**
- * Renders pagination controls
- * @param {number} totalPages 
- */
-function renderPagination(totalPages) {
-    paginationContainer.innerHTML = '';
-
-    if (totalPages <= 1) return; // Don't show pagination if only 1 page
-
-    // Back Button
-    const backBtn = document.createElement('button');
-    backBtn.className = 'pagination-btn';
-    backBtn.textContent = '← Back';
-    backBtn.disabled = currentPage === 1;
-    backBtn.addEventListener('click', async () => {
-        if (currentPage > 1) {
-            currentPage--;
-            await renderApp();
-        }
-    });
-
-    // Next Button
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'pagination-btn';
-    nextBtn.textContent = 'Next →';
-    nextBtn.disabled = currentPage === totalPages;
-    nextBtn.addEventListener('click', async () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            await renderApp();
-        }
-    });
-
-    paginationContainer.appendChild(backBtn);
-
-    // Optional: Page Indicator
-    // const indicator = document.createElement('span');
-    // indicator.textContent = `Page ${currentPage} of ${totalPages}`;
-    // paginationContainer.appendChild(indicator);
-
-    paginationContainer.appendChild(nextBtn);
+// Initialize article page
+function initArticlePage() {
+    const articleId = getArticleId();
+    const article = findArticle(articleId);
+    renderArticle(article);
+    initTheme();
 }
 
-
-
-/**
- * Theme Management (Dark/Light Mode)
- */
+// Theme Management (Dark/Light Mode)
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -395,3 +273,6 @@ function updateThemeIcon(theme) {
     const icon = themeToggle.querySelector('.icon');
     icon.textContent = theme === 'light' ? 'dark_mode' : 'light_mode';
 }
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initArticlePage);

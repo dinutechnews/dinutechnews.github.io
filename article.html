@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechPulse - Latest Tech News</title>
+    <title>Article - TechPulse</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts for modern typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,10 @@
     <!-- Header Section -->
     <header>
         <div class="container header-content">
+            <a href="index.html" class="back-link">
+                <i class="material-icons-round">arrow_back</i>
+                Back to News
+            </a>
             <div class="logo">TechPulse</div>
             <button id="theme-toggle" aria-label="Toggle Dark Mode">
                 <i class="material-icons-round icon">dark_mode</i>
@@ -25,23 +29,13 @@
         </div>
     </header>
 
+    <br>
 
-<br>
-    <!-- Main Content Area -->
+    <!-- Article Content -->
     <main class="container">
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search news..." class="search-input">
-        </div>
-
-        <section id="news-grid" class="news-grid">
-            <!-- News cards will be dynamically inserted here by script.js -->
-        </section>
-
-        <!-- Pagination Controls -->
-        <div id="pagination" class="pagination">
-            <!-- Pagination buttons will be dynamically inserted here -->
-        </div>
+        <article id="article-content" class="article-content">
+            <!-- Article content will be dynamically inserted here -->
+        </article>
     </main>
 
     <!-- Footer Section -->
@@ -51,8 +45,8 @@
         </div>
     </footer>
 
-    <!-- Main JavaScript File -->
-    <script src="script.js"></script>
+    <!-- Article JavaScript File -->
+    <script src="article.js"></script>
 </body>
 
 </html>
